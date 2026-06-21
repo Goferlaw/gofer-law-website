@@ -43,7 +43,12 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-deep);outline-
 @media(max-width:860px){.nav{padding:0 20px}}
 
 /* hero */
-.hero{background:var(--ink);color:var(--paper);padding:96px 0 84px;position:relative}
+.hero{
+  background:
+    linear-gradient(90deg,rgba(12,23,43,.96) 0%,rgba(12,23,43,.86) 48%,rgba(12,23,43,.52) 100%),
+    url("assets/foreign-investors-hero.jpg") center 48%/cover no-repeat;
+  color:var(--paper);padding:96px 0 84px;position:relative
+}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold-deep)}
 .hero .eyebrow{color:var(--gold-pale);display:block;margin-bottom:20px}
 .hero h1{font-size:clamp(38px,5.4vw,64px);font-weight:500;line-height:1.08;letter-spacing:-.01em;max-width:15em}
