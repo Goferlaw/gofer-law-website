@@ -44,16 +44,24 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold-deep);outline-
 
 /* hero */
 .hero{
-  background:
-    linear-gradient(90deg,rgba(12,23,43,.96) 0%,rgba(12,23,43,.86) 48%,rgba(12,23,43,.52) 100%),
-    url("assets/foreign-investors-hero.jpg") center 48%/cover no-repeat;
-  color:var(--paper);padding:96px 0 84px;position:relative
+  background:url("assets/foreign-investors-hero.jpg") center 48%/cover no-repeat;
+  color:var(--paper);padding:72px 0;position:relative;min-height:540px;display:flex;align-items:center
 }
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--gold-deep)}
+.hero-copy{
+  max-width:780px;padding:38px 42px;margin-left:-42px;
+  background:linear-gradient(90deg,rgba(12,23,43,.82),rgba(12,23,43,.62));
+  box-shadow:0 20px 55px rgba(5,12,24,.22);
+  backdrop-filter:blur(2px)
+}
 .hero .eyebrow{color:var(--gold-pale);display:block;margin-bottom:20px}
-.hero h1{font-size:clamp(38px,5.4vw,64px);font-weight:500;line-height:1.08;letter-spacing:-.01em;max-width:15em}
+.hero h1{font-size:clamp(38px,5.4vw,64px);font-weight:500;line-height:1.08;letter-spacing:-.01em;max-width:15em;text-shadow:0 2px 18px rgba(0,0,0,.28)}
 .hero h1 em{font-style:italic;color:var(--gold)}
-.hero .lede{margin-top:24px;max-width:34em;font-size:21px;color:rgba(244,240,230,.82)}
+.hero .lede{margin-top:24px;max-width:34em;font-size:21px;color:rgba(244,240,230,.92)}
+@media(max-width:760px){
+  .hero{min-height:500px;padding:48px 0;background-position:42% center}
+  .hero-copy{margin-left:0;padding:28px 26px;background:rgba(12,23,43,.72)}
+}
 
 /* article body */
 article{padding:84px 0 40px}
@@ -124,9 +132,11 @@ footer{background:var(--ink);color:rgba(244,240,230,.7);padding:64px 0 38px;bord
 
 <header class="hero">
   <div class="wrap">
-    <span class="eyebrow">For Foreign Investors</span>
-    <h1>Buying New York Property as a <em>Non-U.S. Person</em></h1>
-    <p class="lede">The market is open to you. The tax code is not symmetrical. The structure you choose at the closing table — or fail to choose — determines what you pay on the way in, what you keep on the way out, and what your family loses if anything happens to you.</p>
+    <div class="hero-copy">
+      <span class="eyebrow">For Foreign Investors</span>
+      <h1>Buying New York Property as a <em>Non-U.S. Person</em></h1>
+      <p class="lede">The market is open to you. The tax code is not symmetrical. The structure you choose at the closing table — or fail to choose — determines what you pay on the way in, what you keep on the way out, and what your family loses if anything happens to you.</p>
+    </div>
   </div>
 </header>
 
