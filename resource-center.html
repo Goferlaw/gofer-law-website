@@ -27,11 +27,13 @@
   .sitebar .consult{border:1px solid var(--gold);padding:9px 13px;color:var(--gold-soft)}
   @media(max-width:560px){.sitebar-inner{padding:11px 18px}.sitebar a{font-size:9px;letter-spacing:.08em}.sitebar .consult{padding:8px 9px}}
 
-  header.mast{background:var(--navy);color:var(--ivory);padding:34px 26px 30px;border-bottom:3px solid var(--gold)}
+  .brandmast{background:#fff;border-bottom:1px solid var(--line);padding:18px 26px;text-align:center}
+  .brandmast-inner{max-width:1080px;margin:0 auto}
+  .page-logo{display:block;width:180px;height:180px;object-fit:contain;margin:0 auto}
+  header.mast{background:var(--navy);color:var(--ivory);padding:38px 26px 34px;border-bottom:3px solid var(--gold)}
   .mast-inner{max-width:1080px;margin:0 auto}
-  .page-logo{display:block;width:82px;height:82px;object-fit:contain;margin:0 0 20px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.18))}
-  .footer-logo{display:block;width:68px;height:68px;object-fit:contain;margin:0 auto 14px}
-  @media(max-width:560px){.page-logo{width:66px;height:66px;margin-bottom:16px}.footer-logo{width:58px;height:58px}}
+  .footer-logo{display:block;width:150px;height:150px;object-fit:contain;margin:0 auto 12px}
+  @media(max-width:560px){.brandmast{padding:12px 18px}.page-logo{width:138px;height:138px}.footer-logo{width:126px;height:126px}}
   .firm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
   .mast h1{font-weight:600;font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin:0;letter-spacing:.01em}
   .mast h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
@@ -131,11 +133,11 @@
   .notes h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
   .notes p{font-size:15.5px;color:var(--ink-soft);margin:0 0 11px;max-width:82ch}
   .notes p strong{color:var(--ink);font-weight:600}
-  footer.fine{margin-top:30px;background:var(--navy);color:#aeb6c6;padding:26px;border-top:3px solid var(--gold)}
+  footer.fine{margin-top:30px;background:#fff;color:var(--ink-soft);padding:38px 26px;border-top:3px solid var(--gold);text-align:center}
   footer.fine .fi{max-width:1080px;margin:0 auto}
-  footer.fine .nm{font-family:"Cormorant Garamond",serif;font-size:21px;color:var(--ivory);font-weight:600}
+  footer.fine .nm{font-family:"Cormorant Garamond",serif;font-size:21px;color:var(--navy);font-weight:600}
   footer.fine .ct{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;margin-top:8px;line-height:1.9}
-  footer.fine .disc{font-size:13.5px;font-style:italic;margin-top:16px;color:#8b93a3;max-width:92ch;line-height:1.55}
+  footer.fine .disc{font-size:13.5px;font-style:italic;margin:16px auto 0;color:#707785;max-width:92ch;line-height:1.55}
 
   @media print{
     body{background:#fff;font-size:12pt}
@@ -156,10 +158,14 @@
     <a class="consult" href="index.html#contact">Schedule a Consultation</a>
   </div>
 </nav>
+<div class="brandmast">
+  <div class="brandmast-inner">
+    <a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC"></a>
+  </div>
+</div>
 <header class="mast">
   <div class="mast-inner">
-    <a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC monogram"></a>
-    <p class="firm">Gofer Law PLLC &middot; Transactional &amp; Real Estate Counsel</p>
+    <p class="firm">Client &amp; Broker Resource Center</p>
     <h1>The New York <em>Closing Cost</em> Estimator</h1>
     <p class="sub">A working estimate of buyer and seller costs for a residential or commercial conveyance in New York City or anywhere in New York State — with title premiums computed from the TIRSA rate manual, not guessed at. Adjust the assumptions; the settlement statement recalculates as you type.</p>
     <div class="rule"></div>
