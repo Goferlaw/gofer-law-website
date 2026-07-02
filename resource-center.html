@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Closing Cost Estimator — Gofer Law PLLC</title>
+<meta name="description" content="Estimate buyer and seller closing costs for New York City and New York State real estate transactions, with TIRSA-rate title insurance. Prepared by Gofer Law PLLC." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#16223A; --navy-2:#1e2f4f; --gold:#C9A24B; --gold-soft:#d9bd7e;
+    --ivory:#F7F4EC; --paper:#FCFAF4; --ink:#23262C; --ink-soft:#5a5f69;
+    --line:#e3ddcd; --neg:#9a3b34; --rule-navy:rgba(201,162,75,.35);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--ivory);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;line-height:1.5}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+
+  .sitebar{background:#101a2d;color:#fff;border-bottom:1px solid rgba(201,162,75,.35)}
+  .sitebar-inner{max-width:1080px;margin:0 auto;padding:13px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+  .sitebar a{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-decoration:none}
+  .sitebar a:hover,.sitebar a:focus{color:var(--gold-soft)}
+  .sitebar .consult{border:1px solid var(--gold);padding:9px 13px;color:var(--gold-soft)}
+  @media(max-width:560px){.sitebar-inner{padding:11px 18px}.sitebar a{font-size:9px;letter-spacing:.08em}.sitebar .consult{padding:8px 9px}}
+
+  header.mast{background:var(--navy);color:var(--ivory);padding:34px 26px 30px;border-bottom:3px solid var(--gold)}
+  .mast-inner{max-width:1080px;margin:0 auto}
+  .firm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+  .mast h1{font-weight:600;font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin:0;letter-spacing:.01em}
+  .mast h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
+  .mast p.sub{margin:14px 0 0;max-width:62ch;color:#cfd4de;font-size:18px}
+  .mast .rule{height:1px;background:var(--rule-navy);margin:22px 0 0}
+  .mast .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b93a3;margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 26px}
+
+  main{max-width:1080px;margin:0 auto;padding:0 26px 80px}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;margin-top:38px}
+  @media (max-width:880px){.grid{grid-template-columns:1fr;gap:30px}}
+
+  .panel{background:var(--paper);border:1px solid var(--line)}
+  .panel-pad{padding:26px 26px 30px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--gold)}
+  .panel h2{font-weight:600;font-size:25px;margin:0 0 20px;letter-spacing:.01em}
+  fieldset{border:0;margin:0 0 22px;padding:0}
+  fieldset:last-of-type{margin-bottom:0}
+  legend{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);padding:0;margin-bottom:12px;width:100%;border-bottom:1px solid var(--line);padding-bottom:7px}
+  label.fld{display:block;margin-bottom:15px}
+  label.fld > span.lab{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;color:var(--ink-soft);margin-bottom:5px;text-transform:uppercase}
+  input[type=text],input[type=number],select{width:100%;font-family:"IBM Plex Mono",monospace;font-size:15px;padding:10px 12px;border:1px solid #cfc8b4;background:#fff;color:var(--ink);border-radius:0;appearance:none;-webkit-appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+  input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+  .money-wrap{position:relative}
+  .money-wrap::before{content:"$";position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:"IBM Plex Mono",monospace;font-size:15px;color:var(--ink-soft)}
+  .money-wrap input{padding-left:24px}
+
+  .seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid #cfc8b4;background:#fff}
+  .seg button{flex:1 1 auto;min-width:0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:9px 8px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;border-right:1px solid #e7e1d1;transition:.12s}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed=true]{background:var(--navy);color:var(--gold)}
+  .seg button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:430px){.twocol{grid-template-columns:1fr}}
+
+  details.adv{margin-top:6px;border-top:1px solid var(--line);padding-top:14px}
+  details.adv summary{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+  details.adv summary::-webkit-details-marker{display:none}
+  details.adv summary::before{content:"+";font-size:15px;width:14px;display:inline-block}
+  details.adv[open] summary::before{content:"–"}
+  details.adv .body{padding-top:16px}
+  .hint{font-size:14.5px;color:var(--ink-soft);font-style:italic;margin:2px 0 0}
+
+  .ledger{background:var(--navy);color:var(--ivory);position:relative;border:1px solid var(--navy)}
+  .ledger-pad{padding:30px 30px 26px}
+  .ledger .crest{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin:0 0 4px}
+  .ledger h3{text-align:center;font-weight:600;font-size:27px;margin:0;letter-spacing:.02em}
+  .ledger .sumline{text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:#aeb6c6;margin:7px 0 0;text-transform:uppercase}
+  .ledger .dblrule{border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);height:3px;margin:16px 0 4px}
+  .exclude{font-size:13.5px;font-style:italic;color:#aeb6c6;text-align:center;margin:10px 4px 0;line-height:1.45}
+
+  /* threshold watch */
+  .watch{margin-top:18px;border:1px solid var(--gold);background:rgba(201,162,75,.12);padding:14px 16px}
+  .watch .wh{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 9px;display:flex;align-items:center;gap:8px}
+  .watch .wh::before{content:"\\2691";font-size:14px}
+  .watch .wrow{font-size:16.5px;color:#eef0f4;padding:6px 0;border-top:1px dotted rgba(255,255,255,.12);line-height:1.42}
+  .watch .wrow:first-of-type{border-top:0}
+  .watch .wrow b{color:var(--gold-soft);font-weight:600}
+  .watch .wrow .mono{font-size:13px;color:#fff}
+
+  .party{margin-top:20px}
+  .party-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule-navy);padding-bottom:6px;margin-bottom:4px}
+  .party-h .who{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .party-h .tot{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#aeb6c6}
+  .row{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:5px 0;border-bottom:1px dotted rgba(255,255,255,.08);font-size:17px}
+  .row .desc{color:#e7eaf0}
+  .row .desc small{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;color:#8b93a3;letter-spacing:.04em;margin-top:1px;text-transform:uppercase}
+  .row .amt{font-family:"IBM Plex Mono",monospace;font-size:15px;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .row.zero{display:none}
+  .row .amt.dash{color:#8b93a3}
+  .subtotal{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:11px 0 4px;margin-top:4px;border-top:1px solid var(--rule-navy)}
+  .subtotal .desc{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#cfd4de}
+  .subtotal .amt{font-family:"IBM Plex Mono",monospace;font-size:18px;color:#fff;font-variant-numeric:tabular-nums}
+
+  .headline{margin-top:22px;background:rgba(201,162,75,.1);border:1px solid var(--rule-navy);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .headline .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .headline .k small{display:block;color:#8b93a3;letter-spacing:.04em;margin-top:3px;font-size:9.5px}
+  .headline .v{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:34px;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+
+  /* composition bar */
+  .compo{margin-top:14px}
+  .compo .bar{display:flex;height:12px;width:100%;border:1px solid var(--rule-navy);overflow:hidden}
+  .compo .bar span{display:block;height:100%}
+  .compo .leg{display:flex;flex-wrap:wrap;gap:5px 16px;margin-top:9px}
+  .compo .leg span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.04em;color:#cfd4de;display:flex;align-items:center;gap:6px;text-transform:uppercase}
+  .compo .leg span i{width:9px;height:9px;display:inline-block}
+
+  .printbar{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 18px;cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--gold)}
+  .btn.solid{background:var(--gold);color:var(--navy);font-weight:600}
+  .btn:hover{background:var(--gold);color:var(--navy)}
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  .notes{margin-top:40px;border-top:1px solid var(--line);padding-top:22px}
+  .notes h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+  .notes p{font-size:15.5px;color:var(--ink-soft);margin:0 0 11px;max-width:82ch}
+  .notes p strong{color:var(--ink);font-weight:600}
+  footer.fine{margin-top:30px;background:var(--navy);color:#aeb6c6;padding:26px;border-top:3px solid var(--gold)}
+  footer.fine .fi{max-width:1080px;margin:0 auto}
+  footer.fine .nm{font-family:"Cormorant Garamond",serif;font-size:21px;color:var(--ivory);font-weight:600}
+  footer.fine .ct{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;margin-top:8px;line-height:1.9}
+  footer.fine .disc{font-size:13.5px;font-style:italic;margin-top:16px;color:#8b93a3;max-width:92ch;line-height:1.55}
+
+  @media print{
+    body{background:#fff;font-size:12pt}
+    header.mast,.panel,.printbar,.notes{display:none!important}
+    main{padding:0}.grid{display:block;margin:0}
+    .ledger{background:#fff;color:#000;border:1px solid #000;break-inside:avoid}
+    .ledger h3,.row .desc,.row .amt,.subtotal .amt,.headline .v,.watch .wrow{color:#000}
+    .headline,.watch{background:#f2f2f2}
+    footer.fine{background:#fff;color:#000;border-top:2px solid var(--navy)}
+    footer.fine .nm,footer.fine .disc{color:#000}
+  }
+</style>
+</head>
+<body>
+<nav class="sitebar" aria-label="Calculator navigation">
+  <div class="sitebar-inner">
+    <a href="index.html" aria-label="Back to Gofer Law homepage">← Back to Homepage</a>
+    <a class="consult" href="index.html#contact">Schedule a Consultation</a>
+  </div>
+</nav>
+<header class="mast">
+  <div class="mast-inner">
+    <p class="firm">Gofer Law PLLC &middot; Transactional &amp; Real Estate Counsel</p>
+    <h1>The New York <em>Closing Cost</em> Estimator</h1>
+    <p class="sub">A working estimate of buyer and seller costs for a residential or commercial conveyance in New York City or anywhere in New York State — with title premiums computed from the TIRSA rate manual, not guessed at. Adjust the assumptions; the settlement statement recalculates as you type.</p>
+    <div class="rule"></div>
+    <div class="meta">
+      <span>NYC RPTT &amp; mansion tax</span>
+      <span>NYS transfer tax</span>
+      <span>Mortgage recording tax by county</span>
+      <span>TIRSA title premiums</span>
+      <span>Rates current to June 2026</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+    <!-- ============ INPUTS ============ -->
+    <section class="panel" aria-label="Transaction assumptions">
+      <div class="panel-pad">
+        <p class="eyebrow">Transaction</p>
+        <h2>The deal</h2>
+
+        <fieldset>
+          <legend>Property</legend>
+          <label class="fld">
+            <span class="lab">Purchase price</span>
+            <span class="money-wrap"><input id="price" class="mono" type="text" inputmode="numeric" value="" placeholder="Enter price" /></span>
+          </label>
+          <label class="fld">
+            <span class="lab">Where is the property?</span>
+            <div class="seg" id="segLoc" role="group" aria-label="Location">
+              <button type="button" data-v="nyc" aria-pressed="false">New York City</button>
+              <button type="button" data-v="state" aria-pressed="true">NY State (outside NYC)</button>
+            </div>
+          </label>
+          <label class="fld" id="countyWrap">
+            <span class="lab">County (mortgage recording tax)</span>
+            <select id="county" class="mono">
+              <option value="rockland" data-rate="1.30" data-ex="30" selected>Rockland — 1.30%</option>
+              <option value="westchester" data-rate="1.30" data-ex="30">Westchester (ex-Yonkers) — 1.30%</option>
+              <option value="yonkers" data-rate="1.80" data-ex="30">Westchester / Yonkers — 1.80%</option>
+              <option value="orange" data-rate="1.05" data-ex="30">Orange — 1.05%</option>
+              <option value="nassau" data-rate="1.05" data-ex="30">Nassau — 1.05%</option>
+              <option value="suffolk" data-rate="1.05" data-ex="30">Suffolk — 1.05%</option>
+              <option value="putnam" data-rate="1.05" data-ex="30">Putnam — 1.05%</option>
+              <option value="dutchess" data-rate="1.05" data-ex="30">Dutchess — 1.05%</option>
+              <option value="upstate100" data-rate="1.00" data-ex="25">Other county — 1.00% (typical)</option>
+              <option value="upstate075" data-rate="0.75" data-ex="25">Other county — 0.75%</option>
+              <option value="custom" data-rate="" data-ex="25">Custom rate…</option>
+            </select>
+          </label>
+          <label class="fld" id="customRateWrap" style="display:none">
+            <span class="lab">Custom mortgage tax rate (%)</span>
+            <input id="customRate" class="mono" type="text" inputmode="decimal" value="" placeholder="e.g. 1.00" />
+          </label>
+          <label class="fld">
+            <span class="lab">Property type</span>
+            <div class="seg" id="segType" role="group" aria-label="Property type">
+              <button type="button" data-v="res" aria-pressed="true">1–3 Family / Condo</button>
+              <button type="button" data-v="coop" aria-pressed="false">Co-op</button>
+              <button type="button" data-v="comm" aria-pressed="false">Commercial / 4+</button>
+            </div>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Financing</legend>
+          <label class="fld">
+            <span class="lab">Is the buyer financing?</span>
+            <div class="seg" id="segFin" role="group" aria-label="Financing">
+              <button type="button" data-v="yes" aria-pressed="true">Mortgage</button>
+              <button type="button" data-v="no" aria-pressed="false">All cash</button>
+            </div>
+          </label>
+          <div id="finFields" class="twocol">
+            <label class="fld">
+              <span class="lab">Down payment</span>
+              <input id="downPct" class="mono" type="text" inputmode="decimal" value="" placeholder="%" />
+              <p class="hint" id="downHint">% of price</p>
+            </label>
+            <label class="fld">
+              <span class="lab">Loan amount</span>
+              <span class="money-wrap"><input id="loanAmt" class="mono" type="text" inputmode="numeric" value="" placeholder="—" /></span>
+            </label>
+          </div>
+          <p class="hint" style="margin-top:-6px" id="coopFinNote"></p>
+        </fieldset>
+
+        <details class="adv" id="advBuyer">
+          <summary>Buyer cost assumptions</summary>
+          <div class="body">
+            <div class="twocol">
+              <label class="fld"><span class="lab">Buyer's attorney</span><span class="money-wrap"><input id="buyAtty" class="mono" type="text" value="" placeholder="—"></span><p class="hint">Enter your fee</p></label>
+              <label class="fld"><span class="lab">Lender / bank attorney</span><span class="money-wrap"><input id="bankAtty" class="mono" type="text" value="" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Owner's title</span><span class="money-wrap"><input id="ownerTitle" class="mono" type="text" value="" placeholder="auto"></span><p class="hint">Auto (TIRSA) if blank</p></label>
+              <label class="fld"><span class="lab">Lender's title</span><span class="money-wrap"><input id="lenderTitle" class="mono" type="text" value="" placeholder="auto"></span><p class="hint">Auto (TIRSA) if blank</p></label>
+              <label class="fld"><span class="lab">Title search / settlement</span><span class="money-wrap"><input id="titleSearch" class="mono" type="text" value="" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Recording fees</span><span class="money-wrap"><input id="recFees" class="mono" type="text" value="" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Appraisal</span><span class="money-wrap"><input id="appraisal" class="mono" type="text" value="" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Survey (optional)</span><span class="money-wrap"><input id="survey" class="mono" type="text" value="" placeholder="—"></span></label>
+            </div>
+          </div>
+        </details>
+
+        <details class="adv" id="advSeller">
+          <summary>Seller cost assumptions</summary>
+          <div class="body">
+            <div class="twocol">
+              <label class="fld"><span class="lab">Broker commission (%)</span><input id="brokerPct" class="mono" type="text" value="" placeholder="%"></label>
+              <label class="fld"><span class="lab">Seller's attorney</span><span class="money-wrap"><input id="sellAtty" class="mono" type="text" value="" placeholder="—"></span><p class="hint">Enter your fee</p></label>
+              <label class="fld" id="flipWrap" style="display:none"><span class="lab">Co-op flip tax (%)</span><input id="flipPct" class="mono" type="text" value="" placeholder="%"></label>
+              <label class="fld"><span class="lab">Existing loan payoff</span><span class="money-wrap"><input id="payoff" class="mono" type="text" value="" placeholder="—"></span><p class="hint">For net proceeds</p></label>
+              <label class="fld"><span class="lab">Misc. seller fees</span><span class="money-wrap"><input id="sellMisc" class="mono" type="text" value="" placeholder="—"></span></label>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============ LEDGER ============ -->
+    <section class="ledger" id="ledger" aria-live="polite" aria-label="Estimated settlement statement">
+      <div class="ledger-pad">
+        <p class="crest">Gofer Law PLLC</p>
+        <h3>Estimated Settlement Statement</h3>
+        <p class="sumline" id="sumLine">—</p>
+        <div class="dblrule"></div>
+        <p class="exclude">Estimate only. Excludes property taxes, escrows, and closing adjustments. Not a title bill or a lender's Loan Estimate.</p>
+
+        <div class="watch" id="watch" style="display:none">
+          <p class="wh">Threshold Watch</p>
+          <div id="watchRows"></div>
+        </div>
+
+        <!-- BUYER -->
+        <div class="party">
+          <div class="party-h"><span class="who">Buyer — Closing Costs</span><span class="tot mono" id="buyTotTag"></span></div>
+          <div id="buyerRows"></div>
+          <div class="subtotal"><span class="desc">Buyer closing costs</span><span class="amt" id="buyClose">$0</span></div>
+        </div>
+
+        <div class="headline">
+          <span class="k">Buyer — Cash to Close<small id="cashSub">Down payment + closing costs</small></span>
+          <span class="v" id="cashToClose">$0</span>
+        </div>
+        <div class="compo" id="compo">
+          <div class="bar" id="compoBar"></div>
+          <div class="leg" id="compoLeg"></div>
+        </div>
+
+        <!-- SELLER -->
+        <div class="party">
+          <div class="party-h"><span class="who">Seller — Costs of Sale</span><span class="tot mono" id="sellTotTag"></span></div>
+          <div id="sellerRows"></div>
+          <div class="subtotal"><span class="desc">Seller costs of sale</span><span class="amt" id="sellClose">$0</span></div>
+        </div>
+
+        <div class="headline">
+          <span class="k">Seller — Net Proceeds<small id="netSub">Price − payoff − costs of sale</small></span>
+          <span class="v" id="netProceeds">$0</span>
+        </div>
+
+        <div class="printbar">
+          <button class="btn solid" type="button" onclick="window.print()">Print / Save PDF</button>
+          <button class="btn" type="button" id="copyBtn">Copy summary</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ NOTES ============ -->
+  <section class="notes">
+    <h4>How the numbers are derived</h4>
+    <p><strong>Title insurance — buyer (real property only).</strong> Premiums are computed from the TIRSA Rate Manual (7th Revision) on the declining per-$1,000 bracket schedule. All five boroughs and the lower-Hudson / Long Island counties sit in TIRSA Zone 2: an owner's policy runs $402 on the first $35,000, then $6.67/$1,000 to $50K, $5.43 to $100K, $4.36 to $500K, $3.98 to $1M, $3.66 to $5M, and lower brackets above. When a purchase is financed, the lender's policy is issued simultaneously and charged at the discounted simultaneous rate — 30% of the loan-policy schedule. Co-ops carry no title insurance. These are filed, mandatory rates, but the final bill may include search continuations, endorsements, and municipal searches; treat it as an estimate.</p>
+    <p><strong>NYC Real Property Transfer Tax (RPTT) — seller.</strong> Residential (1–3 family, condo, co-op): 1.0% at or below $500,000; 1.425% above. Commercial / 4+ family: 1.425% at or below $500,000; 2.625% above. Inside the five boroughs only.</p>
+    <p><strong>NYS Real Estate Transfer Tax — seller.</strong> 0.4% statewide. An additional 0.25% (0.65% combined) applies where residential consideration is $3M or more, or commercial consideration is $2M or more.</p>
+    <p><strong>Mansion tax — buyer.</strong> Residential conveyances (including co-ops) of $1M or more. Outside NYC: a flat 1%. Inside NYC: the eight-tier progressive schedule from 1.0% to 3.9%, applied to the entire price, with a true cliff at each threshold. Commercial property is exempt.</p>
+    <p><strong>Mortgage recording tax — buyer (financed deals only).</strong> NYC: 2.05% (loans under $500K) or 2.175% ($500K+) on 1–3 family/condo, gross of the 0.25% the institutional lender bears. Outside NYC, set by county — Rockland 1.30%, the downstate MCTD counties 1.05%, much of upstate 1.00%. On a 1–6 family residence with a natural-person borrower the lender absorbs 0.25% and a small statutory exemption applies, both reflected here. Co-ops carry none.</p>
+    <p><strong>Threshold Watch.</strong> Several New York taxes are "cliff" taxes — the higher rate hits the entire price the moment a threshold is crossed, not just the dollars above it. When a price sits just over a line ($500K RPTT, the $1M / $2M / $3M / $5M+ mansion tiers, the $3M state surcharge), the panel flags the exposure so the number can be weighed against pricing the deal a dollar under.</p>
+    <p><strong>What this does not include.</strong> This estimate excludes property taxes and any school/village taxes, tax and insurance escrow reserves, prepaid interest, recording of adjustments, HOA or condo/co-op application and move-in fees, and per-diem closing adjustments. It is a planning tool, not a title company's title bill and not a lender's Loan Estimate or Closing Disclosure; those documents control.</p>
+    <p><strong>2026 legislative note.</strong> Spring 2026 proposals to raise the NYC mansion tax and lower its threshold were not enacted; the eight-tier schedule remains the law. A separate pied-à-terre surcharge on certain high-value second homes has been reported as advancing — but that is a recurring annual tax, not a closing cost, and is not included here.</p>
+  </section>
+</main>
+
+<footer class="fine">
+  <div class="fi">
+    <div class="nm">Gofer Law PLLC</div>
+    <div class="ct">2 Executive Blvd., Suite 303 &middot; Suffern, NY 10901<br>845-935-7500 &middot; info@goferlaw.com &middot; goferlaw.com</div>
+    <p class="disc">This estimator is provided for general informational purposes only and does not constitute legal, tax, or accounting advice, nor does its use create an attorney-client relationship. It does not include property taxes, escrows, or closing adjustments, and it does not replace a title company's title bill or a lender's Loan Estimate or Closing Disclosure. Closing costs vary with the contract of sale, lender, title underwriter, municipality, and the facts of each transaction; tax and title rates are subject to change. Figures are estimates current to June 2026 and should be confirmed against the controlling closing documents. For advice on a specific matter, consult Gofer Law PLLC.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var S = { loc:"state", type:"res", fin:"yes" };
+
+  function num(v){ if(v==null) return 0; var n=parseFloat(String(v).replace(/[^0-9.\-]/g,"")); return isNaN(n)?0:n; }
+  function isBlank(id){ return $(id).value.trim()===""; }
+  function $(id){ return document.getElementById(id); }
+  function fmt(n){ n=Math.round(n); return "$"+n.toLocaleString("en-US"); }
+  function fmtCommas(n){ return Math.round(n).toLocaleString("en-US"); }
+  function pct(p){ return (Math.round(p*1000)/1000)+"%"; }
+
+  function bindSeg(wrapId, key, after){
+    var w=$(wrapId);
+    w.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click",function(){
+        w.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed","false");});
+        b.setAttribute("aria-pressed","true"); S[key]=b.getAttribute("data-v");
+        if(after) after(); calc();
+      });
+    });
+  }
+  function commaField(id){
+    var el=$(id); if(!el) return;
+    el.addEventListener("input",function(){
+      var caretEnd = el.selectionStart===el.value.length;
+      var raw=el.value.replace(/[^0-9]/g,"");
+      if(raw===""){ el.value=""; calc(); return; }
+      el.value=parseInt(raw,10).toLocaleString("en-US");
+      if(caretEnd){ el.selectionStart=el.selectionEnd=el.value.length; }
+      calc();
+    });
+  }
+  ["price","loanAmt","bankAtty","titleSearch","recFees","appraisal","survey","payoff","sellMisc","ownerTitle","lenderTitle","buyAtty","sellAtty"].forEach(commaField);
+  ["downPct","customRate","brokerPct","flipPct"].forEach(function(id){ var el=$(id); if(el) el.addEventListener("input",calc); });
+
+  var lastEdited="down";
+  $("downPct").addEventListener("input",function(){ lastEdited="down"; });
+  $("loanAmt").addEventListener("input",function(){ lastEdited="loan"; });
+
+  function syncLoc(){ $("countyWrap").style.display=(S.loc==="state")?"block":"none"; syncCustomRate(); }
+  function syncType(){
+    var coop=S.type==="coop";
+    $("flipWrap").style.display=coop?"block":"none";
+    $("coopFinNote").textContent=coop?"Co-op loans are share loans — no mortgage recording tax or title insurance applies.":"";
+  }
+  function syncFin(){ $("finFields").style.display=(S.fin==="yes")?"grid":"none"; }
+  function syncCustomRate(){ $("customRateWrap").style.display=(S.loc==="state"&&$("county").value==="custom")?"block":"none"; }
+  $("county").addEventListener("change",function(){ syncCustomRate(); calc(); });
+  bindSeg("segLoc","loc",syncLoc); bindSeg("segType","type",syncType); bindSeg("segFin","fin",syncFin);
+
+  // ---- TIRSA Zone 2 title premium engine ----
+  // brackets: [width, ownerRate/1000, loanRate/1000]
+  var Z2_BASE_OWNER=402, Z2_BASE_LOAN=344;
+  var Z2=[
+    [15000, 6.67, 5.55],
+    [50000, 5.43, 4.54],
+    [400000, 4.36, 3.64],
+    [500000, 3.98, 3.31],
+    [4000000, 3.66, 3.05],
+    [5000000, 3.25, 2.71],
+    [5000000, 3.07, 2.55],
+    [Infinity, 2.76, 2.31]
+  ];
+  function titlePremium(amount, isOwner){
+    if(amount<=0) return 0;
+    var base=isOwner?Z2_BASE_OWNER:Z2_BASE_LOAN;
+    if(amount<=35000) return base;
+    var rem=amount-35000, total=base;
+    for(var i=0;i<Z2.length && rem>0;i++){
+      var take=Math.min(rem, Z2[i][0]);
+      total += take * (isOwner?Z2[i][1]:Z2[i][2]) / 1000;
+      rem-=take;
+    }
+    return Math.round(total);
+  }
+  // owner's policy on price; lender's simultaneous = 30% of loan-rate premium on loan amount
+  function ownerTitle(price){ return (S.type==="coop")?0:titlePremium(price,true); }
+  function lenderTitle(loan){ if(S.type==="coop"||loan<=0) return 0; return Math.round(0.30*titlePremium(loan,false)); }
+
+  // ---- taxes ----
+  function mansionTax(price){
+    if(price<1000000) return 0;
+    if(S.loc!=="nyc") return price*0.01;
+    var r; if(price<2e6)r=.01;else if(price<3e6)r=.0125;else if(price<5e6)r=.015;else if(price<1e7)r=.0225;else if(price<15e6)r=.0325;else if(price<2e7)r=.035;else if(price<25e6)r=.0375;else r=.039;
+    return price*r;
+  }
+  function rptt(price){
+    if(S.loc!=="nyc") return 0;
+    if(S.type==="comm") return price*(price>500000?0.02625:0.01425);
+    return price*(price>500000?0.01425:0.01);
+  }
+  function nysAddl(price){
+    if(S.type==="comm") return price>=2000000?price*0.0025:0;
+    return price>=3000000?price*0.0025:0;
+  }
+  function nysTransfer(price){ var base=price*0.004, addl=nysAddl(price); return {base:base,addl:addl,total:base+addl}; }
+  function mortgageTax(loan){
+    if(S.type==="coop"||loan<=0) return {borrower:0,gross:0,rate:0};
+    var grossRate,exempt;
+    if(S.loc==="nyc"){
+      grossRate=(S.type==="comm")?(loan>=500000?2.80:2.05):(loan>=500000?2.175:2.05); exempt=30;
+    } else {
+      var opt=$("county").options[$("county").selectedIndex];
+      if(opt.value==="custom"){ grossRate=num($("customRate").value); exempt=25; }
+      else { grossRate=parseFloat(opt.getAttribute("data-rate")); exempt=parseFloat(opt.getAttribute("data-ex")); }
+    }
+    var gross=loan*grossRate/100;
+    var lenderOffset=(S.type!=="comm")?loan*0.0025:0;
+    var flat=(S.type!=="comm")?exempt:0;
+    return {borrower:Math.max(0,gross-lenderOffset-flat),gross:gross,rate:grossRate};
+  }
+
+  // ---- threshold watch ----
+  function thresholds(price){
+    var out=[];
+    function add(line,label,curTax,underTax){
+      if(price>=line){
+        var over=price-line, band=Math.max(25000,line*0.04), saving=curTax-underTax;
+        if(over<=band && saving>0) out.push({line:line,label:label,over:over,saving:saving});
+      }
+    }
+    var resCoop=(S.type==="res"||S.type==="coop");
+    if(resCoop){
+      var lines=(S.loc==="nyc")?[1e6,2e6,3e6,5e6,1e7,15e6,2e7,25e6]:[1e6];
+      lines.forEach(function(L){ add(L,"mansion tax",mansionTax(price),mansionTax(L-1)); });
+    }
+    if(S.loc==="nyc") add(500000,"NYC transfer tax (RPTT)",rptt(price),rptt(499999));
+    if(S.type==="comm") add(2000000,"NYS additional transfer tax",nysAddl(price),nysAddl(1999999));
+    else add(3000000,"NYS additional transfer tax",nysAddl(price),nysAddl(2999999));
+    out.sort(function(a,b){return b.saving-a.saving;});
+    return out;
+  }
+
+  function row(desc, sub, amt){
+    var cls=(amt===0)?"row zero":"row";
+    return '<div class="'+cls+'"><span class="desc">'+desc+(sub?'<small>'+sub+'</small>':'')+'</span><span class="amt">'+fmt(amt)+'</span></div>';
+  }
+  function rowDash(desc, sub){
+    return '<div class="row"><span class="desc">'+desc+(sub?'<small>'+sub+'</small>':'')+'</span><span class="amt dash">—</span></div>';
+  }
+
+  var COMPO=[
+    {k:"down",label:"Down payment",c:"#C9A24B"},
+    {k:"mansion",label:"Mansion tax",c:"#8aa0c4"},
+    {k:"mrt",label:"Mortgage tax",c:"#b5764b"},
+    {k:"title",label:"Title insurance",c:"#7fa07f"},
+    {k:"other",label:"Other costs",c:"#9a8fb0"}
+  ];
+
+  function calc(){
+    var price=num($("price").value);
+    var financing=S.fin==="yes";
+    var loan=0, down=0;
+    if(financing){
+      var dpBlank=isBlank("downPct"), loanBlank=isBlank("loanAmt");
+      if(price>0 && lastEdited==="loan" && !loanBlank){
+        loan=num($("loanAmt").value); if(loan>price) loan=price; down=price-loan;
+        $("downPct").value=(Math.round(down/price*1000)/10);
+      } else if(price>0 && !dpBlank){
+        var dp=num($("downPct").value); if(dp>100) dp=100; down=price*dp/100; loan=price-down;
+        $("loanAmt").value=fmtCommas(loan);
+      } else { down=0; loan=0; }
+      $("downHint").textContent = down>0 ? ("% of price ("+fmt(down)+")") : "% of price";
+    } else { loan=0; down=price; }
+
+    // BUYER
+    var mansion=mansionTax(price);
+    var mt=mortgageTax(financing?loan:0);
+    var oTitle=!isBlank("ownerTitle")?num($("ownerTitle").value):ownerTitle(price);
+    var lTitle=!isBlank("lenderTitle")?num($("lenderTitle").value):(financing?lenderTitle(loan):0);
+    var buyAttyBlank=isBlank("buyAtty"); var buyAtty=buyAttyBlank?0:num($("buyAtty").value);
+    var bankAtty=financing?num($("bankAtty").value):0;
+    var titleSearch=(S.type==="coop")?Math.min(num($("titleSearch").value),650):num($("titleSearch").value);
+    var recFees=num($("recFees").value);
+    var appraisal=financing?num($("appraisal").value):0;
+    var survey=(S.type==="coop")?0:num($("survey").value);
+
+    var locLabel=S.loc==="nyc"?"NYC":"NYS";
+    var mtRate=mt.rate?(" @ "+pct(mt.rate)+" gross"):"";
+
+    var bRows="";
+    bRows+=row("Mansion tax", price>=1000000?(S.loc==="nyc"?"NYC tier on full price":"1% statewide"):"n/a under $1M", mansion);
+    bRows+=row("Mortgage recording tax", financing?(locLabel+mtRate):"cash — none", mt.borrower);
+    bRows+=row("Owner's title insurance", S.type==="coop"?"n/a (co-op)":"TIRSA Zone 2 rate", oTitle);
+    bRows+=row("Lender's title insurance", (S.type==="coop"||!financing)?"n/a":"TIRSA simultaneous (30%)", lTitle);
+    bRows+=row("Title search & settlement", S.type==="coop"?"co-op lien search":"", titleSearch);
+    bRows+=row("Recording fees", "deed / mortgage", recFees);
+    bRows+=row("Appraisal", financing?"lender ordered":"n/a", appraisal);
+    bRows+=row("Survey", survey>0?"residential parcel":"none", survey);
+    bRows+= buyAttyBlank ? rowDash("Buyer's attorney","enter your fee") : row("Buyer's attorney","",buyAtty);
+    bRows+=row("Lender / bank attorney", financing?"":"n/a", bankAtty);
+    $("buyerRows").innerHTML=bRows;
+
+    var buyClose=mansion+mt.borrower+oTitle+lTitle+titleSearch+recFees+appraisal+survey+buyAtty+bankAtty;
+    var cashToClose=down+buyClose;
+
+    // composition bar
+    var comp={down:down, mansion:mansion, mrt:mt.borrower, title:oTitle+lTitle, other:titleSearch+recFees+appraisal+survey+buyAtty+bankAtty};
+    var compTotal=down+buyClose||1;
+    var barHTML="", legHTML="";
+    COMPO.forEach(function(seg){
+      var v=comp[seg.k], w=(v/compTotal*100);
+      if(v>0){
+        barHTML+='<span style="width:'+w.toFixed(2)+'%;background:'+seg.c+'"></span>';
+        legHTML+='<span><i style="background:'+seg.c+'"></i>'+seg.label+' '+fmt(v)+'</span>';
+      }
+    });
+    $("compoBar").innerHTML=barHTML; $("compoLeg").innerHTML=legHTML;
+
+    // SELLER
+    var rp=rptt(price), nys=nysTransfer(price);
+    var brokerPct=num($("brokerPct").value), broker=price*brokerPct/100;
+    var sellAttyBlank=isBlank("sellAtty"); var sellAtty=sellAttyBlank?0:num($("sellAtty").value);
+    var flip=(S.type==="coop")?price*num($("flipPct").value)/100:0;
+    var sellMisc=num($("sellMisc").value), payoff=num($("payoff").value);
+
+    var sRows="";
+    sRows+=row("Broker commission", brokerPct?pct(brokerPct)+" of price":"none", broker);
+    sRows+=row("NYC transfer tax (RPTT)", S.loc==="nyc"?(S.type==="comm"?"commercial rate":"residential rate"):"n/a outside NYC", rp);
+    sRows+=row("NYS transfer tax", "0.4% base", nys.base);
+    sRows+=row("NYS additional transfer tax", "0.25% — high-value", nys.addl);
+    sRows+=row("Co-op flip tax", S.type==="coop"?(num($("flipPct").value)+"% of price"):"n/a", flip);
+    sRows+= sellAttyBlank ? rowDash("Seller's attorney","enter your fee") : row("Seller's attorney","",sellAtty);
+    sRows+=row("Misc. seller fees", "payoff recording, etc.", sellMisc);
+    $("sellerRows").innerHTML=sRows;
+
+    var sellClose=broker+rp+nys.total+flip+sellAtty+sellMisc;
+    var net=price-payoff-sellClose;
+
+    // threshold watch
+    var th=thresholds(price), wHTML="";
+    if(th.length){
+      th.slice(0,2).forEach(function(t){
+        wHTML+='<div class="wrow">Priced <b>'+fmt(t.over)+'</b> over the '+fmt(t.line)+' '+t.label+' line — a sale just under it would save about <span class="mono">'+fmt(t.saving)+'</span> in '+t.label+'.</div>';
+      });
+      $("watch").style.display="block"; $("watchRows").innerHTML=wHTML;
+    } else { $("watch").style.display="none"; }
+
+    // totals
+    $("buyClose").textContent=fmt(buyClose);
+    $("sellClose").textContent=fmt(sellClose);
+    $("cashToClose").textContent=fmt(cashToClose);
+    $("netProceeds").textContent=fmt(net);
+    $("buyTotTag").textContent=fmt(buyClose);
+    $("sellTotTag").textContent=fmt(sellClose);
+    var bePct=price>0?(buyClose/price*100):0, sePct=price>0?(sellClose/price*100):0;
+    $("cashSub").textContent=(financing?("Down payment "+fmt(down)+" + costs"):"All cash + costs")+"  ·  costs ≈ "+(Math.round(bePct*10)/10)+"% of price";
+    $("netSub").textContent=(payoff>0?("Price − "+fmt(payoff)+" payoff − costs"):"Price − costs of sale")+"  ·  costs ≈ "+(Math.round(sePct*10)/10)+"% of price";
+
+    var typeName=S.type==="coop"?"Co-op":(S.type==="comm"?"Commercial / 4+ unit":"1–3 Family / Condo");
+    var place=S.loc==="nyc"?"New York City":($("county").options[$("county").selectedIndex].text.split(" — ")[0]+" County");
+    $("sumLine").textContent=typeName+"  ·  "+place+"  ·  "+fmt(price)+(financing?("  ·  "+fmt(loan)+" loan"):"  ·  all cash");
+  }
+
+  $("copyBtn").addEventListener("click",function(){
+    var t=document.getElementById("ledger").innerText.replace(/\n{3,}/g,"\n\n");
+    if(navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){
+      var b=$("copyBtn"),o=b.textContent; b.textContent="Copied ✓"; setTimeout(function(){b.textContent=o;},1600);
+    }); }
+  });
+
+  syncLoc(); syncType(); syncFin(); calc();
+})();
+</script>
+</body>
+</html>
