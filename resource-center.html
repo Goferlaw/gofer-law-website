@@ -29,6 +29,9 @@
 
   header.mast{background:var(--navy);color:var(--ivory);padding:34px 26px 30px;border-bottom:3px solid var(--gold)}
   .mast-inner{max-width:1080px;margin:0 auto}
+  .page-logo{display:block;width:82px;height:82px;object-fit:contain;margin:0 0 20px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.18))}
+  .footer-logo{display:block;width:68px;height:68px;object-fit:contain;margin:0 auto 14px}
+  @media(max-width:560px){.page-logo{width:66px;height:66px;margin-bottom:16px}.footer-logo{width:58px;height:58px}}
   .firm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
   .mast h1{font-weight:600;font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin:0;letter-spacing:.01em}
   .mast h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
@@ -155,6 +158,7 @@
 </nav>
 <header class="mast">
   <div class="mast-inner">
+    <a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC monogram"></a>
     <p class="firm">Gofer Law PLLC &middot; Transactional &amp; Real Estate Counsel</p>
     <h1>The New York <em>Closing Cost</em> Estimator</h1>
     <p class="sub">A working estimate of buyer and seller costs for a residential or commercial conveyance in New York City or anywhere in New York State — with title premiums computed from the TIRSA rate manual, not guessed at. Adjust the assumptions; the settlement statement recalculates as you type.</p>
@@ -340,6 +344,7 @@
 
 <footer class="fine">
   <div class="fi">
+    <a href="index.html" aria-label="Gofer Law homepage"><img class="footer-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC monogram"></a>
     <div class="nm">Gofer Law PLLC</div>
     <div class="ct">2 Executive Blvd., Suite 303 &middot; Suffern, NY 10901<br>845-935-7500 &middot; info@goferlaw.com &middot; goferlaw.com</div>
     <p class="disc">This estimator is provided for general informational purposes only and does not constitute legal, tax, or accounting advice, nor does its use create an attorney-client relationship. It does not include property taxes, escrows, or closing adjustments, and it does not replace a title company's title bill or a lender's Loan Estimate or Closing Disclosure. Closing costs vary with the contract of sale, lender, title underwriter, municipality, and the facts of each transaction; tax and title rates are subject to change. Figures are estimates current to June 2026 and should be confirmed against the controlling closing documents. For advice on a specific matter, consult Gofer Law PLLC.</p>
