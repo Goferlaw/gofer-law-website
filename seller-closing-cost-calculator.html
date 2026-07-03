@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seller's Closing Cost Calculator — Gofer Law PLLC</title>
+<meta name="description" content="Estimate a New York seller's costs of sale and net proceeds — NYC RPTT, NYS transfer tax, broker commission, and co-op flip tax. Prepared by Gofer Law PLLC." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#16223A; --navy-2:#1e2f4f; --gold:#C9A24B; --gold-soft:#d9bd7e;
+    --ivory:#F7F4EC; --paper:#FCFAF4; --ink:#23262C; --ink-soft:#5a5f69;
+    --line:#e3ddcd; --neg:#9a3b34; --rule-navy:rgba(201,162,75,.35);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--ivory);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;line-height:1.5}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  header.mast{background:var(--navy);color:var(--ivory);padding:34px 26px 30px;border-bottom:3px solid var(--gold)}
+  .mast-inner{max-width:1080px;margin:0 auto}
+  .firm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+  .mast h1{font-weight:600;font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin:0;letter-spacing:.01em}
+  .mast h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
+  .mast p.sub{margin:14px 0 0;max-width:62ch;color:#cfd4de;font-size:18px}
+  .mast .rule{height:1px;background:var(--rule-navy);margin:22px 0 0}
+  .mast .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b93a3;margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 26px}
+  .mast .xlink{margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em}
+  .mast .xlink a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid var(--rule-navy)}
+  .mast .xlink a:hover{color:var(--gold)}
+
+  main{max-width:1080px;margin:0 auto;padding:0 26px 80px}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;margin-top:38px}
+  @media (max-width:880px){.grid{grid-template-columns:1fr;gap:30px}}
+
+  .panel{background:var(--paper);border:1px solid var(--line)}
+  .panel-pad{padding:26px 26px 30px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--gold)}
+  .panel h2{font-weight:600;font-size:25px;margin:0 0 20px;letter-spacing:.01em}
+  fieldset{border:0;margin:0 0 22px;padding:0}
+  fieldset:last-of-type{margin-bottom:0}
+  legend{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);padding:0;margin-bottom:12px;width:100%;border-bottom:1px solid var(--line);padding-bottom:7px}
+  label.fld{display:block;margin-bottom:15px}
+  label.fld > span.lab{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;color:var(--ink-soft);margin-bottom:5px;text-transform:uppercase}
+  input[type=text],select{width:100%;font-family:"IBM Plex Mono",monospace;font-size:15px;padding:10px 12px;border:1px solid #cfc8b4;background:#fff;color:var(--ink);border-radius:0;appearance:none;-webkit-appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+  input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+  .money-wrap{position:relative}
+  .money-wrap::before{content:"$";position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:"IBM Plex Mono",monospace;font-size:15px;color:var(--ink-soft)}
+  .money-wrap input{padding-left:24px}
+
+  .seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid #cfc8b4;background:#fff}
+  .seg button{flex:1 1 auto;min-width:0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:9px 8px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;border-right:1px solid #e7e1d1;transition:.12s}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed=true]{background:var(--navy);color:var(--gold)}
+  .seg button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:430px){.twocol{grid-template-columns:1fr}}
+
+  .hint{font-size:14.5px;color:var(--ink-soft);font-style:italic;margin:2px 0 0}
+
+  label.check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-top:14px;font-size:16px;line-height:1.4}
+  label.check input{position:absolute;opacity:0;width:0;height:0}
+  label.check .ck-box{flex:0 0 auto;width:18px;height:18px;border:1px solid #b9b193;background:#fff;margin-top:2px;position:relative;transition:.12s}
+  label.check input:checked + .ck-box{background:var(--navy);border-color:var(--navy)}
+  label.check input:checked + .ck-box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid var(--gold);border-width:0 2px 2px 0;transform:rotate(45deg)}
+  label.check input:focus-visible + .ck-box{outline:2px solid var(--gold);outline-offset:2px}
+  label.check .ck-txt em{font-style:italic;color:var(--ink-soft)}
+
+  .ledger{background:var(--navy);color:var(--ivory);position:relative;border:1px solid var(--navy)}
+  .ledger-pad{padding:30px 30px 26px}
+  .ledger .crest{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin:0 0 4px}
+  .ledger h3{text-align:center;font-weight:600;font-size:27px;margin:0;letter-spacing:.02em}
+  .ledger .sumline{text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:#aeb6c6;margin:7px 0 0;text-transform:uppercase}
+  .ledger .dblrule{border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);height:3px;margin:16px 0 4px}
+  .exclude{font-size:13.5px;font-style:italic;color:#aeb6c6;text-align:center;margin:10px 4px 0;line-height:1.45}
+
+  .watch{margin-top:18px;border:1px solid var(--gold);background:rgba(201,162,75,.12);padding:14px 16px}
+  .watch .wh{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 9px;display:flex;align-items:center;gap:8px}
+  .watch .wh::before{content:"\2691";font-size:14px}
+  .watch .wrow{font-size:16.5px;color:#eef0f4;padding:6px 0;border-top:1px dotted rgba(255,255,255,.12);line-height:1.42}
+  .watch .wrow:first-child{border-top:0}
+  .watch .wrow b{color:var(--gold-soft);font-weight:600}
+  .watch .wrow .mono{font-size:13px;color:#fff}
+
+  .party{margin-top:20px}
+  .party-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule-navy);padding-bottom:6px;margin-bottom:4px}
+  .party-h .who{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .party-h .tot{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#aeb6c6}
+  .rowline{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:5px 0;border-bottom:1px dotted rgba(255,255,255,.08);font-size:17px}
+  .rowline .desc{color:#e7eaf0}
+  .rowline .desc small{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;color:#8b93a3;letter-spacing:.04em;margin-top:1px;text-transform:uppercase}
+  .rowline .amt{font-family:"IBM Plex Mono",monospace;font-size:15px;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .rowline .amt.dash{color:#8b93a3}
+  .subtotal{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:11px 0 4px;margin-top:4px;border-top:1px solid var(--rule-navy)}
+  .subtotal .desc{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#cfd4de}
+  .subtotal .amt{font-family:"IBM Plex Mono",monospace;font-size:18px;color:#fff;font-variant-numeric:tabular-nums}
+
+  .headline{margin-top:22px;background:rgba(201,162,75,.1);border:1px solid var(--rule-navy);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .headline .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .headline .k small{display:block;color:#8b93a3;letter-spacing:.04em;margin-top:3px;font-size:9.5px}
+  .headline .v{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:34px;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+
+  .compo{margin-top:14px}
+  .compo .bar{display:flex;height:12px;width:100%;border:1px solid var(--rule-navy);overflow:hidden}
+  .compo .bar span{display:block;height:100%}
+  .compo .leg{display:flex;flex-wrap:wrap;gap:5px 16px;margin-top:9px}
+  .compo .leg span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.04em;color:#cfd4de;display:flex;align-items:center;gap:6px;text-transform:uppercase}
+  .compo .leg span i{width:9px;height:9px;display:inline-block}
+
+  .printbar{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 18px;cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--gold)}
+  .btn:hover{background:var(--gold);color:var(--navy)}
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  .notes{margin-top:40px;border-top:1px solid var(--line);padding-top:22px}
+  .notes h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+  .notes p{font-size:15.5px;color:var(--ink-soft);margin:0 0 11px;max-width:82ch}
+  .notes p strong{color:var(--ink);font-weight:600}
+  footer.fine{margin-top:30px;background:var(--navy);color:#aeb6c6;padding:26px;border-top:3px solid var(--gold)}
+  footer.fine .fi{max-width:1080px;margin:0 auto}
+  footer.fine .nm{font-family:"Cormorant Garamond",serif;font-size:21px;color:var(--ivory);font-weight:600}
+  footer.fine .ct{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;margin-top:8px;line-height:1.9}
+  footer.fine .disc{font-size:13.5px;font-style:italic;margin-top:16px;color:#8b93a3;max-width:92ch;line-height:1.55}
+
+  @media print{
+    body{background:#fff;font-size:12pt}
+    header.mast,.panel,.printbar,.notes{display:none!important}
+    main{padding:0}.grid{display:block;margin:0}
+    .ledger{background:#fff;color:#000;border:1px solid #000}
+    .ledger h3,.rowline .desc,.rowline .amt,.subtotal .amt,.headline .v,.watch .wrow{color:#000}
+    .headline,.watch{background:#f2f2f2}
+    footer.fine{background:#fff;color:#000;border-top:2px solid var(--navy)}
+    footer.fine .nm,footer.fine .disc{color:#000}
+  }
+
+  /* Gofer Law calculator suite */
+  .sitebar{background:#071f33;color:#fff}
+  .sitebar-inner{max-width:1180px;margin:0 auto;padding:10px clamp(18px,4vw,48px);display:flex;justify-content:space-between;align-items:center;gap:18px}
+  .sitebar a{color:#fff;text-decoration:none;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .sitebar a:hover{text-decoration:underline;text-underline-offset:4px}
+  .sitebar .consult{color:#d6b56d}
+  .brandmast{background:#fff;border-bottom:1px solid #dde3e8}
+  .brandmast-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:center;padding:17px 24px 13px}
+  .page-logo{display:block;width:150px;height:150px;object-fit:contain}
+  .mast{background:#fff!important;color:#071f33!important;padding-top:34px!important}
+  .mast .firm{color:#a57822!important}
+  .mast .sub{color:#516274!important}
+  .mast .meta span{color:#071f33!important;border-color:#c9d1d8!important}
+  .mast .xlink{color:#071f33!important;border-color:#071f33!important}
+  .mast .xlink:hover{background:#071f33!important;color:#fff!important}
+  .calculator-switcher{background:#f4f6f7;border-top:1px solid #e0e5e8;border-bottom:1px solid #d8dee3}
+  .calculator-switcher-inner{max-width:1180px;margin:0 auto;padding:20px clamp(18px,4vw,48px)}
+  .calculator-switcher h2{margin:0 0 11px;color:#071f33;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+  .calculator-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  .calculator-links a{display:flex;align-items:center;justify-content:center;min-height:50px;padding:9px 12px;background:#fff;border:1px solid #c9d1d8;color:#071f33;text-decoration:none;text-align:center;font:700 13px/1.25 Arial,sans-serif}
+  .calculator-links a:hover,.calculator-links a[aria-current="page"]{background:#071f33;color:#fff;border-color:#071f33}
+  footer.fine{background:#fff!important;color:#071f33!important;border-top:2px solid #071f33!important}
+  footer.fine .fi{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .footer-logo{display:block;width:150px;height:150px;object-fit:contain;margin:0 auto 12px}
+  footer.fine .ct,footer.fine .disc{color:#516274!important}
+  @media(max-width:720px){.calculator-links{grid-template-columns:1fr 1fr}.page-logo,.footer-logo{width:126px;height:126px}}
+  @media(max-width:420px){.sitebar-inner{padding-inline:14px}.sitebar a{font-size:10px}.calculator-links{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<nav class="sitebar" aria-label="Calculator navigation"><div class="sitebar-inner"><a href="resource-center.html">← Resource Center</a><a class="consult" href="index.html#contact">Schedule a Consultation</a></div></nav><div class="brandmast"><div class="brandmast-inner"><a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC"></a></div></div>
+<header class="mast">
+  <div class="mast-inner">
+    <p class="firm">Client &amp; Broker Resource Center</p>
+    <h1>The New York <em>Seller’s</em> Closing Cost Calculator</h1>
+    <p class="sub">What will you walk away with? A working estimate of a seller's costs of sale — the City and State transfer taxes, brokerage, and any co-op flip tax — and the net proceeds after paying off an existing mortgage, anywhere in New York.</p>
+    <div class="rule"></div>
+    <div class="meta">
+      <span>NYC RPTT</span>
+      <span>NYS transfer tax</span>
+      <span>Co-op flip tax</span>
+      <span>Net proceeds</span>
+      <span>Rates current to June 2026</span>
+    </div>
+    <p class="xlink">Buyer instead? &nbsp;<a href="buyer-closing-cost-calculator.html">Open the Purchaser's Cash-to-Close Estimator &rarr;</a></p>
+  </div>
+</header>
+<section class="calculator-switcher" aria-labelledby="calculator-options"><div class="calculator-switcher-inner"><h2 id="calculator-options">Choose a calculator</h2><div class="calculator-links"><a href="resource-center.html">Overall Closing Costs</a><a href="buyer-closing-cost-calculator.html">Buyer’s Closing Costs</a><a href="seller-closing-cost-calculator.html" aria-current="page">Seller’s Closing Costs</a><a href="1031-exchange-calculator.html">1031 Exchange</a></div></div></section>
+
+<main>
+  <div class="grid">
+    <!-- INPUTS -->
+    <section class="panel" aria-label="Sale assumptions">
+      <div class="panel-pad">
+        <p class="eyebrow">The sale</p>
+        <h2>Your transaction</h2>
+
+        <fieldset>
+          <legend>Property</legend>
+          <label class="fld">
+            <span class="lab">Sale price</span>
+            <span class="money-wrap"><input id="price" class="mono" type="text" inputmode="numeric" placeholder="Enter price" /></span>
+          </label>
+
+          <label class="fld">
+            <span class="lab">Where is the property?</span>
+            <div class="seg" data-key="loc" role="group" aria-label="Location">
+              <button type="button" data-v="nyc" aria-pressed="false">New York City</button>
+              <button type="button" data-v="state" aria-pressed="true">NY State (outside NYC)</button>
+            </div>
+          </label>
+
+          <label class="fld">
+            <span class="lab">Property type</span>
+            <div class="seg" data-key="type" role="group" aria-label="Property type">
+              <button type="button" data-v="res" aria-pressed="true">1–3 Family / Condo</button>
+              <button type="button" data-v="coop" aria-pressed="false">Co-op</button>
+              <button type="button" data-v="comm" aria-pressed="false">Commercial / 4+</button>
+            </div>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="buyerPays" />
+            <span class="ck-box" aria-hidden="true"></span>
+            <span class="ck-txt">Purchaser is paying my transfer taxes <em>(sponsor sale or negotiated)</em></span>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Costs of sale</legend>
+          <div class="twocol">
+            <label class="fld"><span class="lab">Broker commission (%)</span><input id="brokerPct" class="mono" type="text" inputmode="decimal" placeholder="%"></label>
+            <label class="fld"><span class="lab">Seller's attorney</span><span class="money-wrap"><input id="sellAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Enter your fee</p></label>
+            <label class="fld" id="flipWrap" style="display:none"><span class="lab">Co-op flip tax (%)</span><input id="flipPct" class="mono" type="text" inputmode="decimal" placeholder="%"></label>
+            <label class="fld"><span class="lab">Misc. seller fees</span><span class="money-wrap"><input id="sellMisc" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Managing agent, payoff recording, etc.</p></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Net proceeds</legend>
+          <label class="fld"><span class="lab">Existing mortgage payoff</span><span class="money-wrap"><input id="payoff" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Approximate principal balance to be satisfied at closing</p></label>
+        </fieldset>
+      </div>
+    </section>
+
+    <!-- LEDGER -->
+    <section class="ledger" aria-live="polite" aria-label="Estimated seller's statement">
+      <div class="ledger-pad">
+        <p class="crest">Gofer Law PLLC</p>
+        <h3>Estimated Seller's Statement</h3>
+        <p class="sumline" id="sumLine">Enter a sale price to begin</p>
+        <div class="dblrule"></div>
+        <p class="exclude">Estimate only. Excludes property-tax and common-charge adjustments, unpaid liens, and per-diem prorations. Not a title bill or a closing statement.</p>
+
+        <div class="watch" id="watch" style="display:none">
+          <p class="wh">Threshold Watch</p>
+          <div id="watchRows"></div>
+        </div>
+
+        <div class="party">
+          <div class="party-h"><span class="who">Seller — Costs of Sale</span><span class="tot mono" id="sellTotTag"></span></div>
+          <div id="sellerRows"></div>
+          <div class="subtotal"><span class="desc">Total costs of sale</span><span class="amt" id="sellClose">$0</span></div>
+        </div>
+        <div class="compo"><div class="bar" id="compoBar"></div><div class="leg" id="compoLeg"></div></div>
+
+        <div class="headline">
+          <span class="k">Estimated Net Proceeds<small id="netSub">Price − payoff − costs of sale</small></span>
+          <span class="v" id="netProceeds">$0</span>
+        </div>
+
+        <div class="printbar">
+          <button class="btn" type="button" id="printBtn">Print / Save PDF</button>
+          <button class="btn" type="button" id="copyBtn">Copy summary</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h4>How the numbers are derived</h4>
+    <p><strong>NYC Real Property Transfer Tax (RPTT).</strong> Borne by the seller inside the five boroughs. Residential (1–3 family, condo, co-op): 1.0% at or below $500,000; 1.425% above. Commercial / 4+ family: 1.425% at or below $500,000; 2.625% above. There is no RPTT outside New York City.</p>
+    <p><strong>NYS Real Estate Transfer Tax.</strong> 0.4% statewide, paid by the seller. An additional 0.25% base tax (0.65% combined) applies where residential consideration is $3M or more, or commercial consideration is $2M or more.</p>
+    <p><strong>Brokerage &amp; co-op flip tax.</strong> Commission is a matter of the listing agreement and, since 2024, openly negotiable; enter your figure. A co-op flip tax (a transfer fee imposed by the cooperative's proprietary lease or by-laws) is entered as a percentage of price, though some buildings compute it per share or on gain — confirm the formula with the managing agent.</p>
+    <p><strong>Transfer-tax allocation.</strong> The taxes above are the seller's by custom, but allocation is contractual. In a sponsor (new-construction) sale, and occasionally by negotiation, the purchaser assumes the seller's transfer taxes; check the box to remove them from your side. The contract of sale controls.</p>
+    <p><strong>Threshold Watch.</strong> New York's transfer taxes are "cliff" taxes — the higher rate reaches the entire price once a line is crossed. When a price sits just over the $500,000 RPTT line or the $2M/$3M State-surcharge line, the panel quantifies the exposure so it can be weighed in pricing and negotiation.</p>
+    <p><strong>What this does not include.</strong> Property-tax and common-charge prorations, water/sewer and fuel adjustments, unpaid violations or liens, transfer-tax filing fees, and mortgage satisfaction recording are excluded. It is a planning tool, not a closing statement; the contract, payoff letter, and title report control.</p>
+    <p><strong>2026 legislative note.</strong> Spring 2026 proposals to raise the NYC mansion tax (a buyer charge) were not enacted. No change to the seller-side transfer taxes above is in effect as of this writing.</p>
+  </section>
+</main>
+
+<footer class="fine">
+  <div class="fi">
+    <a href="index.html" aria-label="Gofer Law homepage"><img class="footer-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC monogram"></a>
+    <div class="ct">2 Executive Blvd., Suite 303 &middot; Suffern, NY 10901<br>845-935-7500 &middot; info@goferlaw.com &middot; goferlaw.com</div>
+    <p class="disc">This estimator is provided for general informational purposes only and does not constitute legal, tax, or accounting advice, nor does its use create an attorney-client relationship. It does not include property-tax or common-charge adjustments, prorations, liens, or payoff interest, and it does not replace a closing statement. Closing costs and their allocation vary with the contract of sale, the cooperative's governing documents, the municipality, and the facts of each transaction; tax rates are subject to change. Figures are estimates current to June 2026 and should be confirmed against the controlling documents. For advice on a specific matter, consult Gofer Law PLLC.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  function $(id){ return document.getElementById(id); }
+  function num(v){ if(v==null) return 0; var n=parseFloat(String(v).replace(/[^0-9.]/g,"")); return isNaN(n)?0:n; }
+  function has(id){ var e=$(id); return e && e.value.trim()!==""; }
+  function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
+  function pctStr(p){ return (Math.round(p*1000)/1000)+"%"; }
+
+  var state = { loc:"state", type:"res", buyerPays:false };
+
+  function rpttRate(price){
+    if(state.loc!=="nyc") return 0;
+    if(state.type==="comm") return price>500000?0.02625:0.01425;
+    return price>500000?0.01425:0.01;
+  }
+  function rptt(price){ return price*rpttRate(price); }
+  function nysAddl(price){
+    if(state.type==="comm") return price>=2000000?price*0.0025:0;
+    return price>=3000000?price*0.0025:0;
+  }
+
+  function thresholds(price){
+    var out=[];
+    function add(line,label,cur,under){
+      if(price>=line){
+        var over=price-line, band=Math.max(25000, line*0.04), saving=cur-under;
+        if(over<=band && saving>0) out.push({line:line,label:label,over:over,saving:saving});
+      }
+    }
+    if(!state.buyerPays){
+      if(state.loc==="nyc") add(500000,"NYC transfer tax (RPTT)", rptt(price), rptt(499999));
+      if(state.type==="comm") add(2000000,"NYS additional transfer tax", nysAddl(price), nysAddl(1999999));
+      else add(3000000,"NYS additional transfer tax", nysAddl(price), nysAddl(2999999));
+    }
+    out.sort(function(a,b){ return b.saving-a.saving; });
+    return out;
+  }
+
+  function row(desc, sub, amt){
+    if(amt===0) return "";
+    return '<div class="rowline"><span class="desc">'+desc+(sub?'<small>'+sub+'</small>':'')+'</span><span class="amt">'+money(amt)+'</span></div>';
+  }
+  function rowDash(desc, sub){
+    return '<div class="rowline"><span class="desc">'+desc+(sub?'<small>'+sub+'</small>':'')+'</span><span class="amt dash">—</span></div>';
+  }
+
+  var COMPO = [
+    {k:"broker",label:"Brokerage",c:"#C9A24B"},
+    {k:"transfer",label:"Transfer taxes",c:"#c08a6a"},
+    {k:"flip",label:"Flip tax",c:"#8aa0c4"},
+    {k:"other",label:"Other costs",c:"#9a8fb0"}
+  ];
+
+  function recalc(){
+    var price = num($("price").value);
+    var rp = state.buyerPays ? 0 : rptt(price);
+    var nB = state.buyerPays ? 0 : price*0.004;
+    var nA = state.buyerPays ? 0 : nysAddl(price);
+    var brokerPct = num($("brokerPct").value), broker = price*brokerPct/100;
+    var sellAtty = num($("sellAtty").value);
+    var flip = (state.type==="coop") ? price*num($("flipPct").value)/100 : 0;
+    var sellMisc = num($("sellMisc").value), payoff = num($("payoff").value);
+
+    var s = "";
+    s += row("Broker commission", brokerPct?pctStr(brokerPct)+" of price":"", broker);
+    s += row("NYC transfer tax (RPTT)", state.buyerPays?"paid by purchaser":(state.loc==="nyc"?(state.type==="comm"?"commercial rate":"residential rate"):"n/a outside NYC"), rp);
+    s += row("NYS transfer tax", state.buyerPays?"paid by purchaser":"0.4% base", nB);
+    s += row("NYS additional transfer tax", state.buyerPays?"paid by purchaser":"0.25% high-value", nA);
+    s += row("Co-op flip tax", state.type==="coop"?(num($("flipPct").value)+"% of price"):"", flip);
+    s += has("sellAtty") ? row("Seller's attorney","",sellAtty) : rowDash("Seller's attorney","enter your fee");
+    s += row("Misc. seller fees", "adjustments & recording", sellMisc);
+    $("sellerRows").innerHTML = s;
+
+    var sellClose = broker+rp+nB+nA+flip+sellAtty+sellMisc;
+    var net = price - payoff - sellClose;
+
+    // composition
+    var comp = { broker:broker, transfer:rp+nB+nA, flip:flip, other:sellAtty+sellMisc };
+    var compTotal = sellClose || 1;
+    var barHTML="", legHTML="";
+    COMPO.forEach(function(seg){
+      var v=comp[seg.k]; if(v>0){
+        barHTML += '<span style="width:'+(v/compTotal*100).toFixed(2)+'%;background:'+seg.c+'"></span>';
+        legHTML += '<span><i style="background:'+seg.c+'"></i>'+seg.label+' '+money(v)+'</span>';
+      }
+    });
+    $("compoBar").innerHTML=barHTML; $("compoLeg").innerHTML=legHTML;
+
+    // threshold watch
+    var th = thresholds(price), w="";
+    if(th.length){
+      th.slice(0,2).forEach(function(t){
+        w += '<div class="wrow">Priced <b>'+money(t.over)+'</b> over the '+money(t.line)+' '+t.label+' line — a sale just under it would save about <span class="mono">'+money(t.saving)+'</span> in '+t.label+'.</div>';
+      });
+      $("watch").style.display="block"; $("watchRows").innerHTML=w;
+    } else { $("watch").style.display="none"; $("watchRows").innerHTML=""; }
+
+    $("sellClose").textContent = money(sellClose);
+    $("sellTotTag").textContent = money(sellClose);
+    $("netProceeds").textContent = money(net);
+    var sePct = price>0 ? sellClose/price*100 : 0;
+    $("netSub").textContent = (payoff>0?("Price − "+money(payoff)+" payoff − costs"):"Price − costs of sale") + "  ·  costs ≈ " + (Math.round(sePct*10)/10) + "% of price";
+
+    var typeName = state.type==="coop"?"Co-op":(state.type==="comm"?"Commercial / 4+ unit":"1–3 Family / Condo");
+    var place = state.loc==="nyc"?"New York City":"New York State";
+    $("sumLine").textContent = price>0 ? (typeName+"  ·  "+place+"  ·  "+money(price)) : "Enter a sale price to begin";
+  }
+
+  function syncVis(){
+    $("flipWrap").style.display = state.type==="coop" ? "block" : "none";
+  }
+
+  function bindAll(){
+    document.querySelectorAll("input, select").forEach(function(el){
+      el.addEventListener("input", recalc);
+      el.addEventListener("change", recalc);
+    });
+    document.querySelectorAll(".seg").forEach(function(seg){
+      seg.addEventListener("click", function(e){
+        var btn = e.target.closest ? e.target.closest("button") : null;
+        if(!btn || !seg.contains(btn)) return;
+        seg.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+        btn.setAttribute("aria-pressed","true");
+        state[seg.getAttribute("data-key")] = btn.getAttribute("data-v");
+        syncVis(); recalc();
+      });
+    });
+    $("buyerPays").addEventListener("change", function(){ state.buyerPays=this.checked; recalc(); });
+    $("printBtn").addEventListener("click", function(){ window.print(); });
+    $("copyBtn").addEventListener("click", function(){
+      var t = document.querySelector(".ledger").innerText.replace(/\n{3,}/g,"\n\n");
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){
+          var btn=$("copyBtn"), o=btn.textContent; btn.textContent="Copied \u2713"; setTimeout(function(){ btn.textContent=o; },1600);
+        });
+      }
+    });
+  }
+
+  function init(){ bindAll(); syncVis(); recalc(); }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+</body>
+</html>

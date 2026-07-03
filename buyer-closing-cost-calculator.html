@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Buyer's Closing Cost Calculator — Gofer Law PLLC</title>
+<meta name="description" content="Estimate a New York purchaser's closing costs and cash to close — mansion tax, mortgage recording tax, and TIRSA title insurance for NYC and NYS. Prepared by Gofer Law PLLC." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#16223A; --navy-2:#1e2f4f; --gold:#C9A24B; --gold-soft:#d9bd7e;
+    --ivory:#F7F4EC; --paper:#FCFAF4; --ink:#23262C; --ink-soft:#5a5f69;
+    --line:#e3ddcd; --neg:#9a3b34; --rule-navy:rgba(201,162,75,.35);
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--ivory);color:var(--ink);font-family:"Cormorant Garamond",Georgia,serif;font-size:19px;line-height:1.5}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  header.mast{background:var(--navy);color:var(--ivory);padding:34px 26px 30px;border-bottom:3px solid var(--gold)}
+  .mast-inner{max-width:1080px;margin:0 auto}
+  .firm{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
+  .mast h1{font-weight:600;font-size:clamp(30px,5.4vw,52px);line-height:1.04;margin:0;letter-spacing:.01em}
+  .mast h1 em{font-style:italic;color:var(--gold-soft);font-weight:500}
+  .mast p.sub{margin:14px 0 0;max-width:62ch;color:#cfd4de;font-size:18px}
+  .mast .rule{height:1px;background:var(--rule-navy);margin:22px 0 0}
+  .mast .meta{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8b93a3;margin-top:14px;display:flex;flex-wrap:wrap;gap:6px 26px}
+  .mast .xlink{margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.06em}
+  .mast .xlink a{color:var(--gold-soft);text-decoration:none;border-bottom:1px solid var(--rule-navy)}
+  .mast .xlink a:hover{color:var(--gold)}
+
+  main{max-width:1080px;margin:0 auto;padding:0 26px 80px}
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:40px;margin-top:38px}
+  @media (max-width:880px){.grid{grid-template-columns:1fr;gap:30px}}
+
+  .panel{background:var(--paper);border:1px solid var(--line)}
+  .panel-pad{padding:26px 26px 30px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:0 0 4px;display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";display:inline-block;width:18px;height:1px;background:var(--gold)}
+  .panel h2{font-weight:600;font-size:25px;margin:0 0 20px;letter-spacing:.01em}
+  fieldset{border:0;margin:0 0 22px;padding:0}
+  fieldset:last-of-type{margin-bottom:0}
+  legend{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);padding:0;margin-bottom:12px;width:100%;border-bottom:1px solid var(--line);padding-bottom:7px}
+  label.fld{display:block;margin-bottom:15px}
+  label.fld > span.lab{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;color:var(--ink-soft);margin-bottom:5px;text-transform:uppercase}
+  input[type=text],select{width:100%;font-family:"IBM Plex Mono",monospace;font-size:15px;padding:10px 12px;border:1px solid #cfc8b4;background:#fff;color:var(--ink);border-radius:0;appearance:none;-webkit-appearance:none}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--ink-soft) 50%),linear-gradient(135deg,var(--ink-soft) 50%,transparent 50%);background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:34px}
+  input:focus,select:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+  .money-wrap{position:relative}
+  .money-wrap::before{content:"$";position:absolute;left:12px;top:50%;transform:translateY(-50%);font-family:"IBM Plex Mono",monospace;font-size:15px;color:var(--ink-soft)}
+  .money-wrap input{padding-left:24px}
+
+  .seg{display:flex;flex-wrap:wrap;gap:0;border:1px solid #cfc8b4;background:#fff}
+  .seg button{flex:1 1 auto;min-width:0;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:9px 8px;border:0;background:transparent;color:var(--ink-soft);cursor:pointer;border-right:1px solid #e7e1d1;transition:.12s}
+  .seg button:last-child{border-right:0}
+  .seg button[aria-pressed=true]{background:var(--navy);color:var(--gold)}
+  .seg button:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:430px){.twocol{grid-template-columns:1fr}}
+
+  details.adv{margin-top:6px;border-top:1px solid var(--line);padding-top:14px}
+  details.adv summary{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+  details.adv summary::-webkit-details-marker{display:none}
+  details.adv summary::before{content:"+";font-size:15px;width:14px;display:inline-block}
+  details.adv[open] summary::before{content:"\2013"}
+  details.adv .body{padding-top:16px}
+  .hint{font-size:14.5px;color:var(--ink-soft);font-style:italic;margin:2px 0 0}
+
+  label.check{display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-top:14px;font-size:16px;line-height:1.4}
+  label.check.sub{margin-top:9px;margin-left:28px;font-size:14.5px;color:var(--ink-soft)}
+  label.check input{position:absolute;opacity:0;width:0;height:0}
+  label.check .ck-box{flex:0 0 auto;width:18px;height:18px;border:1px solid #b9b193;background:#fff;margin-top:2px;position:relative;transition:.12s}
+  label.check input:checked + .ck-box{background:var(--navy);border-color:var(--navy)}
+  label.check input:checked + .ck-box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid var(--gold);border-width:0 2px 2px 0;transform:rotate(45deg)}
+  label.check input:focus-visible + .ck-box{outline:2px solid var(--gold);outline-offset:2px}
+  label.check .ck-txt em{font-style:italic;color:var(--ink-soft)}
+  label.check.sub .ck-txt em{font-size:13px}
+
+  .ledger{background:var(--navy);color:var(--ivory);position:relative;border:1px solid var(--navy)}
+  .ledger-pad{padding:30px 30px 26px}
+  .ledger .crest{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);text-align:center;margin:0 0 4px}
+  .ledger h3{text-align:center;font-weight:600;font-size:27px;margin:0;letter-spacing:.02em}
+  .ledger .sumline{text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:#aeb6c6;margin:7px 0 0;text-transform:uppercase}
+  .ledger .dblrule{border-top:1px solid var(--gold);border-bottom:1px solid var(--gold);height:3px;margin:16px 0 4px}
+  .exclude{font-size:13.5px;font-style:italic;color:#aeb6c6;text-align:center;margin:10px 4px 0;line-height:1.45}
+
+  .watch{margin-top:18px;border:1px solid var(--gold);background:rgba(201,162,75,.12);padding:14px 16px}
+  .watch .wh{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 9px;display:flex;align-items:center;gap:8px}
+  .watch .wh::before{content:"\2691";font-size:14px}
+  .watch .wrow{font-size:16.5px;color:#eef0f4;padding:6px 0;border-top:1px dotted rgba(255,255,255,.12);line-height:1.42}
+  .watch .wrow:first-child{border-top:0}
+  .watch .wrow b{color:var(--gold-soft);font-weight:600}
+  .watch .wrow .mono{font-size:13px;color:#fff}
+
+  .party{margin-top:20px}
+  .party-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--rule-navy);padding-bottom:6px;margin-bottom:4px}
+  .party-h .who{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+  .party-h .tot{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#aeb6c6}
+  .rowline{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:5px 0;border-bottom:1px dotted rgba(255,255,255,.08);font-size:17px}
+  .rowline .desc{color:#e7eaf0}
+  .rowline .desc small{display:block;font-family:"IBM Plex Mono",monospace;font-size:10px;color:#8b93a3;letter-spacing:.04em;margin-top:1px;text-transform:uppercase}
+  .rowline .amt{font-family:"IBM Plex Mono",monospace;font-size:15px;color:#fff;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .rowline .amt.dash{color:#8b93a3}
+  .subtotal{display:flex;justify-content:space-between;gap:14px;align-items:baseline;padding:11px 0 4px;margin-top:4px;border-top:1px solid var(--rule-navy)}
+  .subtotal .desc{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#cfd4de}
+  .subtotal .amt{font-family:"IBM Plex Mono",monospace;font-size:18px;color:#fff;font-variant-numeric:tabular-nums}
+
+  .headline{margin-top:22px;background:rgba(201,162,75,.1);border:1px solid var(--rule-navy);padding:16px 18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .headline .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .headline .k small{display:block;color:#8b93a3;letter-spacing:.04em;margin-top:3px;font-size:9.5px}
+  .headline .v{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:34px;color:#fff;line-height:1;font-variant-numeric:tabular-nums}
+
+  .compo{margin-top:14px}
+  .compo .bar{display:flex;height:12px;width:100%;border:1px solid var(--rule-navy);overflow:hidden}
+  .compo .bar span{display:block;height:100%}
+  .compo .leg{display:flex;flex-wrap:wrap;gap:5px 16px;margin-top:9px}
+  .compo .leg span{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.04em;color:#cfd4de;display:flex;align-items:center;gap:6px;text-transform:uppercase}
+  .compo .leg span i{width:9px;height:9px;display:inline-block}
+
+  .printbar{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:11px 18px;cursor:pointer;border:1px solid var(--gold);background:transparent;color:var(--gold)}
+  .btn:hover{background:var(--gold);color:var(--navy)}
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  .notes{margin-top:40px;border-top:1px solid var(--line);padding-top:22px}
+  .notes h4{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+  .notes p{font-size:15.5px;color:var(--ink-soft);margin:0 0 11px;max-width:82ch}
+  .notes p strong{color:var(--ink);font-weight:600}
+  footer.fine{margin-top:30px;background:var(--navy);color:#aeb6c6;padding:26px;border-top:3px solid var(--gold)}
+  footer.fine .fi{max-width:1080px;margin:0 auto}
+  footer.fine .nm{font-family:"Cormorant Garamond",serif;font-size:21px;color:var(--ivory);font-weight:600}
+  footer.fine .ct{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;margin-top:8px;line-height:1.9}
+  footer.fine .disc{font-size:13.5px;font-style:italic;margin-top:16px;color:#8b93a3;max-width:92ch;line-height:1.55}
+
+  @media print{
+    body{background:#fff;font-size:12pt}
+    header.mast,.panel,.printbar,.notes{display:none!important}
+    main{padding:0}.grid{display:block;margin:0}
+    .ledger{background:#fff;color:#000;border:1px solid #000}
+    .ledger h3,.rowline .desc,.rowline .amt,.subtotal .amt,.headline .v,.watch .wrow{color:#000}
+    .headline,.watch{background:#f2f2f2}
+    footer.fine{background:#fff;color:#000;border-top:2px solid var(--navy)}
+    footer.fine .nm,footer.fine .disc{color:#000}
+  }
+
+  /* Gofer Law calculator suite */
+  .sitebar{background:#071f33;color:#fff}
+  .sitebar-inner{max-width:1180px;margin:0 auto;padding:10px clamp(18px,4vw,48px);display:flex;justify-content:space-between;align-items:center;gap:18px}
+  .sitebar a{color:#fff;text-decoration:none;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .sitebar a:hover{text-decoration:underline;text-underline-offset:4px}
+  .sitebar .consult{color:#d6b56d}
+  .brandmast{background:#fff;border-bottom:1px solid #dde3e8}
+  .brandmast-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:center;padding:17px 24px 13px}
+  .page-logo{display:block;width:150px;height:150px;object-fit:contain}
+  .mast{background:#fff!important;color:#071f33!important;padding-top:34px!important}
+  .mast .firm{color:#a57822!important}
+  .mast .sub{color:#516274!important}
+  .mast .meta span{color:#071f33!important;border-color:#c9d1d8!important}
+  .mast .xlink{color:#071f33!important;border-color:#071f33!important}
+  .mast .xlink:hover{background:#071f33!important;color:#fff!important}
+  .calculator-switcher{background:#f4f6f7;border-top:1px solid #e0e5e8;border-bottom:1px solid #d8dee3}
+  .calculator-switcher-inner{max-width:1180px;margin:0 auto;padding:20px clamp(18px,4vw,48px)}
+  .calculator-switcher h2{margin:0 0 11px;color:#071f33;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+  .calculator-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  .calculator-links a{display:flex;align-items:center;justify-content:center;min-height:50px;padding:9px 12px;background:#fff;border:1px solid #c9d1d8;color:#071f33;text-decoration:none;text-align:center;font:700 13px/1.25 Arial,sans-serif}
+  .calculator-links a:hover,.calculator-links a[aria-current="page"]{background:#071f33;color:#fff;border-color:#071f33}
+  footer.fine{background:#fff!important;color:#071f33!important;border-top:2px solid #071f33!important}
+  footer.fine .fi{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .footer-logo{display:block;width:150px;height:150px;object-fit:contain;margin:0 auto 12px}
+  footer.fine .ct,footer.fine .disc{color:#516274!important}
+  @media(max-width:720px){.calculator-links{grid-template-columns:1fr 1fr}.page-logo,.footer-logo{width:126px;height:126px}}
+  @media(max-width:420px){.sitebar-inner{padding-inline:14px}.sitebar a{font-size:10px}.calculator-links{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+<nav class="sitebar" aria-label="Calculator navigation"><div class="sitebar-inner"><a href="resource-center.html">← Resource Center</a><a class="consult" href="index.html#contact">Schedule a Consultation</a></div></nav><div class="brandmast"><div class="brandmast-inner"><a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC"></a></div></div>
+<header class="mast">
+  <div class="mast-inner">
+    <p class="firm">Client &amp; Broker Resource Center</p>
+    <h1>The New York <em>Buyer’s</em> Closing Cost Calculator</h1>
+    <p class="sub">What will you need at the table? A working estimate of a purchaser's closing costs — mansion tax, mortgage recording tax, and TIRSA-rate title insurance — and the total cash to close, for New York City or anywhere in New York State.</p>
+    <div class="rule"></div>
+    <div class="meta">
+      <span>Mansion tax</span>
+      <span>Mortgage recording tax by county</span>
+      <span>TIRSA title premiums</span>
+      <span>Sponsor-sale gross-up</span>
+      <span>Rates current to June 2026</span>
+    </div>
+    <p class="xlink">Seller instead? &nbsp;<a href="seller-closing-cost-calculator.html">Open the Seller's Net Proceeds Estimator &rarr;</a></p>
+  </div>
+</header>
+<section class="calculator-switcher" aria-labelledby="calculator-options"><div class="calculator-switcher-inner"><h2 id="calculator-options">Choose a calculator</h2><div class="calculator-links"><a href="resource-center.html">Overall Closing Costs</a><a href="buyer-closing-cost-calculator.html" aria-current="page">Buyer’s Closing Costs</a><a href="seller-closing-cost-calculator.html">Seller’s Closing Costs</a><a href="1031-exchange-calculator.html">1031 Exchange</a></div></div></section>
+
+<main>
+  <div class="grid">
+    <!-- INPUTS -->
+    <section class="panel" aria-label="Purchase assumptions">
+      <div class="panel-pad">
+        <p class="eyebrow">The purchase</p>
+        <h2>Your transaction</h2>
+
+        <fieldset>
+          <legend>Property</legend>
+          <label class="fld">
+            <span class="lab">Purchase price</span>
+            <span class="money-wrap"><input id="price" class="mono" type="text" inputmode="numeric" placeholder="Enter price" /></span>
+          </label>
+
+          <label class="fld">
+            <span class="lab">Where is the property?</span>
+            <div class="seg" data-key="loc" role="group" aria-label="Location">
+              <button type="button" data-v="nyc" aria-pressed="false">New York City</button>
+              <button type="button" data-v="state" aria-pressed="true">NY State (outside NYC)</button>
+            </div>
+          </label>
+
+          <label class="fld" id="countyWrap">
+            <span class="lab">County (mortgage recording tax)</span>
+            <select id="county" class="mono">
+              <option value="rockland" data-rate="1.30" data-ex="30" selected>Rockland — 1.30%</option>
+              <option value="westchester" data-rate="1.30" data-ex="30">Westchester (ex-Yonkers) — 1.30%</option>
+              <option value="yonkers" data-rate="1.80" data-ex="30">Westchester / Yonkers — 1.80%</option>
+              <option value="orange" data-rate="1.05" data-ex="30">Orange — 1.05%</option>
+              <option value="nassau" data-rate="1.05" data-ex="30">Nassau — 1.05%</option>
+              <option value="suffolk" data-rate="1.05" data-ex="30">Suffolk — 1.05%</option>
+              <option value="putnam" data-rate="1.05" data-ex="30">Putnam — 1.05%</option>
+              <option value="dutchess" data-rate="1.05" data-ex="30">Dutchess — 1.05%</option>
+              <option value="upstate100" data-rate="1.00" data-ex="25">Other county — 1.00% (typical)</option>
+              <option value="upstate075" data-rate="0.75" data-ex="25">Other county — 0.75%</option>
+              <option value="custom" data-rate="0" data-ex="25">Custom rate…</option>
+            </select>
+          </label>
+          <label class="fld" id="customRateWrap" style="display:none">
+            <span class="lab">Custom mortgage tax rate (%)</span>
+            <input id="customRate" class="mono" type="text" inputmode="decimal" placeholder="e.g. 1.00" />
+          </label>
+
+          <label class="fld">
+            <span class="lab">Property type</span>
+            <div class="seg" data-key="type" role="group" aria-label="Property type">
+              <button type="button" data-v="res" aria-pressed="true">1–3 Family / Condo</button>
+              <button type="button" data-v="coop" aria-pressed="false">Co-op</button>
+              <button type="button" data-v="comm" aria-pressed="false">Commercial / 4+</button>
+            </div>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="sponsor" />
+            <span class="ck-box" aria-hidden="true"></span>
+            <span class="ck-txt">Sponsor sale <em>(new construction)</em> — purchaser pays the sponsor's transfer taxes &amp; attorney fee</span>
+          </label>
+          <label class="check sub" id="grossupWrap" style="display:none">
+            <input type="checkbox" id="grossup" checked />
+            <span class="ck-box" aria-hidden="true"></span>
+            <span class="ck-txt">Apply transfer-tax gross-up <em>(buyer-paid tax is additional consideration)</em></span>
+          </label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Financing</legend>
+          <label class="fld">
+            <span class="lab">Is the purchaser financing?</span>
+            <div class="seg" data-key="fin" role="group" aria-label="Financing">
+              <button type="button" data-v="yes" aria-pressed="true">Mortgage</button>
+              <button type="button" data-v="no" aria-pressed="false">All cash</button>
+            </div>
+          </label>
+          <label class="fld" id="loanWrap">
+            <span class="lab">Loan amount</span>
+            <span class="money-wrap"><input id="loanAmt" class="mono" type="text" inputmode="numeric" placeholder="Enter loan amount" /></span>
+            <p class="hint" id="downHint">Down payment = price − loan</p>
+          </label>
+        </fieldset>
+
+        <details class="adv">
+          <summary>Purchaser cost assumptions</summary>
+          <div class="body">
+            <div class="twocol">
+              <label class="fld"><span class="lab">Purchaser's attorney</span><span class="money-wrap"><input id="buyAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Enter your fee</p></label>
+              <label class="fld" id="sponsorAttyWrap" style="display:none"><span class="lab">Sponsor's attorney</span><span class="money-wrap"><input id="sponsorAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Shifted to purchaser</p></label>
+              <label class="fld"><span class="lab">Lender / bank attorney</span><span class="money-wrap"><input id="bankAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Owner's title</span><span class="money-wrap"><input id="ownerTitle" class="mono" type="text" inputmode="numeric" placeholder="auto"></span><p class="hint">Auto (TIRSA) if blank</p></label>
+              <label class="fld"><span class="lab">Lender's title</span><span class="money-wrap"><input id="lenderTitle" class="mono" type="text" inputmode="numeric" placeholder="auto"></span><p class="hint">Auto (TIRSA) if blank</p></label>
+              <label class="fld"><span class="lab">Title search / settlement</span><span class="money-wrap"><input id="titleSearch" class="mono" type="text" inputmode="numeric" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Recording fees</span><span class="money-wrap"><input id="recFees" class="mono" type="text" inputmode="numeric" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Appraisal</span><span class="money-wrap"><input id="appraisal" class="mono" type="text" inputmode="numeric" placeholder="—"></span></label>
+              <label class="fld"><span class="lab">Survey (optional)</span><span class="money-wrap"><input id="survey" class="mono" type="text" inputmode="numeric" placeholder="—"></span></label>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- LEDGER -->
+    <section class="ledger" aria-live="polite" aria-label="Estimated purchaser's statement">
+      <div class="ledger-pad">
+        <p class="crest">Gofer Law PLLC</p>
+        <h3>Estimated Purchaser's Statement</h3>
+        <p class="sumline" id="sumLine">Enter a purchase price to begin</p>
+        <div class="dblrule"></div>
+        <p class="exclude">Estimate only. Excludes property taxes, escrow reserves, prepaid interest, and closing adjustments. Not a title bill or a lender's Loan Estimate.</p>
+
+        <div class="watch" id="watch" style="display:none">
+          <p class="wh">Threshold Watch</p>
+          <div id="watchRows"></div>
+        </div>
+
+        <div class="party">
+          <div class="party-h"><span class="who">Purchaser — Closing Costs</span><span class="tot mono" id="buyTotTag"></span></div>
+          <div id="buyerRows"></div>
+          <div class="subtotal"><span class="desc">Total closing costs</span><span class="amt" id="buyClose">$0</span></div>
+        </div>
+
+        <div class="headline">
+          <span class="k">Estimated Cash to Close<small id="cashSub">Down payment + closing costs</small></span>
+          <span class="v" id="cashToClose">$0</span>
+        </div>
+        <div class="compo"><div class="bar" id="compoBar"></div><div class="leg" id="compoLeg"></div></div>
+
+        <div class="printbar">
+          <button class="btn" type="button" id="printBtn">Print / Save PDF</button>
+          <button class="btn" type="button" id="copyBtn">Copy summary</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="notes">
+    <h4>How the numbers are derived</h4>
+    <p><strong>Mansion tax.</strong> A purchaser charge on residential conveyances (including co-ops) of $1M or more. Outside NYC: a flat 1%. Inside NYC: the eight-tier progressive schedule from 1.0% to 3.9%, applied to the entire price, with a true cliff at each threshold. Commercial property is exempt.</p>
+    <p><strong>Mortgage recording tax (financed deals only).</strong> NYC: 2.05% (loans under $500K) or 2.175% ($500K+) on 1–3 family/condo, gross of the 0.25% the institutional lender bears. Outside NYC the rate is set by county — Rockland 1.30%, the downstate MCTD counties 1.05%, much of upstate 1.00%. On a 1–6 family residence with a natural-person borrower the lender absorbs 0.25% and a small statutory exemption applies, both reflected here. Co-ops carry no mortgage recording tax — the loan is secured by shares, not a recorded mortgage.</p>
+    <p><strong>Title insurance (real property only).</strong> Premiums are computed from the TIRSA Rate Manual (7th Revision) on the declining per-$1,000 bracket schedule. All five boroughs and the lower-Hudson / Long Island counties sit in TIRSA Zone 2: an owner's policy runs $402 on the first $35,000, then $6.67/$1,000 to $50K, $5.43 to $100K, $4.36 to $500K, $3.98 to $1M, $3.66 to $5M, and lower brackets above. When financed, the lender's policy is issued simultaneously at the discounted rate — 30% of the loan-policy schedule. Co-ops carry no title insurance. Final premiums may include search continuations and endorsements; treat it as an estimate.</p>
+    <p><strong>Transfer taxes are the seller's — except in a sponsor sale.</strong> In a first sale from a sponsor, the contract customarily shifts the sponsor's NYC RPTT, NYS transfer tax, and attorney fee to the purchaser. Because the purchaser's payment of those taxes is itself additional consideration, the base is "grossed up." Per NYC Department of Finance guidance and Tax Law §1402, for residential property (1–3 family, condo, co-op) only the RPTT is grossed up — the NYS transfer tax is excluded from the gross-up, and the absorbed tax is excluded from the mansion-tax base, which stays on the contract price. For commercial property the RPTT and NYS tax are grossed up together. Toggle the gross-up off to see the un-grossed shift.</p>
+    <p><strong>Threshold Watch.</strong> New York's mansion tax is a "cliff" tax — the higher rate reaches the entire price once a line is crossed. When a price sits just over the $1M threshold, or an NYC tier at $2M/$3M/$5M and up, the panel quantifies the exposure so it can be weighed in negotiation.</p>
+    <p><strong>What this does not include.</strong> Property taxes and school/village taxes, tax and insurance escrow reserves, prepaid interest and points, HOA or condo/co-op application and move-in fees, and per-diem adjustments are excluded. It is a planning tool, not a title company's title bill and not a lender's Loan Estimate or Closing Disclosure; those documents control.</p>
+    <p><strong>2026 legislative note.</strong> Spring 2026 proposals to raise the NYC mansion tax and lower its threshold were not enacted; the eight-tier schedule remains the law. A separate pied-à-terre surcharge has been reported as advancing — but that is a recurring annual tax, not a closing cost, and is not included here.</p>
+  </section>
+</main>
+
+<footer class="fine">
+  <div class="fi">
+    <a href="index.html" aria-label="Gofer Law homepage"><img class="footer-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC monogram"></a>
+    <div class="ct">2 Executive Blvd., Suite 303 &middot; Suffern, NY 10901<br>845-935-7500 &middot; info@goferlaw.com &middot; goferlaw.com</div>
+    <p class="disc">This estimator is provided for general informational purposes only and does not constitute legal, tax, or accounting advice, nor does its use create an attorney-client relationship. It does not include property taxes, escrows, or closing adjustments, and it does not replace a title company's title bill or a lender's Loan Estimate or Closing Disclosure. Closing costs and their allocation vary with the contract of sale, lender, title underwriter, municipality, and the facts of each transaction; tax and title rates are subject to change. Figures are estimates current to June 2026 and should be confirmed against the controlling documents. For advice on a specific matter, consult Gofer Law PLLC.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  function $(id){ return document.getElementById(id); }
+  function num(v){ if(v==null) return 0; var n=parseFloat(String(v).replace(/[^0-9.]/g,"")); return isNaN(n)?0:n; }
+  function has(id){ var e=$(id); return e && e.value.trim()!==""; }
+  function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
+  function pctStr(p){ return (Math.round(p*1000)/1000)+"%"; }
+
+  var state = { loc:"state", type:"res", fin:"yes", sponsor:false, grossup:true };
+
+  // ===== TIRSA Zone 2 title premium engine =====
+  var Z2 = [
+    [15000, 6.67, 5.55],
+    [50000, 5.43, 4.54],
+    [400000, 4.36, 3.64],
+    [500000, 3.98, 3.31],
+    [4000000, 3.66, 3.05],
+    [5000000, 3.25, 2.71],
+    [5000000, 3.07, 2.55],
+    [Infinity, 2.76, 2.31]
+  ];
+  function titlePremium(amount, isOwner){
+    if(amount<=0) return 0;
+    var base = isOwner?402:344;
+    if(amount<=35000) return base;
+    var rem=amount-35000, total=base;
+    for(var i=0;i<Z2.length && rem>0;i++){
+      var take=Math.min(rem, Z2[i][0]);
+      total += take * (isOwner?Z2[i][1]:Z2[i][2]) / 1000;
+      rem-=take;
+    }
+    return Math.round(total);
+  }
+  function ownerTitle(price){ return state.type==="coop"?0:titlePremium(price,true); }
+  function lenderTitle(loan){ if(state.type==="coop"||loan<=0) return 0; return Math.round(0.30*titlePremium(loan,false)); }
+
+  // ===== taxes =====
+  function mansionTax(price){
+    if(state.type==="comm") return 0;
+    if(price<1000000) return 0;
+    if(state.loc!=="nyc") return price*0.01;
+    var r;
+    if(price<2e6) r=.01; else if(price<3e6) r=.0125; else if(price<5e6) r=.015;
+    else if(price<1e7) r=.0225; else if(price<15e6) r=.0325; else if(price<2e7) r=.035;
+    else if(price<25e6) r=.0375; else r=.039;
+    return price*r;
+  }
+  function rpttRate(price){
+    if(state.loc!=="nyc") return 0;
+    if(state.type==="comm") return price>500000?0.02625:0.01425;
+    return price>500000?0.01425:0.01;
+  }
+  function rptt(price){ return price*rpttRate(price); }
+  function nysAddl(price){
+    if(state.type==="comm") return price>=2000000?price*0.0025:0;
+    return price>=3000000?price*0.0025:0;
+  }
+  function transferTaxes(price){
+    var plain = { rptt:rptt(price), nysBase:price*0.004, nysAddl:nysAddl(price), toBuyer:false };
+    if(!state.sponsor) return plain;
+    plain.toBuyer=true;
+    if(!state.grossup) return plain;
+    if(state.type==="comm"){
+      var rR=rpttRate(price), rN=0.004+(price>=2000000?0.0025:0), r=rR+rN, C=price/(1-r);
+      return { rptt:C*rR, nysBase:C*0.004, nysAddl:C*(price>=2000000?0.0025:0), toBuyer:true };
+    }
+    var rr=rpttRate(price);
+    var rpttG = rr>0 ? price*rr/(1-rr) : 0;
+    return { rptt:rpttG, nysBase:price*0.004, nysAddl:nysAddl(price), toBuyer:true };
+  }
+  function mortgageTax(loan){
+    if(state.type==="coop"||loan<=0) return { borrower:0, rate:0 };
+    var grossRate, exempt;
+    if(state.loc==="nyc"){
+      grossRate = (state.type==="comm") ? (loan>=500000?2.80:2.05) : (loan>=500000?2.175:2.05);
+      exempt = 30;
+    } else {
+      var opt = $("county").options[$("county").selectedIndex];
+      if(opt.value==="custom"){ grossRate=num($("customRate").value); exempt=25; }
+      else { grossRate=parseFloat(opt.getAttribute("data-rate")); exempt=parseFloat(opt.getAttribute("data-ex")); }
+    }
+    var gross = loan*grossRate/100;
+    var lenderOffset = (state.type!=="comm") ? loan*0.0025 : 0;
+    var flat = (state.type!=="comm") ? exempt : 0;
+    return { borrower:Math.max(0, gross-lenderOffset-flat), rate:grossRate };
+  }
+
+  // ===== threshold watch =====
+  function thresholds(price){
+    var out=[];
+    function add(line,label,cur,under){
+      if(price>=line){
+        var over=price-line, band=Math.max(25000, line*0.04), saving=cur-under;
+        if(over<=band && saving>0) out.push({line:line,label:label,over:over,saving:saving});
+      }
+    }
+    if(state.type!=="comm"){
+      var lines = (state.loc==="nyc") ? [1e6,2e6,3e6,5e6,1e7,15e6,2e7,25e6] : [1e6];
+      lines.forEach(function(L){ add(L,"mansion tax", mansionTax(price), mansionTax(L-1)); });
+    }
+    if(state.sponsor){
+      if(state.loc==="nyc") add(500000,"NYC transfer tax (RPTT)", rptt(price), rptt(499999));
+      if(state.type==="comm") add(2000000,"NYS additional transfer tax", nysAddl(price), nysAddl(1999999));
+      else add(3000000,"NYS additional transfer tax", nysAddl(price), nysAddl(2999999));
+    }
+    out.sort(function(a,b){ return b.saving-a.saving; });
+    return out;
+  }
+
+  function row(desc, sub, amt){
+    if(amt===0) return "";
+    return '<div class="rowline"><span class="desc">'+desc+(sub?'<small>'+sub+'</small>':'')+'</span><span class="amt">'+money(amt)+'</span></div>';
+  }
+  function rowDash(desc, sub){
+    return '<div class="rowline"><span class="desc">'+desc+(sub?'<small>'+sub+'</small>':'')+'</span><span class="amt dash">—</span></div>';
+  }
+
+  var COMPO = [
+    {k:"down",label:"Down payment",c:"#C9A24B"},
+    {k:"mansion",label:"Mansion tax",c:"#8aa0c4"},
+    {k:"transfer",label:"Transfer tax",c:"#c08a6a"},
+    {k:"mrt",label:"Mortgage tax",c:"#b5764b"},
+    {k:"title",label:"Title insurance",c:"#7fa07f"},
+    {k:"other",label:"Other costs",c:"#9a8fb0"}
+  ];
+
+  function recalc(){
+    var price = num($("price").value);
+    var financing = state.fin==="yes";
+    var loan = financing ? num($("loanAmt").value) : 0;
+    if(loan>price) loan=price;
+    var down = financing ? Math.max(0, price-loan) : price;
+
+    $("downHint").textContent = (financing && price>0)
+      ? ("Down payment " + money(down) + " · " + (Math.round(down/price*1000)/10) + "% of price")
+      : "Down payment = price − loan";
+
+    var tt = transferTaxes(price);
+    var toBuyer = tt.toBuyer;
+    var mansion = mansionTax(price);
+    var mt = mortgageTax(financing?loan:0);
+    var oTitle = has("ownerTitle") ? num($("ownerTitle").value) : ownerTitle(price);
+    var lTitle = has("lenderTitle") ? num($("lenderTitle").value) : (financing?lenderTitle(loan):0);
+    var buyAtty = num($("buyAtty").value);
+    var sponsorAtty = state.sponsor ? num($("sponsorAtty").value) : 0;
+    var bankAtty = financing ? num($("bankAtty").value) : 0;
+    var titleSearch = (state.type==="coop") ? Math.min(num($("titleSearch").value),650) : num($("titleSearch").value);
+    var recFees = num($("recFees").value);
+    var appraisal = financing ? num($("appraisal").value) : 0;
+    var survey = (state.type==="coop") ? 0 : num($("survey").value);
+
+    var locLabel = state.loc==="nyc"?"NYC":"NYS";
+    var mtRate = mt.rate ? (" @ "+pctStr(mt.rate)+" gross") : "";
+    var gu = (state.sponsor && state.grossup) ? (state.type==="comm"?"grossed-up":"RPTT grossed-up") : "shifted to purchaser";
+    var buyerTransfer = toBuyer ? (tt.rptt + tt.nysBase + tt.nysAddl) : 0;
+
+    var b = "";
+    b += row("Mansion tax", price>=1000000?(state.loc==="nyc"?"NYC tier on full price":"1% statewide"):"", mansion);
+    if(toBuyer){
+      b += row("NYC transfer tax (RPTT)", state.loc==="nyc"?gu:"n/a outside NYC", tt.rptt);
+      b += row("NYS transfer tax", "0.4% base · "+gu, tt.nysBase);
+      b += row("NYS additional transfer tax", "0.25% high-value", tt.nysAddl);
+    }
+    b += row("Mortgage recording tax", financing?(locLabel+mtRate):"", mt.borrower);
+    b += row("Owner's title insurance", state.type==="coop"?"":"TIRSA Zone 2 rate", oTitle);
+    b += row("Lender's title insurance", "TIRSA simultaneous (30%)", lTitle);
+    b += row("Title search & settlement", state.type==="coop"?"co-op lien search":"", titleSearch);
+    b += row("Recording fees", "deed / mortgage", recFees);
+    b += row("Appraisal", "lender ordered", appraisal);
+    b += row("Survey", "residential parcel", survey);
+    b += has("buyAtty") ? row("Purchaser's attorney","",buyAtty) : rowDash("Purchaser's attorney","enter your fee");
+    if(state.sponsor) b += has("sponsorAtty") ? row("Sponsor's attorney","paid by purchaser",sponsorAtty) : rowDash("Sponsor's attorney","paid by purchaser — enter fee");
+    b += row("Lender / bank attorney", "", bankAtty);
+    $("buyerRows").innerHTML = b;
+
+    var buyClose = mansion+buyerTransfer+mt.borrower+oTitle+lTitle+titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+bankAtty;
+    var cashToClose = down + buyClose;
+
+    var comp = { down:down, mansion:mansion, transfer:buyerTransfer, mrt:mt.borrower, title:oTitle+lTitle, other:titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+bankAtty };
+    var compTotal = (down+buyClose) || 1;
+    var barHTML="", legHTML="";
+    COMPO.forEach(function(seg){
+      var v=comp[seg.k]; if(v>0){
+        barHTML += '<span style="width:'+(v/compTotal*100).toFixed(2)+'%;background:'+seg.c+'"></span>';
+        legHTML += '<span><i style="background:'+seg.c+'"></i>'+seg.label+' '+money(v)+'</span>';
+      }
+    });
+    $("compoBar").innerHTML=barHTML; $("compoLeg").innerHTML=legHTML;
+
+    var th = thresholds(price), w="";
+    if(th.length){
+      th.slice(0,2).forEach(function(t){
+        w += '<div class="wrow">Priced <b>'+money(t.over)+'</b> over the '+money(t.line)+' '+t.label+' line — a purchase just under it would save about <span class="mono">'+money(t.saving)+'</span> in '+t.label+'.</div>';
+      });
+      $("watch").style.display="block"; $("watchRows").innerHTML=w;
+    } else { $("watch").style.display="none"; $("watchRows").innerHTML=""; }
+
+    $("buyClose").textContent = money(buyClose);
+    $("cashToClose").textContent = money(cashToClose);
+    $("buyTotTag").textContent = money(buyClose);
+    var bePct = price>0 ? buyClose/price*100 : 0;
+    $("cashSub").textContent = (financing?("Down payment "+money(down)+" + costs"):"All cash + costs") + "  ·  costs ≈ " + (Math.round(bePct*10)/10) + "% of price";
+
+    var typeName = state.type==="coop"?"Co-op":(state.type==="comm"?"Commercial / 4+ unit":"1–3 Family / Condo");
+    var place = state.loc==="nyc"?"New York City":($("county").options[$("county").selectedIndex].text.split(" — ")[0]+" County");
+    $("sumLine").textContent = price>0 ? (typeName+"  ·  "+place+"  ·  "+money(price)+(financing?("  ·  "+money(loan)+" loan"):"  ·  all cash")) : "Enter a purchase price to begin";
+  }
+
+  function syncVis(){
+    $("countyWrap").style.display = state.loc==="state" ? "block" : "none";
+    var custom = state.loc==="state" && $("county").value==="custom";
+    $("customRateWrap").style.display = custom ? "block" : "none";
+    $("loanWrap").style.display = state.fin==="yes" ? "block" : "none";
+    $("grossupWrap").style.display = state.sponsor ? "flex" : "none";
+    $("sponsorAttyWrap").style.display = state.sponsor ? "block" : "none";
+  }
+
+  function bindAll(){
+    document.querySelectorAll("input, select").forEach(function(el){
+      el.addEventListener("input", recalc);
+      el.addEventListener("change", recalc);
+    });
+    document.querySelectorAll(".seg").forEach(function(seg){
+      seg.addEventListener("click", function(e){
+        var btn = e.target.closest ? e.target.closest("button") : null;
+        if(!btn || !seg.contains(btn)) return;
+        seg.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+        btn.setAttribute("aria-pressed","true");
+        state[seg.getAttribute("data-key")] = btn.getAttribute("data-v");
+        syncVis(); recalc();
+      });
+    });
+    $("sponsor").addEventListener("change", function(){ state.sponsor=this.checked; syncVis(); recalc(); });
+    $("grossup").addEventListener("change", function(){ state.grossup=this.checked; recalc(); });
+    $("county").addEventListener("change", function(){ syncVis(); recalc(); });
+    $("printBtn").addEventListener("click", function(){ window.print(); });
+    $("copyBtn").addEventListener("click", function(){
+      var t = document.querySelector(".ledger").innerText.replace(/\n{3,}/g,"\n\n");
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){
+          var btn=$("copyBtn"), o=btn.textContent; btn.textContent="Copied \u2713"; setTimeout(function(){ btn.textContent=o; },1600);
+        });
+      }
+    });
+  }
+
+  function init(){ bindAll(); syncVis(); recalc(); }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
+})();
+</script>
+</body>
+</html>

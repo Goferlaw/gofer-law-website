@@ -149,6 +149,35 @@
     footer.fine{background:#fff;color:#000;border-top:2px solid var(--navy)}
     footer.fine .nm,footer.fine .disc{color:#000}
   }
+
+  /* Gofer Law calculator suite */
+  .sitebar{background:#071f33;color:#fff}
+  .sitebar-inner{max-width:1180px;margin:0 auto;padding:10px clamp(18px,4vw,48px);display:flex;justify-content:space-between;align-items:center;gap:18px}
+  .sitebar a{color:#fff;text-decoration:none;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .sitebar a:hover{text-decoration:underline;text-underline-offset:4px}
+  .sitebar .consult{color:#d6b56d}
+  .brandmast{background:#fff;border-bottom:1px solid #dde3e8}
+  .brandmast-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:center;padding:17px 24px 13px}
+  .page-logo{display:block;width:150px;height:150px;object-fit:contain}
+  .mast{background:#fff!important;color:#071f33!important;padding-top:34px!important}
+  .mast .firm{color:#a57822!important}
+  .mast .sub{color:#516274!important}
+  .mast .meta span{color:#071f33!important;border-color:#c9d1d8!important}
+  .mast .xlink{color:#071f33!important;border-color:#071f33!important}
+  .mast .xlink:hover{background:#071f33!important;color:#fff!important}
+  .calculator-switcher{background:#f4f6f7;border-top:1px solid #e0e5e8;border-bottom:1px solid #d8dee3}
+  .calculator-switcher-inner{max-width:1180px;margin:0 auto;padding:20px clamp(18px,4vw,48px)}
+  .calculator-switcher h2{margin:0 0 11px;color:#071f33;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+  .calculator-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+  .calculator-links a{display:flex;align-items:center;justify-content:center;min-height:50px;padding:9px 12px;background:#fff;border:1px solid #c9d1d8;color:#071f33;text-decoration:none;text-align:center;font:700 13px/1.25 Arial,sans-serif}
+  .calculator-links a:hover,.calculator-links a[aria-current="page"]{background:#071f33;color:#fff;border-color:#071f33}
+  footer.fine{background:#fff!important;color:#071f33!important;border-top:2px solid #071f33!important}
+  footer.fine .fi{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .footer-logo{display:block;width:150px;height:150px;object-fit:contain;margin:0 auto 12px}
+  footer.fine .ct,footer.fine .disc{color:#516274!important}
+  @media(max-width:720px){.calculator-links{grid-template-columns:1fr 1fr}.page-logo,.footer-logo{width:126px;height:126px}}
+  @media(max-width:420px){.sitebar-inner{padding-inline:14px}.sitebar a{font-size:10px}.calculator-links{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -178,6 +207,7 @@
     </div>
   </div>
 </header>
+<section class="calculator-switcher" aria-labelledby="calculator-options"><div class="calculator-switcher-inner"><h2 id="calculator-options">Choose a calculator</h2><div class="calculator-links"><a href="resource-center.html" aria-current="page">Overall Closing Costs</a><a href="buyer-closing-cost-calculator.html">Buyer’s Closing Costs</a><a href="seller-closing-cost-calculator.html">Seller’s Closing Costs</a><a href="1031-exchange-calculator.html">1031 Exchange</a></div></div></section>
 
 <main>
   <div class="grid">

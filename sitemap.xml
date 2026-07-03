@@ -20,8 +20,20 @@
   </url>
   <url>
     <loc>https://www.goferlaw.com/resource-center.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.goferlaw.com/buyer-closing-cost-calculator.html</loc>
+    <lastmod>2026-07-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.goferlaw.com/seller-closing-cost-calculator.html</loc>
+    <lastmod>2026-07-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.goferlaw.com/1031-exchange-calculator.html</loc>
+    <lastmod>2026-07-03</lastmod><changefreq>monthly</changefreq><priority>0.8</priority>
   </url>
 </urlset>
