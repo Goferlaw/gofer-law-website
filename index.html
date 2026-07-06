@@ -539,9 +539,28 @@ footer{background:var(--ink);color:rgba(244,240,230,0.7);padding:74px 0 38px;bor
   .faq-item .faq-a{padding:0 10px 26px 35px}
   .section-head{margin-bottom:40px}
 }
+
+/* One-time homepage logo welcome */
+.logo-intro{display:none;position:fixed;inset:0;z-index:1000;background:#fff;overflow:hidden}
+.intro-ready .logo-intro{display:block}
+.logo-intro img{position:fixed;display:block;object-fit:contain;filter:contrast(1.15) brightness(1.05);will-change:left,top,width,height,opacity}
+.intro-ready .nav .brand{opacity:0}
+.intro-ready .hero-door,.intro-ready .hero h1 .h-line > span{animation-play-state:paused!important}
+@media (prefers-reduced-motion:reduce){.logo-intro{display:none!important}.intro-ready .nav .brand{opacity:1}}
+
 </style>
+<script>
+(function(){
+  try{
+    if(!sessionStorage.getItem('goferLogoIntroSeen') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.documentElement.classList.add('intro-ready');
+    }
+  }catch(e){}
+})();
+</script>
 </head>
 <body>
+<div class="logo-intro" id="logoIntro" aria-hidden="true"><img src="assets/gofer-law-monogram.png" alt=""></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- ═══════════ NAV ═══════════ -->
@@ -1005,6 +1024,40 @@ footer{background:var(--ink);color:rgba(244,240,230,0.7);padding:74px 0 38px;bor
 
   // current year
   document.getElementById('yr').textContent = new Date().getFullYear();
+})();
+</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  var intro=document.getElementById('logoIntro');
+  var flying=intro && intro.querySelector('img');
+  var target=document.querySelector('.nav .brand img');
+  function finish(){
+    root.classList.remove('intro-ready');
+    if(intro) intro.remove();
+  }
+  if(!root.classList.contains('intro-ready') || !intro || !flying || !target){ finish(); return; }
+  try{ sessionStorage.setItem('goferLogoIntroSeen','1'); }catch(e){}
+  var size=Math.min(380,Math.max(240,window.innerWidth*.32),window.innerHeight*.48);
+  flying.style.left=((window.innerWidth-size)/2)+'px';
+  flying.style.top=((window.innerHeight-size)/2)+'px';
+  flying.style.width=size+'px';
+  flying.style.height=size+'px';
+  requestAnimationFrame(function(){
+    setTimeout(function(){
+      var end=target.getBoundingClientRect();
+      var move=flying.animate([
+        {left:flying.style.left,top:flying.style.top,width:size+'px',height:size+'px'},
+        {left:end.left+'px',top:end.top+'px',width:end.width+'px',height:end.height+'px'}
+      ],{duration:1450,easing:'cubic-bezier(.77,0,.18,1)',fill:'forwards'});
+      move.onfinish=function(){
+        target.parentElement.style.opacity='1';
+        var fade=intro.animate([{opacity:1},{opacity:0}],{duration:420,easing:'ease-out',fill:'forwards'});
+        fade.onfinish=finish;
+      };
+    },850);
+  });
+  setTimeout(finish,3500);
 })();
 </script>
 </body>
