@@ -549,26 +549,6 @@ footer{background:var(--ink);color:rgba(244,240,230,0.7);padding:74px 0 38px;bor
 @media (prefers-reduced-motion:reduce){.logo-intro{display:none!important}.intro-ready .nav .brand{opacity:1}}
 
 
-/* ════════ VISITOR PATHWAYS ════════ */
-.entry-paths{padding:78px 0 86px;background:var(--ink);color:var(--paper);position:relative;overflow:hidden}
-.entry-paths::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 84% 14%,rgba(201,162,75,.13),transparent 32%);pointer-events:none}
-.entry-intro{display:flex;justify-content:space-between;align-items:end;gap:36px;margin-bottom:34px;position:relative}
-.entry-intro .eyebrow{color:var(--gold)}
-.entry-intro h2{font-size:clamp(34px,4vw,52px);font-weight:500;line-height:1.05;max-width:10em}
-.entry-intro p{max-width:31em;color:rgba(244,240,230,.7);font-size:18px;line-height:1.55}
-.entry-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(255,255,255,.16);position:relative}
-.entry-card{min-height:230px;padding:31px 27px 27px;color:var(--paper);border-right:1px solid rgba(255,255,255,.16);text-decoration:none;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .35s ease,transform .35s ease}
-.entry-card:last-child{border-right:0}
-.entry-card::before{content:'';position:absolute;left:0;right:100%;top:0;height:3px;background:var(--gold);transition:right .42s cubic-bezier(.22,.61,.36,1)}
-.entry-card:hover,.entry-card:focus-visible{background:rgba(255,255,255,.07);transform:translateY(-5px)}
-.entry-card:hover::before,.entry-card:focus-visible::before{right:0}
-.entry-card .path-kicker{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:33px}
-.entry-card h3{font-size:25px;font-weight:500;line-height:1.12;margin-bottom:12px}
-.entry-card p{font-size:15px;line-height:1.5;color:rgba(244,240,230,.62)}
-.entry-card .path-arrow{margin-top:auto;align-self:flex-end;color:var(--gold);font-size:25px;line-height:1;transition:transform .3s ease}
-.entry-card:hover .path-arrow,.entry-card:focus-visible .path-arrow{transform:translateX(6px)}
-@media(max-width:900px){.entry-grid{grid-template-columns:1fr 1fr}.entry-card:nth-child(2){border-right:0}.entry-card:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.16)}}
-@media(max-width:620px){.entry-paths{padding:64px 0 70px}.entry-intro{display:block}.entry-intro p{margin-top:16px}.entry-grid{grid-template-columns:1fr}.entry-card{min-height:190px;border-right:0!important;border-bottom:1px solid rgba(255,255,255,.16)}.entry-card:last-child{border-bottom:0}}
 
 </style>
 <script>
@@ -653,22 +633,6 @@ footer{background:var(--ink);color:rgba(244,240,230,0.7);padding:74px 0 38px;bor
   </div>
 </div>
 
-
-<!-- ═══════════ PERSONALIZED PATHWAYS ═══════════ -->
-<section class="entry-paths" aria-labelledby="entry-title">
-  <div class="wrap">
-    <div class="entry-intro rv">
-      <div><span class="eyebrow">Start With Your Objective</span><h2 id="entry-title">What brings you here?</h2></div>
-      <p>Choose the situation closest to yours. We’ll take you directly to the guidance and resources most likely to matter.</p>
-    </div>
-    <div class="entry-grid">
-      <a class="entry-card rv" href="real-estate.html"><span class="path-kicker">Property</span><h3>I’m buying or selling New York real estate.</h3><p>Residential, commercial, investment, financing, and closing counsel.</p><span class="path-arrow" aria-hidden="true">→</span></a>
-      <a class="entry-card rv d1" href="foreign-investors.html"><span class="path-kicker">Cross-Border</span><h3>I’m investing in New York from abroad.</h3><p>Ownership structures, tax exposure, succession, and transaction strategy.</p><span class="path-arrow" aria-hidden="true">→</span></a>
-      <a class="entry-card rv d2" href="#practice"><span class="path-kicker">Protection</span><h3>I need to protect a business or valuable assets.</h3><p>Entities, agreements, trusts, lending, and coordinated risk planning.</p><span class="path-arrow" aria-hidden="true">→</span></a>
-      <a class="entry-card rv d3" href="#practice"><span class="path-kicker">Legacy</span><h3>I’m planning for my family and the future.</h3><p>Wills, trusts, estate planning, and business succession designed together.</p><span class="path-arrow" aria-hidden="true">→</span></a>
-    </div>
-  </div>
-</section>
 
 <!-- ═══════════ PRACTICE AREAS ═══════════ -->
 <section id="practice">
