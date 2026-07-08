@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Buyer's Closing Cost Calculator — Gofer Law PLLC</title>
+<title>Buyer's Closing Cost Calculator - Gofer Law PLLC</title>
 <meta name="description" content="Estimate a New York purchaser's closing costs and cash to close — mansion tax, mortgage recording tax, and TIRSA title insurance for NYC and NYS. Prepared by Gofer Law PLLC." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -146,6 +146,7 @@
     footer.fine .nm,footer.fine .disc{color:#000}
   }
 
+
   /* Gofer Law calculator suite */
   .sitebar{background:#071f33;color:#fff}
   .sitebar-inner{max-width:1180px;margin:0 auto;padding:10px clamp(18px,4vw,48px);display:flex;justify-content:space-between;align-items:center;gap:18px}
@@ -174,14 +175,16 @@
   @media(max-width:720px){.calculator-links{grid-template-columns:1fr 1fr}.page-logo,.footer-logo{width:126px;height:126px}}
   @media(max-width:420px){.sitebar-inner{padding-inline:14px}.sitebar a{font-size:10px}.calculator-links{grid-template-columns:1fr}}
 
+
 </style>
 </head>
 <body>
 <nav class="sitebar" aria-label="Calculator navigation"><div class="sitebar-inner"><a href="resource-center.html">← Resource Center</a><a class="consult" href="index.html#contact">Schedule a Consultation</a></div></nav><div class="brandmast"><div class="brandmast-inner"><a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC"></a></div></div>
+
 <header class="mast">
   <div class="mast-inner">
     <p class="firm">Client &amp; Broker Resource Center</p>
-    <h1>The New York <em>Buyer’s</em> Closing Cost Calculator</h1>
+    <h1>The New York <em>Buyer's</em> Closing Cost Calculator</h1>
     <p class="sub">What will you need at the table? A working estimate of a purchaser's closing costs — mansion tax, mortgage recording tax, and TIRSA-rate title insurance — and the total cash to close, for New York City or anywhere in New York State.</p>
     <div class="rule"></div>
     <div class="meta">
@@ -195,6 +198,8 @@
   </div>
 </header>
 <section class="calculator-switcher" aria-labelledby="calculator-options"><div class="calculator-switcher-inner"><h2 id="calculator-options">Choose a calculator</h2><div class="calculator-links"><a href="resource-center.html">Overall Closing Costs</a><a href="buyer-closing-cost-calculator.html" aria-current="page">Buyer’s Closing Costs</a><a href="seller-closing-cost-calculator.html">Seller’s Closing Costs</a><a href="1031-exchange-calculator.html">1031 Exchange</a></div></div></section>
+
+
 
 <main>
   <div class="grid">
@@ -252,7 +257,14 @@
           <label class="check">
             <input type="checkbox" id="sponsor" />
             <span class="ck-box" aria-hidden="true"></span>
-            <span class="ck-txt">Sponsor sale <em>(new construction)</em> — purchaser pays the sponsor's transfer taxes &amp; attorney fee</span>
+            <span class="ck-txt">Sponsor sale <em>(new construction / first sale from sponsor)</em></span>
+          </label>
+          <label class="fld" id="transferShiftWrap" style="display:none;margin-top:14px;margin-left:28px">
+            <span class="lab">Is the purchaser paying the sponsor's transfer taxes?</span>
+            <div class="seg" data-key="transferShift" role="group" aria-label="Transfer tax responsibility">
+              <button type="button" data-v="yes" aria-pressed="true">Yes — customary</button>
+              <button type="button" data-v="no" aria-pressed="false">No — sponsor pays</button>
+            </div>
           </label>
           <label class="check sub" id="grossupWrap" style="display:none">
             <input type="checkbox" id="grossup" checked />
@@ -277,12 +289,13 @@
           </label>
         </fieldset>
 
-        <details class="adv">
+        <details class="adv" id="advBuyer">
           <summary>Purchaser cost assumptions</summary>
           <div class="body">
             <div class="twocol">
               <label class="fld"><span class="lab">Purchaser's attorney</span><span class="money-wrap"><input id="buyAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Enter your fee</p></label>
               <label class="fld" id="sponsorAttyWrap" style="display:none"><span class="lab">Sponsor's attorney</span><span class="money-wrap"><input id="sponsorAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Shifted to purchaser</p></label>
+              <label class="fld" id="condoFeeWrap" style="display:none"><span class="lab">Condo creation fee</span><span class="money-wrap"><input id="condoFee" class="mono" type="text" inputmode="numeric" placeholder="—"></span><p class="hint">Sponsor's formation/offering-plan reimbursement — negotiable</p></label>
               <label class="fld"><span class="lab">Lender / bank attorney</span><span class="money-wrap"><input id="bankAtty" class="mono" type="text" inputmode="numeric" placeholder="—"></span></label>
               <label class="fld"><span class="lab">Owner's title</span><span class="money-wrap"><input id="ownerTitle" class="mono" type="text" inputmode="numeric" placeholder="auto"></span><p class="hint">Auto (TIRSA) if blank</p></label>
               <label class="fld"><span class="lab">Lender's title</span><span class="money-wrap"><input id="lenderTitle" class="mono" type="text" inputmode="numeric" placeholder="auto"></span><p class="hint">Auto (TIRSA) if blank</p></label>
@@ -335,7 +348,8 @@
     <p><strong>Mansion tax.</strong> A purchaser charge on residential conveyances (including co-ops) of $1M or more. Outside NYC: a flat 1%. Inside NYC: the eight-tier progressive schedule from 1.0% to 3.9%, applied to the entire price, with a true cliff at each threshold. Commercial property is exempt.</p>
     <p><strong>Mortgage recording tax (financed deals only).</strong> NYC: 2.05% (loans under $500K) or 2.175% ($500K+) on 1–3 family/condo, gross of the 0.25% the institutional lender bears. Outside NYC the rate is set by county — Rockland 1.30%, the downstate MCTD counties 1.05%, much of upstate 1.00%. On a 1–6 family residence with a natural-person borrower the lender absorbs 0.25% and a small statutory exemption applies, both reflected here. Co-ops carry no mortgage recording tax — the loan is secured by shares, not a recorded mortgage.</p>
     <p><strong>Title insurance (real property only).</strong> Premiums are computed from the TIRSA Rate Manual (7th Revision) on the declining per-$1,000 bracket schedule. All five boroughs and the lower-Hudson / Long Island counties sit in TIRSA Zone 2: an owner's policy runs $402 on the first $35,000, then $6.67/$1,000 to $50K, $5.43 to $100K, $4.36 to $500K, $3.98 to $1M, $3.66 to $5M, and lower brackets above. When financed, the lender's policy is issued simultaneously at the discounted rate — 30% of the loan-policy schedule. Co-ops carry no title insurance. Final premiums may include search continuations and endorsements; treat it as an estimate.</p>
-    <p><strong>Transfer taxes are the seller's — except in a sponsor sale.</strong> In a first sale from a sponsor, the contract customarily shifts the sponsor's NYC RPTT, NYS transfer tax, and attorney fee to the purchaser. Because the purchaser's payment of those taxes is itself additional consideration, the base is "grossed up." Per NYC Department of Finance guidance and Tax Law §1402, for residential property (1–3 family, condo, co-op) only the RPTT is grossed up — the NYS transfer tax is excluded from the gross-up, and the absorbed tax is excluded from the mansion-tax base, which stays on the contract price. For commercial property the RPTT and NYS tax are grossed up together. Toggle the gross-up off to see the un-grossed shift.</p>
+    <p><strong>Transfer taxes are the seller's — except in a sponsor sale.</strong> In a first sale from a sponsor, the contract customarily shifts the sponsor's NYC RPTT and NYS transfer tax to the purchaser, though this is a negotiated term, not a rule — some sponsors, particularly when moving unsold inventory, retain the obligation themselves. The "Is the purchaser paying the sponsor's transfer taxes?" toggle controls which scenario the estimate reflects; set it to "customary" for the default case or "sponsor pays" to see the estimate without that shift. When shifted, because the purchaser's payment of those taxes is itself additional consideration, the base is "grossed up." Per NYC Department of Finance guidance and Tax Law §1402, for residential property (1–3 family, condo, co-op) only the RPTT is grossed up — the NYS transfer tax is excluded from the gross-up, and the absorbed tax is excluded from the mansion-tax base, which stays on the contract price. For commercial property the RPTT and NYS tax are grossed up together. Toggle the gross-up off to see the un-grossed shift. Confirm the actual allocation against the specific purchase agreement or offering plan.</p>
+    <p><strong>Condo creation fee (sponsor sales only).</strong> Also called a condo formation fee or sponsor reimbursement fee, this is a separate charge — distinct from the transfer-tax shift and the sponsor's attorney fee — by which the purchase agreement requires the buyer to reimburse the sponsor for the cost of forming the condominium: preparing and filing the offering plan, declaration, and by-laws. It is not a tax and has no fixed rate; it is a negotiated contract term, and offering plans vary widely on whether it is charged at all. Confirm the figure, if any, against the offering plan's schedule of closing costs before relying on it.</p>
     <p><strong>Threshold Watch.</strong> New York's mansion tax is a "cliff" tax — the higher rate reaches the entire price once a line is crossed. When a price sits just over the $1M threshold, or an NYC tier at $2M/$3M/$5M and up, the panel quantifies the exposure so it can be weighed in negotiation.</p>
     <p><strong>What this does not include.</strong> Property taxes and school/village taxes, tax and insurance escrow reserves, prepaid interest and points, HOA or condo/co-op application and move-in fees, and per-diem adjustments are excluded. It is a planning tool, not a title company's title bill and not a lender's Loan Estimate or Closing Disclosure; those documents control.</p>
     <p><strong>2026 legislative note.</strong> Spring 2026 proposals to raise the NYC mansion tax and lower its threshold were not enacted; the eight-tier schedule remains the law. A separate pied-à-terre surcharge has been reported as advancing — but that is a recurring annual tax, not a closing cost, and is not included here.</p>
@@ -359,7 +373,7 @@
   function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
   function pctStr(p){ return (Math.round(p*1000)/1000)+"%"; }
 
-  var state = { loc:"state", type:"res", fin:"yes", sponsor:false, grossup:true };
+  var state = { loc:"state", type:"res", fin:"yes", sponsor:false, transferShift:"yes", grossup:true };
 
   // ===== TIRSA Zone 2 title premium engine =====
   var Z2 = [
@@ -410,7 +424,7 @@
   }
   function transferTaxes(price){
     var plain = { rptt:rptt(price), nysBase:price*0.004, nysAddl:nysAddl(price), toBuyer:false };
-    if(!state.sponsor) return plain;
+    if(!state.sponsor || state.transferShift!=="yes") return plain;
     plain.toBuyer=true;
     if(!state.grossup) return plain;
     if(state.type==="comm"){
@@ -451,7 +465,7 @@
       var lines = (state.loc==="nyc") ? [1e6,2e6,3e6,5e6,1e7,15e6,2e7,25e6] : [1e6];
       lines.forEach(function(L){ add(L,"mansion tax", mansionTax(price), mansionTax(L-1)); });
     }
-    if(state.sponsor){
+    if(state.sponsor && state.transferShift==="yes"){
       if(state.loc==="nyc") add(500000,"NYC transfer tax (RPTT)", rptt(price), rptt(499999));
       if(state.type==="comm") add(2000000,"NYS additional transfer tax", nysAddl(price), nysAddl(1999999));
       else add(3000000,"NYS additional transfer tax", nysAddl(price), nysAddl(2999999));
@@ -496,6 +510,7 @@
     var lTitle = has("lenderTitle") ? num($("lenderTitle").value) : (financing?lenderTitle(loan):0);
     var buyAtty = num($("buyAtty").value);
     var sponsorAtty = state.sponsor ? num($("sponsorAtty").value) : 0;
+    var condoFee = state.sponsor ? num($("condoFee").value) : 0;
     var bankAtty = financing ? num($("bankAtty").value) : 0;
     var titleSearch = (state.type==="coop") ? Math.min(num($("titleSearch").value),650) : num($("titleSearch").value);
     var recFees = num($("recFees").value);
@@ -523,13 +538,14 @@
     b += row("Survey", "residential parcel", survey);
     b += has("buyAtty") ? row("Purchaser's attorney","",buyAtty) : rowDash("Purchaser's attorney","enter your fee");
     if(state.sponsor) b += has("sponsorAtty") ? row("Sponsor's attorney","paid by purchaser",sponsorAtty) : rowDash("Sponsor's attorney","paid by purchaser — enter fee");
+    if(state.sponsor) b += has("condoFee") ? row("Condo creation fee","sponsor formation reimbursement",condoFee) : rowDash("Condo creation fee","negotiable — enter fee");
     b += row("Lender / bank attorney", "", bankAtty);
     $("buyerRows").innerHTML = b;
 
-    var buyClose = mansion+buyerTransfer+mt.borrower+oTitle+lTitle+titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+bankAtty;
+    var buyClose = mansion+buyerTransfer+mt.borrower+oTitle+lTitle+titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+condoFee+bankAtty;
     var cashToClose = down + buyClose;
 
-    var comp = { down:down, mansion:mansion, transfer:buyerTransfer, mrt:mt.borrower, title:oTitle+lTitle, other:titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+bankAtty };
+    var comp = { down:down, mansion:mansion, transfer:buyerTransfer, mrt:mt.borrower, title:oTitle+lTitle, other:titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+condoFee+bankAtty };
     var compTotal = (down+buyClose) || 1;
     var barHTML="", legHTML="";
     COMPO.forEach(function(seg){
@@ -564,8 +580,11 @@
     var custom = state.loc==="state" && $("county").value==="custom";
     $("customRateWrap").style.display = custom ? "block" : "none";
     $("loanWrap").style.display = state.fin==="yes" ? "block" : "none";
-    $("grossupWrap").style.display = state.sponsor ? "flex" : "none";
+    $("transferShiftWrap").style.display = state.sponsor ? "block" : "none";
+    $("grossupWrap").style.display = (state.sponsor && state.transferShift==="yes") ? "flex" : "none";
     $("sponsorAttyWrap").style.display = state.sponsor ? "block" : "none";
+    $("condoFeeWrap").style.display = state.sponsor ? "block" : "none";
+    if(state.sponsor && !$("advBuyer").open) $("advBuyer").open = true;
   }
 
   function bindAll(){
@@ -604,3 +623,4 @@
 </script>
 </body>
 </html>
+
