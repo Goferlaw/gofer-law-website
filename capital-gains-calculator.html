@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Estimate federal, New York State, and New York City capital gains taxes for a sale, including long-term and short-term treatment. Prepared by Gofer Law PLLC." />
+<title>Capital Gains Calculator — Gofer Law PLLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#16222e;
+    --ink-2:#243443;
+    --paper:#e8e5dd;
+    --card:#fcfbf9;
+    --line:#d9d4c8;
+    --muted:#5d6a74;
+    --brass:#a07d43;
+    --brass-deep:#83642f;
+    /* allocation ramp: cool grey-blue taxes, gold retained */
+    --seg-fed:#28414f;
+    --seg-niit:#4d6573;
+    --seg-ny:#7891a0;
+    --seg-nyc:#a9bcc4;
+    --seg-net:#a07d43;
+    --danger:#8a3b2f;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Hanken Grotesk",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,56px) clamp(16px,4vw,40px) 48px;}
+
+  /* ---------- header ---------- */
+  .masthead{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:16px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+    padding-bottom:18px;margin-bottom:clamp(24px,4vw,44px);
+  }
+  .firm{font-weight:600;letter-spacing:.02em;font-size:.92rem;color:var(--ink-2);}
+  .firm .ph{color:var(--brass-deep);}
+  .adv-tag{
+    font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);
+    padding:5px 10px;border-radius:2px;white-space:nowrap;
+  }
+  .eyebrow{
+    font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--brass-deep);font-weight:600;margin:0 0 12px;
+  }
+  h1{
+    font-family:"DM Serif Display",Georgia,serif;
+    font-weight:400;letter-spacing:-.01em;line-height:1.04;
+    font-size:clamp(2.1rem,6vw,3.5rem);
+    margin:0 0 14px;color:var(--ink);
+  }
+  h1 em{font-style:italic;color:var(--brass-deep);}
+  .lede{max-width:54ch;color:var(--ink-2);font-size:clamp(1rem,2.2vw,1.08rem);margin:0;}
+
+  /* ---------- layout ---------- */
+  .grid{
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+    gap:clamp(20px,3vw,40px);margin-top:clamp(28px,4vw,48px);
+    align-items:start;
+  }
+  @media (max-width:840px){ .grid{grid-template-columns:1fr;} }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:4px;padding:clamp(20px,3vw,30px);
+  }
+  .panel-label{
+    font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin:0 0 22px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .panel-label::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  /* ---------- form ---------- */
+  .field{margin-bottom:22px;}
+  .field:last-child{margin-bottom:0;}
+  label.fl{display:block;font-size:.82rem;font-weight:600;color:var(--ink-2);margin-bottom:8px;}
+  .hint{font-size:.74rem;color:var(--muted);font-weight:400;margin-top:6px;}
+
+  .money{position:relative;}
+  .money::before{
+    content:"$";position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-weight:600;pointer-events:none;
+  }
+  input[type=text]{
+    width:100%;font:inherit;font-weight:600;font-variant-numeric:tabular-nums;
+    padding:12px 14px 12px 26px;
+    border:1px solid var(--line);border-radius:3px;background:#fff;color:var(--ink);
+    transition:border-color .15s,box-shadow .15s;
+  }
+  input[type=text]:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(160,125,67,.15);}
+
+  .segmented{display:flex;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:#fff;}
+  .segmented button{
+    flex:1;font:inherit;font-weight:600;font-size:.84rem;
+    padding:11px 8px;border:0;background:transparent;color:var(--muted);cursor:pointer;
+    transition:background .15s,color .15s;
+  }
+  .segmented button + button{border-left:1px solid var(--line);}
+  .segmented button[aria-pressed="true"]{background:var(--ink);color:#fff;}
+  .segmented button:focus-visible{outline:2px solid var(--brass);outline-offset:-2px;}
+
+  select{
+    width:100%;font:inherit;font-weight:600;padding:12px 14px;
+    border:1px solid var(--line);border-radius:3px;background:#fff;color:var(--ink);
+    appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235d6a74' stroke-width='1.6' fill='none'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;
+  }
+  select:focus{outline:none;border-color:var(--brass);box-shadow:0 0 0 3px rgba(160,125,67,.15);}
+
+  .check{display:flex;align-items:center;gap:11px;cursor:pointer;user-select:none;}
+  .check input{width:18px;height:18px;accent-color:var(--brass-deep);cursor:pointer;}
+  .check span{font-size:.88rem;font-weight:600;color:var(--ink-2);}
+
+  /* ---------- result ---------- */
+  .result-panel{background:var(--ink);border-color:var(--ink);color:#eef1f3;position:relative;overflow:hidden;}
+  .result-panel .panel-label{color:#8fa0ac;}
+  .result-panel .panel-label::after{background:rgba(255,255,255,.14);}
+
+  .headline-figures{display:flex;gap:28px;flex-wrap:wrap;align-items:flex-end;margin-bottom:26px;}
+  .fig{min-width:0;}
+  .fig .cap{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#8fa0ac;margin-bottom:6px;}
+  .fig .val{
+    font-family:"DM Serif Display",Georgia,serif;font-weight:400;line-height:1;
+    font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+  }
+  .fig.net .val{font-size:clamp(2.3rem,7vw,3.1rem);color:var(--brass);}
+  .fig.rate .val{font-size:clamp(1.7rem,5vw,2.2rem);color:#eef1f3;}
+
+  /* allocation bar */
+  .bar{display:flex;height:16px;border-radius:3px;overflow:hidden;background:#0d161e;margin-bottom:6px;}
+  .bar span{height:100%;width:0;transition:width .6s cubic-bezier(.4,0,.2,1);}
+  .bar .s-fed{background:var(--seg-fed);}
+  .bar .s-niit{background:var(--seg-niit);}
+  .bar .s-ny{background:var(--seg-ny);}
+  .bar .s-nyc{background:var(--seg-nyc);}
+  .bar .s-net{background:var(--seg-net);}
+  .bar-scale{display:flex;justify-content:space-between;font-size:.68rem;color:#7a8b97;font-variant-numeric:tabular-nums;margin-bottom:24px;}
+
+  /* ledger */
+  .ledger{margin:0;width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;}
+  .ledger td{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:.92rem;}
+  .ledger tr:last-child td{border-bottom:0;}
+  .ledger .lab{color:#cdd6dc;}
+  .ledger .lab .dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:9px;vertical-align:baseline;}
+  .ledger .num{text-align:right;font-weight:600;color:#fff;white-space:nowrap;}
+  .ledger .sub td{padding-top:2px;border-bottom:0;font-size:.74rem;color:#8395a1;}
+  .ledger .total td{border-top:1px solid rgba(255,255,255,.22);border-bottom:0;padding-top:15px;font-size:1rem;}
+  .ledger .total .lab{color:#fff;font-weight:700;}
+  .ledger .total .num{color:var(--brass);font-weight:700;}
+  .ledger .gain td{padding-bottom:14px;}
+  .ledger .gain .num{font-size:1.05rem;}
+
+  .loss-note{
+    background:rgba(138,59,47,.16);border:1px solid rgba(138,59,47,.4);
+    color:#f3d9d3;border-radius:3px;padding:14px 16px;font-size:.86rem;
+  }
+  .loss-note b{color:#fff;}
+
+  .marg{font-size:.78rem;color:#8395a1;margin-top:18px;line-height:1.55;}
+
+  /* ---------- notes / disclaimer ---------- */
+  details.notes{margin-top:clamp(24px,4vw,40px);border-top:1px solid var(--line);padding-top:8px;}
+  details.notes summary{
+    cursor:pointer;list-style:none;padding:14px 0;
+    font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink-2);
+    display:flex;align-items:center;gap:10px;
+  }
+  details.notes summary::-webkit-details-marker{display:none;}
+  details.notes summary::before{content:"+";color:var(--brass-deep);font-size:1.1rem;line-height:1;}
+  details.notes[open] summary::before{content:"–";}
+  .notes-body{font-size:.88rem;color:var(--ink-2);max-width:72ch;padding-bottom:8px;}
+  .notes-body p{margin:0 0 12px;}
+  .notes-body ul{margin:0 0 12px;padding-left:18px;}
+  .notes-body li{margin-bottom:6px;}
+
+  footer.disc{
+    margin-top:clamp(28px,5vw,48px);border-top:1px solid var(--line);padding-top:22px;
+    font-size:.78rem;color:var(--muted);line-height:1.6;max-width:78ch;
+  }
+  footer.disc .firmline{font-weight:600;color:var(--ink-2);margin-bottom:8px;}
+  footer.disc .ph{color:var(--brass-deep);}
+
+  @media (prefers-reduced-motion:reduce){
+    .bar span{transition:none;}
+    input,select,.segmented button{transition:none;}
+  }
+
+  /* Gofer Law resource shell */
+  .sitebar{background:#071f33;color:#fff;border-bottom:1px solid rgba(160,125,67,.35)}
+  .sitebar-inner{max-width:1180px;margin:0 auto;padding:10px clamp(18px,4vw,48px);display:flex;justify-content:space-between;align-items:center;gap:18px}
+  .sitebar a{color:#fff;text-decoration:none;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+  .sitebar a:hover{text-decoration:underline;text-underline-offset:4px}
+  .sitebar .consult{color:#d6b56d}
+  .brandmast{background:#fff;border-bottom:1px solid #dde3e8}
+  .brandmast-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:center;padding:17px 24px 13px}
+  .page-logo{display:block;width:150px;height:150px;object-fit:contain}
+  .hero-mast{background:#fff;color:#071f33;padding:34px 26px 38px;border-bottom:3px solid #a07d43;text-align:center}
+  .hero-mast-inner{max-width:1080px;margin:0 auto}
+  .hero-mast .firm{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#a57822;margin:0 0 14px;font-weight:700}
+  .hero-mast h1{font-size:clamp(34px,5.4vw,56px);margin:0;color:#071f33}
+  .hero-mast h1 em{color:#a07d43}
+  .hero-mast .sub{margin:14px auto 0;max-width:66ch;color:#516274;font-size:18px}
+  .hero-mast .rule{height:1px;background:#e3ddcd;margin:22px auto 0;max-width:1080px}
+  .hero-mast .meta{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#667085;margin-top:14px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 26px}
+  .calculator-switcher{background:#f4f6f7;border-top:1px solid #e0e5e8;border-bottom:1px solid #d8dee3}
+  .calculator-switcher-inner{max-width:1180px;margin:0 auto;padding:20px clamp(18px,4vw,48px)}
+  .calculator-switcher h2{margin:0 0 11px;color:#071f33;font:700 12px/1.2 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
+  .calculator-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+  .calculator-links a{display:flex;align-items:center;justify-content:center;min-height:50px;padding:9px 12px;background:#fff;border:1px solid #c9d1d8;color:#071f33;text-decoration:none;text-align:center;font:700 13px/1.25 Arial,sans-serif}
+  .calculator-links a:hover,.calculator-links a[aria-current="page"]{background:#071f33;color:#fff;border-color:#071f33}
+  footer.disc{background:#fff;border-top:2px solid #071f33;padding:34px 26px;text-align:center;max-width:none;color:#516274}
+  footer.disc .footer-logo{display:block;width:150px;height:150px;object-fit:contain;margin:0 auto 12px}
+  footer.disc .firmline{color:#071f33;font-weight:700}
+  footer.disc .ph{color:#a57822}
+  @media(max-width:860px){.calculator-links{grid-template-columns:1fr 1fr}.page-logo,footer.disc .footer-logo{width:126px;height:126px}}
+  @media(max-width:460px){.sitebar-inner{padding-inline:14px}.sitebar a{font-size:10px}.calculator-links{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="sitebar" aria-label="Calculator navigation">
+  <div class="sitebar-inner">
+    <a href="index.html" aria-label="Back to Gofer Law homepage">← Back to Homepage</a>
+    <a class="consult" href="index.html#contact">Schedule a Consultation</a>
+  </div>
+</nav>
+<div class="brandmast">
+  <div class="brandmast-inner">
+    <a href="index.html" aria-label="Gofer Law homepage"><img class="page-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC"></a>
+  </div>
+</div>
+<header class="hero-mast">
+  <div class="hero-mast-inner">
+    <p class="firm">Client &amp; Broker Resource Center</p>
+    <h1>Capital Gains <em>Calculator</em></h1>
+    <p class="sub">Estimate the federal and New York tax on a capital gain before you sell — so the number that matters, what you keep, is on the table while there is still time to plan around it.</p>
+    <div class="rule"></div>
+    <div class="meta">
+      <span>2026 tax year</span>
+      <span>Federal capital gains</span>
+      <span>NIIT</span>
+      <span>New York State</span>
+      <span>New York City resident tax</span>
+    </div>
+  </div>
+</header>
+<section class="calculator-switcher" aria-labelledby="calculator-options"><div class="calculator-switcher-inner"><h2 id="calculator-options">Choose a calculator</h2><div class="calculator-links"><a href="resource-center.html">Overall Closing Costs</a><a href="buyer-closing-cost-calculator.html">Buyer’s Closing Costs</a><a href="seller-closing-cost-calculator.html">Seller’s Closing Costs</a><a href="1031-exchange-calculator.html">1031 Exchange</a><a href="capital-gains-calculator.html" aria-current="page">Capital Gains</a></div></div></section>
+<div class="wrap">
+
+  <div class="grid">
+
+    <!-- INPUTS -->
+    <section class="panel" aria-labelledby="inputs-h">
+      <p class="panel-label" id="inputs-h">The transaction</p>
+
+      <div class="field">
+        <label class="fl" for="status">Filing status</label>
+        <select id="status">
+          <option value="single">Single</option>
+          <option value="mfj" selected>Married filing jointly</option>
+          <option value="hoh">Head of household</option>
+          <option value="mfs">Married filing separately</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label class="fl" for="basis">Cost basis</label>
+        <div class="money"><input type="text" id="basis" inputmode="numeric" placeholder="500,000" value="500,000" /></div>
+        <div class="hint">What you originally paid, plus improvements and acquisition costs.</div>
+      </div>
+
+      <div class="field">
+        <label class="fl" for="proceeds">Sale price</label>
+        <div class="money"><input type="text" id="proceeds" inputmode="numeric" placeholder="1,200,000" value="1,200,000" /></div>
+        <div class="hint">Net of selling costs (commissions, transfer taxes).</div>
+      </div>
+
+      <div class="field">
+        <label class="fl" for="hold-long">Holding period</label>
+        <div class="segmented" role="group" aria-label="Holding period">
+          <button type="button" id="hold-long" data-term="long" aria-pressed="true">Held over 1 year</button>
+          <button type="button" id="hold-short" data-term="short" aria-pressed="false">Held 1 year or less</button>
+        </div>
+        <div class="hint">Long-term gains get preferential federal rates; short-term gains are taxed as ordinary income.</div>
+      </div>
+
+      <div class="field">
+        <label class="fl" for="income">Other taxable income</label>
+        <div class="money"><input type="text" id="income" inputmode="numeric" placeholder="300,000" value="300,000" /></div>
+        <div class="hint">Your taxable income before this gain. It sets which brackets the gain stacks into.</div>
+      </div>
+
+      <div class="field">
+        <label class="check" for="nyc">
+          <input type="checkbox" id="nyc" />
+          <span>New York City resident (adds city income tax)</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <section class="panel result-panel" aria-labelledby="result-h" aria-live="polite">
+      <p class="panel-label" id="result-h">The estimate</p>
+
+      <div id="result-main">
+        <div class="headline-figures">
+          <div class="fig net">
+            <div class="cap">You keep</div>
+            <div class="val" id="net-val">$0</div>
+          </div>
+          <div class="fig rate">
+            <div class="cap">Effective rate on gain</div>
+            <div class="val" id="rate-val">0%</div>
+          </div>
+        </div>
+
+        <div class="bar" aria-hidden="true">
+          <span class="s-fed" id="bar-fed"></span>
+          <span class="s-niit" id="bar-niit"></span>
+          <span class="s-ny" id="bar-ny"></span>
+          <span class="s-nyc" id="bar-nyc"></span>
+          <span class="s-net" id="bar-net"></span>
+        </div>
+        <div class="bar-scale"><span>$0</span><span id="bar-max">gain</span></div>
+
+        <table class="ledger">
+          <tbody id="ledger-body"><!-- filled by JS --></tbody>
+        </table>
+
+        <p class="marg" id="marg-note"></p>
+      </div>
+
+      <div id="result-loss" style="display:none">
+        <div class="loss-note" id="loss-text"></div>
+        <p class="marg">Capital losses offset capital gains; up to <b>$3,000</b> of net loss can offset ordinary income each year, with the remainder carried forward. The interaction with other positions is worth reviewing before year-end.</p>
+      </div>
+    </section>
+  </div>
+
+  <details class="notes">
+    <summary>How this is calculated &amp; what it leaves out</summary>
+    <div class="notes-body">
+      <p>This tool estimates the <em>incremental</em> tax created by a single sale — the difference between your tax with and without the gain — using 2026 rates.</p>
+      <ul>
+        <li><b>Long-term federal.</b> Gains on assets held more than one year are stacked on top of your other taxable income and taxed at 0%, 15%, or 20% depending on where they fall.</li>
+        <li><b>Short-term federal.</b> Gains on assets held one year or less are taxed as ordinary income at your marginal bracket.</li>
+        <li><b>Net Investment Income Tax.</b> An additional 3.8% applies to investment income once modified AGI exceeds $200,000 (single / head of household), $250,000 (joint), or $125,000 (separate). These thresholds are not indexed to inflation.</li>
+        <li><b>New York.</b> New York does not give capital gains a preferential rate — they are taxed as ordinary income under the state's brackets (and city brackets, for NYC residents).</li>
+      </ul>
+      <p><b>Simplifications.</b> The estimate uses taxable income as entered and does not model New York's tax-benefit recapture (supplemental tax), the alternative minimum tax, the 2026 middle-class rate phase-in, or special rates such as the 28% collectibles rate, the 25% unrecaptured §1250 rate on depreciated real estate, qualified small business stock (§1202), §121 home-sale exclusions, §1031 exchanges, or installment-sale treatment. Real planning turns on these details.</p>
+    </div>
+  </details>
+
+  <footer class="disc">
+    <img class="footer-logo" src="assets/gofer-law-monogram.png" alt="Gofer Law PLLC"><div class="firmline"><span class="ph">Gofer Law PLLC</span> · 2 Executive Blvd., Suite 303 · Suffern, NY 10901 · <span class="ph">845-935-7500</span></div>
+    This calculator provides general estimates for educational purposes only. It is not legal or tax advice, does not account for the full facts of any individual situation, and using it does not create an attorney-client relationship. Tax rates and thresholds change, and your actual liability may differ. Consult a qualified tax professional or attorney before acting on any transaction.
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 2026 tables ---------- */
+  // Federal ordinary brackets: [top-of-bracket, rate]
+  var ORD = {
+    single:[[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[650950,.35],[Infinity,.37]],
+    mfj:   [[24800,.10],[100800,.12],[211400,.22],[403550,.24],[512450,.32],[751600,.35],[Infinity,.37]],
+    hoh:   [[17700,.10],[67450,.12],[105700,.22],[201775,.24],[256200,.32],[650950,.35],[Infinity,.37]],
+    mfs:   [[12400,.10],[50400,.12],[105700,.22],[201775,.24],[256225,.32],[375800,.35],[Infinity,.37]]
+  };
+  // Federal long-term capital gains: top of 0% band and top of 15% band
+  var LTCG = {
+    single:{zero:49450,  fifteen:545500},
+    mfj:   {zero:98900,  fifteen:613700},
+    hoh:   {zero:66200,  fifteen:578650},
+    mfs:   {zero:49450,  fifteen:306850}
+  };
+  var NIIT_T = {single:200000, hoh:200000, mfj:250000, mfs:125000};
+  // New York State brackets (gains taxed as ordinary income)
+  var NY = {
+    single:[[8500,.04],[11700,.045],[13900,.0525],[80650,.055],[215400,.06],[1077550,.0685],[5000000,.0965],[25000000,.103],[Infinity,.109]],
+    mfj:   [[17150,.04],[23600,.045],[27900,.0525],[161550,.055],[323200,.06],[2155350,.0685],[5000000,.0965],[25000000,.103],[Infinity,.109]],
+    hoh:   [[12800,.04],[17650,.045],[20900,.0525],[107650,.055],[269300,.06],[1616450,.0685],[5000000,.0965],[25000000,.103],[Infinity,.109]]
+  };
+  NY.mfs = NY.single;
+  // NYC resident brackets
+  var NYC = {
+    single:[[12000,.03078],[25000,.03762],[50000,.03819],[Infinity,.03876]],
+    mfj:   [[21600,.03078],[45000,.03762],[90000,.03819],[Infinity,.03876]],
+    hoh:   [[14400,.03078],[30000,.03762],[60000,.03819],[Infinity,.03876]]
+  };
+  NYC.mfs = NYC.single;
+
+  /* ---------- helpers ---------- */
+  function taxOn(income, table){
+    if(income<=0) return 0;
+    var tax=0, lo=0, i;
+    for(i=0;i<table.length;i++){
+      var top=table[i][0], rate=table[i][1];
+      if(income>lo){ tax += (Math.min(income,top)-lo)*rate; }
+      lo=top;
+      if(income<=top) break;
+    }
+    return tax;
+  }
+  function ltcgBands(base, gain, fs){
+    var t=LTCG[fs], lo=base, hi=base+gain;
+    var a0  = Math.max(0, Math.min(hi,t.zero)   - lo);
+    var a15 = Math.max(0, Math.min(hi,t.fifteen)- Math.max(lo,t.zero));
+    var a20 = Math.max(0, hi - Math.max(lo,t.fifteen));
+    return {a0:a0,a15:a15,a20:a20,tax:a15*.15 + a20*.20};
+  }
+  function fmt(n){
+    n=Math.round(n);
+    return "$"+n.toLocaleString("en-US");
+  }
+  function pct(n){ return (n*100).toFixed(1).replace(/\.0$/,"")+"%"; }
+  function parseMoney(v){ var n=parseFloat(String(v).replace(/[^0-9.]/g,"")); return isNaN(n)?0:n; }
+  function groupNum(v){
+    var raw=String(v).replace(/[^0-9]/g,"");
+    if(raw==="") return "";
+    return parseInt(raw,10).toLocaleString("en-US");
+  }
+
+  /* ---------- elements ---------- */
+  var el = function(id){ return document.getElementById(id); };
+  var statusEl=el("status"), basisEl=el("basis"), proceedsEl=el("proceeds"),
+      incomeEl=el("income"), nycEl=el("nyc"),
+      longBtn=el("hold-long"), shortBtn=el("hold-short");
+  var term="long";
+
+  /* ---------- render ---------- */
+  function row(dot, label, value, cls){
+    var d = dot ? '<span class="dot" style="background:'+dot+'"></span>' : '';
+    return '<tr class="'+(cls||"")+'"><td class="lab">'+d+label+'</td><td class="num">'+value+'</td></tr>';
+  }
+
+  function compute(){
+    var fs=statusEl.value;
+    var basis=parseMoney(basisEl.value);
+    var proceeds=parseMoney(proceedsEl.value);
+    var income=parseMoney(incomeEl.value);
+    var nyc=nycEl.checked;
+    var gain=proceeds-basis;
+
+    var mainBox=el("result-main"), lossBox=el("result-loss");
+
+    if(gain<=0){
+      mainBox.style.display="none";
+      lossBox.style.display="block";
+      if(gain===0){
+        el("loss-text").innerHTML="At this sale price there is <b>no taxable gain</b> — your proceeds equal your basis.";
+      }else{
+        el("loss-text").innerHTML="This sale produces a <b>capital loss of "+fmt(-gain)+"</b> rather than a gain.";
+      }
+      return;
+    }
+    lossBox.style.display="none";
+    mainBox.style.display="block";
+
+    // Federal
+    var fed, fedLabel, bands=null;
+    if(term==="long"){
+      bands=ltcgBands(income,gain,fs);
+      fed=bands.tax;
+      fedLabel="Federal — long-term";
+    }else{
+      fed=taxOn(income+gain,ORD[fs])-taxOn(income,ORD[fs]);
+      fedLabel="Federal — short-term";
+    }
+
+    // NIIT (MAGI proxy = income + gain)
+    var niit=0.038*Math.max(0, Math.min(gain,(income+gain)-NIIT_T[fs]));
+
+    // New York State
+    var ny=taxOn(income+gain,NY[fs])-taxOn(income,NY[fs]);
+
+    // NYC
+    var nycTax = nyc ? (taxOn(income+gain,NYC[fs])-taxOn(income,NYC[fs])) : 0;
+
+    var total=fed+niit+ny+nycTax;
+    var net=gain-total;
+    var effRate=total/gain;
+
+    // headline
+    el("net-val").textContent=fmt(net);
+    el("rate-val").textContent=pct(effRate);
+
+    // bar
+    function w(x){ return (x/gain*100)+"%"; }
+    el("bar-fed").style.width=w(fed);
+    el("bar-niit").style.width=w(niit);
+    el("bar-ny").style.width=w(ny);
+    el("bar-nyc").style.width=w(nycTax);
+    el("bar-net").style.width=w(Math.max(net,0));
+    el("bar-max").textContent=fmt(gain);
+
+    // ledger
+    var html="";
+    html+=row("", "Capital gain", fmt(gain), "gain");
+    html+=row("var(--seg-fed)", fedLabel, "&minus;"+fmt(fed));
+    if(term==="long" && bands){
+      var parts=[];
+      if(bands.a0>0)  parts.push(fmt(bands.a0)+" @ 0%");
+      if(bands.a15>0) parts.push(fmt(bands.a15)+" @ 15%");
+      if(bands.a20>0) parts.push(fmt(bands.a20)+" @ 20%");
+      html+='<tr class="sub"><td colspan="2">'+parts.join(" · ")+'</td></tr>';
+    }
+    if(niit>0)   html+=row("var(--seg-niit)","Net investment income tax (3.8%)","&minus;"+fmt(niit));
+    html+=row("var(--seg-ny)","New York State","&minus;"+fmt(ny));
+    if(nyc)      html+=row("var(--seg-nyc)","New York City","&minus;"+fmt(nycTax));
+    html+=row("", "Total tax", "&minus;"+fmt(total), "total");
+    el("ledger-body").innerHTML=html;
+
+    // marginal note
+    var topRate;
+    if(term==="long"){ topRate = bands.a20>0?"20%":(bands.a15>0?"15%":"0%"); }
+    else { topRate = "your ordinary rate"; }
+    el("marg-note").innerHTML="The last dollar of this gain is taxed at "+(term==="long"?("a "+topRate+" federal rate"):topRate)
+      + (niit>0?", plus 3.8% NIIT":"")
+      + ", on top of New York"+(nyc?" State and City":"")+" tax.";
+  }
+
+  /* ---------- wiring ---------- */
+  function attachMoney(input){
+    input.addEventListener("input",function(){
+      var pos=input.selectionStart, len=input.value.length;
+      input.value=groupNum(input.value);
+      // best-effort caret keep
+      var diff=input.value.length-len;
+      try{ input.setSelectionRange(pos+diff,pos+diff); }catch(e){}
+      compute();
+    });
+  }
+  attachMoney(basisEl); attachMoney(proceedsEl); attachMoney(incomeEl);
+  statusEl.addEventListener("change",compute);
+  nycEl.addEventListener("change",compute);
+
+  function setTerm(t){
+    term=t;
+    var isLong=(t==="long");
+    longBtn.setAttribute("aria-pressed",isLong?"true":"false");
+    shortBtn.setAttribute("aria-pressed",isLong?"false":"true");
+    compute();
+  }
+  longBtn.addEventListener("click",function(){setTerm("long");});
+  shortBtn.addEventListener("click",function(){setTerm("short");});
+
+  compute();
+})();
+</script>
+</body>
+</html>
