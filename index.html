@@ -541,17 +541,11 @@ footer{background:var(--ink);color:rgba(244,240,230,0.7);padding:74px 0 38px;bor
 }
 
 /* One-time homepage logo welcome */
-.logo-intro{display:none;position:fixed;inset:0;z-index:1000;background:
-  radial-gradient(circle at 50% 46%,rgba(205,168,96,.22),transparent 0 22%,rgba(255,255,255,.96) 45%),
-  linear-gradient(135deg,#fff 0%,#f7f2e8 48%,#fff 100%);overflow:hidden;perspective:1200px}
+.logo-intro{display:none;position:fixed;inset:0;z-index:1000;background:#fff;overflow:hidden}
 .intro-ready .logo-intro{display:block}
-.logo-intro::before{content:"";position:absolute;inset:-18%;background:conic-gradient(from 215deg at 50% 50%,transparent 0 24%,rgba(205,168,96,.28) 32%,transparent 43%,transparent 100%);opacity:.75;filter:blur(24px);animation:introAurora 3.3s ease-in-out both}
-.logo-intro::after{content:"";position:absolute;left:-35%;top:0;width:32%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.65),rgba(205,168,96,.28),transparent);transform:skewX(-18deg);animation:introGlint 2.2s cubic-bezier(.2,.7,.2,1) .35s both}
-.logo-intro img{position:fixed;display:block;object-fit:contain;filter:contrast(1.18) brightness(1.06) drop-shadow(0 34px 34px rgba(22,34,58,.22)) drop-shadow(0 7px 0 rgba(205,168,96,.22));will-change:left,top,width,height,opacity,transform;transform-style:preserve-3d}
+.logo-intro img{position:fixed;display:block;object-fit:contain;filter:contrast(1.15) brightness(1.05);will-change:left,top,width,height,opacity}
 .intro-ready .nav .brand{opacity:0}
 .intro-ready .hero-door,.intro-ready .hero h1 .h-line > span{animation-play-state:paused!important}
-@keyframes introAurora{0%{transform:scale(.9) rotate(0deg);opacity:0}28%{opacity:.8}100%{transform:scale(1.12) rotate(18deg);opacity:.35}}
-@keyframes introGlint{0%{left:-42%;opacity:0}28%{opacity:.85}100%{left:110%;opacity:0}}
 @media (prefers-reduced-motion:reduce){.logo-intro{display:none!important}.intro-ready .nav .brand{opacity:1}}
 
 
@@ -1098,36 +1092,13 @@ footer{background:var(--ink);color:rgba(244,240,230,0.7);padding:74px 0 38px;bor
   flying.style.top=((window.innerHeight-size)/2)+'px';
   flying.style.width=size+'px';
   flying.style.height=size+'px';
-  flying.style.transform='perspective(900px) rotateX(10deg) rotateY(-14deg) translateZ(70px) scale(1.02)';
   requestAnimationFrame(function(){
     setTimeout(function(){
       var end=target.getBoundingClientRect();
       var move=flying.animate([
-        {
-          left:flying.style.left,
-          top:flying.style.top,
-          width:size+'px',
-          height:size+'px',
-          transform:'perspective(900px) rotateX(10deg) rotateY(-14deg) translateZ(70px) scale(1.02)',
-          filter:'contrast(1.18) brightness(1.08) drop-shadow(0 34px 34px rgba(22,34,58,.22)) drop-shadow(0 7px 0 rgba(205,168,96,.22))'
-        },
-        {
-          left:(window.innerWidth/2-size*.46)+'px',
-          top:(window.innerHeight/2-size*.52)+'px',
-          width:(size*.92)+'px',
-          height:(size*.92)+'px',
-          transform:'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(38px) scale(1)',
-          filter:'contrast(1.22) brightness(1.12) drop-shadow(0 38px 42px rgba(22,34,58,.24)) drop-shadow(0 0 30px rgba(205,168,96,.30))'
-        },
-        {
-          left:end.left+'px',
-          top:end.top+'px',
-          width:end.width+'px',
-          height:end.height+'px',
-          transform:'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0) scale(1)',
-          filter:'contrast(1.15) brightness(1.05) drop-shadow(0 8px 14px rgba(22,34,58,.10))'
-        }
-      ],{duration:1700,easing:'cubic-bezier(.76,0,.16,1)',fill:'forwards'});
+        {left:flying.style.left,top:flying.style.top,width:size+'px',height:size+'px'},
+        {left:end.left+'px',top:end.top+'px',width:end.width+'px',height:end.height+'px'}
+      ],{duration:1450,easing:'cubic-bezier(.77,0,.18,1)',fill:'forwards'});
       move.onfinish=function(){
         target.parentElement.style.opacity='1';
         var fade=intro.animate([{opacity:1},{opacity:0}],{duration:420,easing:'ease-out',fill:'forwards'});
