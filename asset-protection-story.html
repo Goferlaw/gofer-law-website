@@ -556,5 +556,48 @@
   render(0);
 })();
 </script>
+<script>
+/* Narration-synchronized player: recorded audio is the master clock. */
+(() => {
+  const cues=[
+    {scene:'s1',cap:'Meet David: a home, two rental properties, and savings — <em>all held personally.</em>'},
+    {cap:'No coordinated ownership plan. “I’ll get to it.”'},
+    {scene:'s2',cap:'One icy morning, a visitor slips at one of the rentals.'},
+    {cap:'Weeks later, David is named <em>personally</em> in a lawsuit.'},
+    {scene:'s3',cap:'The claim may exceed the limits of his liability coverage.'},
+    {cap:'If insurance is not enough, personally held assets may face exposure — subject to the facts and applicable law.'},
+    {scene:'s4',cap:'A judgment can trigger powerful enforcement tools.'},
+    {cap:'Depending on the circumstances, creditors may pursue liens, restraints, or other remedies.'},
+    {cap:'The exact consequences depend on the judgment, the asset, available exemptions, and current New York law.'},
+    {scene:'s5',cap:'Move assets after a claim appears? That may be too late.'},
+    {cap:'Last-minute transfers can be challenged or unwound — and may create additional problems.'},
+    {scene:'s6',cap:'Thoughtful planning happens before the storm: ownership structures, insurance, trusts, agreements, and ongoing review.'},
+    {scene:'s7',cap:'<em>Legal strategy designed to fit. Built to last.</em>'}
+  ];
+  const scenes=[...document.querySelectorAll('.scene')],cap=document.getElementById('cap'),fill=document.getElementById('fill'),clock=document.getElementById('clock');
+  const oldBtn=document.getElementById('btn'),btn=oldBtn.cloneNode(true);oldBtn.replaceWith(btn);
+  const oldSound=document.getElementById('sound'),sound=oldSound.cloneNode(true);oldSound.replaceWith(sound);
+  const oldTrack=document.getElementById('track'),track=oldTrack.cloneNode(true);oldTrack.replaceWith(track);const newFill=track.querySelector('.fill');
+  const audio=cues.map((_,i)=>{const a=new Audio(`narration/cue-${String(i).padStart(2,'0')}.mp3`);a.preload='auto';return a});
+  let offsets=[],total=84,index=0,playing=false,narrationOn=true,ready=null,raf=0,silentTimer=0;
+  const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  function prepare(){if(ready)return ready;ready=Promise.all(audio.map(a=>new Promise(resolve=>{if(Number.isFinite(a.duration))return resolve();const done=()=>resolve();a.addEventListener('loadedmetadata',done,{once:true});a.addEventListener('error',done,{once:true});a.load()}))).then(()=>{let sum=0;offsets=audio.map(a=>{const at=sum;sum+=(Number.isFinite(a.duration)?a.duration:6)+.35;return at});total=sum-.35;track.setAttribute('aria-valuemax',Math.round(total));updateProgress();});return ready}
+  function sceneFor(i){for(let n=i;n>=0;n--)if(cues[n].scene)return cues[n].scene;return's1'}
+  function show(i){index=Math.max(0,Math.min(cues.length-1,i));scenes.forEach(s=>s.classList.toggle('on',s.id===sceneFor(index)));cap.innerHTML=cues[index].cap;cap.classList.toggle('show',!!cues[index].cap);updateProgress()}
+  function position(){return(offsets[index]||0)+(audio[index].currentTime||0)}
+  function updateProgress(){const p=position();newFill.style.width=`${Math.min(100,p/total*100)}%`;clock.textContent=`${fmt(p)} / ${fmt(total)}`;track.setAttribute('aria-valuenow',Math.round(p))}
+  function animate(){if(!playing)return;updateProgress();raf=requestAnimationFrame(animate)}
+  async function playCurrent(){await prepare();clearTimeout(silentTimer);show(index);playing=true;btn.textContent='❚❚ Pause';if(narrationOn){try{await audio[index].play()}catch(e){}}else silentTimer=setTimeout(advance,Math.max(0,((audio[index].duration||6)-audio[index].currentTime)*1000));cancelAnimationFrame(raf);raf=requestAnimationFrame(animate)}
+  function pause(){playing=false;clearTimeout(silentTimer);audio[index].pause();cancelAnimationFrame(raf);btn.textContent='▶ Resume';updateProgress()}
+  function advance(){clearTimeout(silentTimer);audio[index].pause();audio[index].currentTime=0;if(index<cues.length-1){index++;show(index);if(playing)playCurrent()}else{playing=false;newFill.style.width='100%';clock.textContent=`${fmt(total)} / ${fmt(total)}`;btn.textContent='↻ Replay'}}
+  audio.forEach((a,i)=>a.addEventListener('ended',()=>{if(i===index&&playing)advance()}));
+  btn.addEventListener('click',()=>{if(playing)return pause();if(index===cues.length-1&&audio[index].ended){index=0;audio.forEach(a=>a.currentTime=0)}playCurrent()});
+  sound.addEventListener('click',()=>{narrationOn=!narrationOn;sound.textContent=narrationOn?'🔊':'🔇';sound.setAttribute('aria-label',narrationOn?'Turn narration off':'Turn narration on');clearTimeout(silentTimer);if(!narrationOn){audio[index].pause();if(playing)silentTimer=setTimeout(advance,Math.max(0,((audio[index].duration||6)-audio[index].currentTime)*1000))}else if(playing)audio[index].play().catch(()=>{})});
+  async function seekTo(target){await prepare();const wasPlaying=playing;audio[index].pause();let i=offsets.length-1;for(let n=0;n<offsets.length;n++){const end=offsets[n]+(Number.isFinite(audio[n].duration)?audio[n].duration:6);if(target<=end){i=n;break}}index=i;audio[index].currentTime=Math.max(0,Math.min(audio[index].duration||6,target-offsets[index]));show(index);if(wasPlaying)playCurrent()}
+  track.addEventListener('click',e=>{const r=track.getBoundingClientRect();seekTo((e.clientX-r.left)/r.width*total)});
+  track.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();seekTo(Math.max(0,Math.min(total,position()+(e.key==='ArrowRight'?5:-5))))}});
+  btn.textContent='▶ Play';show(0);prepare();
+})();
+</script>
 </body>
 </html>
