@@ -68,6 +68,17 @@ article em{font-style:italic}
 .myth .m:last-child{border-bottom:1px solid var(--rule)}
 .myth .q{font-weight:600;color:var(--ink);font-size:20px}
 .myth .a{margin-top:6px;color:var(--ink-soft)}
+.story-feature{margin:58px 0 72px;padding:38px;background:var(--linen);border-top:2px solid var(--gold);box-shadow:var(--shadow);max-width:1080px}
+.story-feature .eyebrow{display:block;margin-bottom:12px}
+.story-feature h2{margin:0;max-width:19em;font-size:clamp(30px,3.5vw,42px)}
+.story-feature .story-intro{max-width:43em;margin:14px 0 26px;font-size:19px;color:var(--ink-soft)}
+.story-frame{position:relative;width:100%;aspect-ratio:860/690;background:var(--ink);border:1px solid rgba(22,34,58,.18);box-shadow:0 20px 45px -24px rgba(22,34,58,.55);overflow:hidden}
+.story-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--ink)}
+.story-after{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:22px;padding-top:20px;border-top:1px solid var(--rule)}
+.story-after p{margin:0;max-width:31em;font-size:16px}
+.story-link{flex:0 0 auto;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--gold-deep);padding-bottom:3px;color:var(--ink)}
+.story-link:hover{color:var(--gold-deep)}
+@media(max-width:760px){.story-feature{margin:44px -8px 58px;padding:24px 16px}.story-frame{aspect-ratio:9/11}.story-after{align-items:flex-start;flex-direction:column;gap:14px}}
 .cta{background:var(--ink);color:var(--paper);padding:80px 0;margin-top:70px;position:relative}
 .cta::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold-deep)}
 .cta .eyebrow{color:var(--gold-pale);display:block;margin-bottom:16px}
@@ -134,6 +145,19 @@ footer{background:var(--ink);color:rgba(244,240,230,.7);padding:64px 0 38px;bord
     <h2>The clock you cannot reset</h2>
     <p>Everything that follows depends on one rule of timing. Under New York's adoption of the Uniform Voidable Transactions Act, a transfer made to <strong>hinder, delay, or defraud</strong> a creditor — or made for less than fair value while insolvent — can be <strong>unwound by a court</strong>. Move the house into a trust the week a guaranty is called, and you have not protected it; you have handed the creditor a second claim and a credibility problem.</p>
     <p>For the leveraged investor this is decisive, because your guaranties are <em>already</em> signed. The protection has to be built while every deal is performing and no claim is on the horizon. The worst day to start is the day a lender sends a default notice. The best day was years earlier — and the second-best is today, while things are calm.</p>
+
+    <section class="story-feature" aria-labelledby="story-title">
+      <span class="eyebrow">A brief illustrated case study</span>
+      <h2 id="story-title">See what “too late” can look like.</h2>
+      <p class="story-intro">One property-level claim can become a personal financial problem when ownership, insurance, and planning are not coordinated in advance. This fictional story illustrates why the timing matters.</p>
+      <div class="story-frame">
+        <iframe src="asset-protection-story.html" title="When There Is No Plan — an illustrated Gofer Law asset-protection story" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+      <div class="story-after">
+        <p>The illustration is general information, not legal advice. The right structure depends on your assets, obligations, insurance, family, and goals.</p>
+        <a class="story-link" href="index.html#contact">Discuss your planning options →</a>
+      </div>
+    </section>
 
     <h2>Two buckets: separate the safe from the at-risk</h2>
     <p>Sound planning for an investor begins by sorting everything you own into two worlds and building a wall between them, so that trouble in one cannot drain the other:</p>
