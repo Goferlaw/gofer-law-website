@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deal Terms — Gofer Law PLLC</title>
+<meta name="description" content="Create, review, save, and send a concise real estate deal term sheet to Gofer Law PLLC for contract preparation." />
+<link rel="canonical" href="https://www.goferlaw.com/deal-terms.html" />
+<meta property="og:title" content="Deal Terms — Gofer Law PLLC" />
+<meta property="og:description" content="A guided one-page intake for residential and commercial real estate deal terms." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.goferlaw.com/deal-terms.html" />
+<meta property="og:image" content="https://www.goferlaw.com/assets/deal-terms-og.png" />
+<meta property="og:image:alt" content="Gofer Law PLLC Deal Terms — Broker intake and contract preparation" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Deal Terms — Gofer Law PLLC" />
+<meta name="twitter:description" content="A guided one-page intake for residential and commercial real estate deal terms." />
+<meta name="twitter:image" content="https://www.goferlaw.com/assets/deal-terms-og.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#12294F; --navy-deep:#0B1A33; --navy-soft:#294872;
+  --gold:#C08B2E; --gold-pale:#F0E2C2;
+  --parchment:#F6F2E9; --paper:#fff; --rule:#DCD3C0; --rule-soft:#EBE4D6;
+  --ink:#1C1B18; --muted:#6E6A61; --danger:#9B2C24;
+  --serif:'Cormorant Garamond',Garamond,serif;
+  --sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--parchment);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+
+.sheetwrap{max-width:920px;margin:0 auto;padding:22px 18px 108px}
+.card{background:var(--paper);border:1px solid var(--rule);box-shadow:0 1px 2px rgba(18,41,79,.06),0 14px 34px -22px rgba(18,41,79,.3)}
+
+/* letterhead — logo intentionally small */
+.top{display:flex;align-items:center;gap:16px;padding:16px 22px;border-bottom:1px solid var(--rule)}
+.top img{width:118px;height:auto;flex:none}
+.top .tt{flex:1;min-width:0;border-left:1px solid var(--rule-soft);padding-left:16px}
+.top h1{font-family:var(--serif);font-size:23px;font-weight:600;color:var(--navy);margin:0;line-height:1.15}
+.top .sub{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.top .ref{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);background:var(--gold-pale);border:1px solid #E3D2A9;padding:4px 9px;white-space:nowrap}
+@media(max-width:560px){
+  .top{flex-wrap:wrap;gap:10px;padding:14px 16px}
+  .top img{width:96px}
+  .top .tt{border:none;padding-left:0;flex-basis:100%;order:3}
+}
+
+.lede{padding:13px 22px;background:#FBFAF7;border-bottom:1px solid var(--rule-soft);color:#46443E;font-size:13px}
+.lede b{color:var(--navy);font-weight:600}
+
+.pad{padding:16px 22px}
+.band{display:flex;align-items:center;gap:10px;margin:20px 0 10px}
+.band:first-child{margin-top:0}
+.band h2{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin:0;font-weight:500;white-space:nowrap}
+.band i{flex:1;height:1px;background:var(--rule-soft)}
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:11px 12px}
+.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.f label{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--navy-soft)}
+.f label .rq{color:var(--gold)}
+input,select,textarea{width:100%;font-family:var(--sans);font-size:14px;color:var(--ink);background:#FCFBF8;border:1px solid var(--rule);border-radius:2px;padding:7px 9px;transition:.14s}
+textarea{min-height:62px;resize:vertical;line-height:1.45}
+select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:26px;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6'%3E%3Cpath d='M.5.5l4 4 4-4' fill='none' stroke='%2312294F' stroke-width='1.3'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 9px center}
+input:focus,select:focus,textarea:focus{outline:none;background:#fff;border-color:var(--navy-soft);box-shadow:0 0 0 3px rgba(41,72,114,.12)}
+input.money{font-family:var(--mono)}
+.f.bad input,.f.bad select{border-color:var(--danger);background:#FDF7F6}
+.derived{font-family:var(--mono);font-size:10.5px;color:#2E6B4F;min-height:13px}
+
+/* transaction type pills */
+.pills{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(max-width:560px){.pills{grid-template-columns:repeat(2,1fr)}}
+.pill{position:relative;border:1px solid var(--rule);background:#FCFBF8;padding:9px 11px;cursor:pointer;transition:.14s;text-align:left}
+.pill:hover{border-color:var(--navy-soft)}
+.pill input{position:absolute;opacity:0;width:1px;height:1px}
+.pill b{display:block;font-family:var(--serif);font-size:16px;color:var(--navy);font-weight:600;line-height:1.2}
+.pill s{display:block;text-decoration:none;font-size:10.5px;color:var(--muted);margin-top:1px}
+.pill:has(input:checked){border-color:var(--navy);background:#fff;box-shadow:inset 3px 0 0 var(--gold)}
+
+/* flag chips */
+.chips{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px}
+.chip{position:relative;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);background:#FCFBF8;padding:5px 10px;cursor:pointer;font-size:12.5px;user-select:none;transition:.14s}
+.chip:hover{border-color:var(--navy-soft)}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip .bx{width:11px;height:11px;border:1px solid var(--navy-soft);background:#fff;flex:none;display:grid;place-items:center}
+.chip .bx::after{content:"";width:5px;height:5px;background:var(--gold);transform:scale(0);transition:transform .13s}
+.chip:has(input:checked){border-color:var(--navy);background:#F4F7FC;color:var(--navy);font-weight:500}
+.chip input:checked+.bx::after{transform:scale(1)}
+.chip input:focus-visible+.bx{box-shadow:0 0 0 3px rgba(41,72,114,.25)}
+
+.attest{grid-column:1/-1;display:flex;gap:9px;align-items:flex-start;border-top:1px solid var(--rule-soft);padding-top:13px;margin-top:4px;font-size:12.5px;color:#46443E;cursor:pointer}
+.attest input{width:auto;margin-top:2px;accent-color:var(--navy)}
+.attest.bad{color:var(--danger)}
+
+.fineprint{padding:14px 22px 18px;border-top:1px solid var(--rule-soft);font-size:11px;color:var(--muted);line-height:1.55}
+.fineprint b{color:var(--navy)}
+.fineprint .fl{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);margin-top:8px}
+
+/* action bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--paper);border-top:1px solid var(--rule);
+  padding:9px 16px calc(9px + env(safe-area-inset-bottom));display:flex;align-items:center;gap:9px;
+  box-shadow:0 -6px 22px -14px rgba(18,41,79,.4)}
+.bar .st{flex:1;min-width:0}
+.bar .st .k{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.bar .st .v{font-size:12.5px;color:var(--navy);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-family:var(--sans);font-size:13.5px;font-weight:500;
+  padding:10px 15px;border:1px solid transparent;border-radius:2px;cursor:pointer;transition:.14s;white-space:nowrap}
+.btn-p{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-p:hover{background:var(--navy-deep)}
+.btn-o{background:#fff;color:var(--navy);border-color:var(--navy)}
+.btn-o:hover{background:#F4F7FC}
+.btn-t{background:transparent;border-color:var(--rule);color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:8px 11px}
+.btn-t:hover{border-color:var(--navy-soft);color:var(--navy)}
+@media(max-width:560px){.bar .st{display:none}.bar .btn{flex:1;padding:10px 8px}#bQuickPrint{display:none}}
+
+/* review overlay */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(11,26,51,.55);display:none;overflow:auto;padding:26px 16px 26px}
+.ov.on{display:block}
+.ov .box{max-width:720px;margin:0 auto;background:var(--paper);border:1px solid var(--rule);box-shadow:0 24px 60px -20px rgba(0,0,0,.5)}
+.ov .oh{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 18px;background:var(--navy);color:#fff;position:sticky;top:0;z-index:2}
+.ov .oh span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.ov .oh button{background:none;border:1px solid rgba(255,255,255,.4);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:6px 11px;cursor:pointer}
+.ov .oh button:hover{background:rgba(255,255,255,.12)}
+.ov .oa{display:flex;flex-wrap:wrap;gap:8px;padding:14px 18px;border-top:1px solid var(--rule);background:#FBFAF7}
+.ov .oa .btn-p,.ov .oa .btn-o{flex:1 1 190px}
+.ov .oa .btn-t{flex:0 0 auto}
+.ov .note{flex-basis:100%;font-size:11.5px;color:var(--muted);margin:2px 0 0}
+
+/* term sheet */
+.ts{padding:22px 24px}
+.ts .dh{text-align:center;margin-bottom:16px}
+.ts .tsl{display:block;width:112px;height:auto;margin:0 auto 8px}
+.ts .dh h3{font-family:var(--serif);font-size:19px;color:var(--navy);margin:0;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.ts .dh p{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:5px 0 0}
+.ts .dh .dv{display:flex;align-items:center;justify-content:center;gap:10px;max-width:180px;margin:11px auto 0}
+.ts .dh .dv i{flex:1;height:1px;background:var(--gold)}
+.ts .dh .dv u{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);text-decoration:none}
+.ts h4{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--rule-soft);font-weight:500}
+.ts .r{display:grid;grid-template-columns:minmax(110px,34%) 1fr;gap:4px 12px;padding:2px 0;font-size:12.5px;align-items:baseline}
+.ts .r span{color:var(--muted)}
+.ts .r em{font-style:normal;font-weight:500;overflow-wrap:anywhere}
+.ts .r em.n{font-family:var(--mono)}
+.ts .oi{border:1px solid #E3D2A9;background:#FDF9EF;padding:10px 13px;margin:4px 0 12px}
+.ts .oi h5{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#8A6A1C;margin:0 0 5px;font-weight:500}
+.ts .oi ul{margin:0;padding-left:15px;color:#5C4A20;font-size:12px}
+.ts .fp{font-size:10px;color:var(--muted);border-top:1px solid var(--rule-soft);padding-top:8px;margin-top:14px;line-height:1.5}
+
+.toast{position:fixed;left:50%;bottom:76px;transform:translate(-50%,14px);background:var(--navy-deep);color:#fff;padding:9px 17px;
+  font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:90;max-width:calc(100vw - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+*:focus-visible{outline:2px solid var(--navy-soft);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* Gofer Law resource navigation */
+.sitebar{background:#071f33;color:#fff;border-bottom:1px solid rgba(192,139,46,.5)}
+.sitebar-inner{max-width:920px;margin:0 auto;padding:11px 18px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.sitebar a{color:#fff;text-decoration:none;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase}
+.sitebar a:hover,.sitebar a:focus-visible{color:var(--gold-pale);text-decoration:underline;text-underline-offset:4px}
+.sitebar .consult{border:1px solid var(--gold);color:var(--gold-pale);padding:8px 11px;text-decoration:none}
+@media(max-width:480px){.sitebar-inner{padding-inline:14px}.sitebar a{font-size:9px;letter-spacing:.06em}.sitebar .consult{padding:7px 8px}}
+
+@media print{
+  body{background:#fff}
+  .sheetwrap,.bar,.toast,.ov .oh,.ov .oa{display:none!important}
+  .ov{display:block!important;position:static;background:none;padding:0;overflow:visible}
+  .ov .box{border:none;box-shadow:none;max-width:none}
+  .ts{padding:0}
+  .ts h4{margin-top:11px}
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DLEC16BPPN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DLEC16BPPN');
+</script>
+</head>
+<body>
+
+<nav class="sitebar" aria-label="Resource navigation">
+  <div class="sitebar-inner">
+    <a href="resource-center.html">← Resource Center</a>
+    <a class="consult" href="index.html#contact">Schedule a Consultation</a>
+  </div>
+</nav>
+
+<div class="sheetwrap">
+ <div class="card">
+  <div class="top">
+    <img src="data:image/webp;base64,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" alt="Gofer Law PLLC">
+    <div class="tt">
+      <h1>Deal Terms</h1>
+      <div class="sub">Broker intake &middot; Contract preparation</div>
+    </div>
+    <div class="ref">Ref <span id="refNo">&mdash;</span></div>
+  </div>
+
+  <div class="lede">
+    Give us the sale in one page. Only four items are required &mdash; <b>your name, the type, the address, and the number</b>. Anything left blank comes to us as an item to confirm, not a problem.
+  </div>
+
+  <div class="pad">
+    <form id="form" novalidate></form>
+  </div>
+
+  <div class="fineprint">
+    <b>Please read.</b> Submitting this form does not create an attorney&#8211;client relationship and is neither a request for nor the giving of legal advice. No engagement exists until Gofer Law PLLC issues a written retainer signed by the client. The term sheet produced here summarises business terms only &mdash; it is not an offer, not binding on anyone, and subject in all respects to a formal written contract executed and delivered by the parties. Please do not send account numbers, social security numbers, or wire instructions through this form.
+    <div class="fl">Gofer Law PLLC &middot; Alexander Gofer, Esq. &middot; Admitted in New York</div>
+  </div>
+ </div>
+</div>
+
+<div class="bar">
+  <div class="st"><div class="k">Status</div><div class="v" id="barVal">Nothing entered yet</div></div>
+  <button type="button" class="btn btn-t" id="bReset">Clear</button>
+  <button type="button" class="btn btn-o" id="bQuickPrint">Print</button>
+  <button type="button" class="btn btn-p" id="bReview">Review &amp; send</button>
+</div>
+
+<div class="ov" id="ov">
+  <div class="box">
+    <div class="oh"><span>Term sheet &mdash; check it, then send</span><button type="button" id="bClose">Back</button></div>
+    <div class="ts" id="ts"></div>
+    <div class="oa">
+      <button type="button" class="btn btn-p" id="bEmail">Send by email</button>
+      <button type="button" class="btn btn-o" id="bWa">Send by WhatsApp</button>
+      <button type="button" class="btn btn-t" id="bSave">Save</button>
+      <button type="button" class="btn btn-t" id="bPrint">Print</button>
+      <button type="button" class="btn btn-t" id="bCopy">Copy</button>
+      <p class="note" id="oNote">Email goes to Alexander@Goferlaw.com &middot; WhatsApp to 516-503-7605. <b>Save</b> keeps a copy of this term sheet on your device; <b>Print</b> gives you a paper copy or a PDF. Your entries are held on this device, so you can close the page and come back to it.</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   GOFER LAW PLLC — ONE-PAGE BROKER INTAKE
+   SETTINGS — edit these three values and nothing else.
+   ============================================================ */
+const CONFIG = {
+  email: "Alexander@Goferlaw.com",
+  // Full international format, digits only, no "+". 15165037605 = 516-503-7605.
+  whatsappNumber: "15165037605",
+  // Optional Zapier / Make / Formspree endpoint for hands-off delivery. "" = off.
+  webhookUrl: ""
+};
+
+const hasSolar    = (s)=> /^Yes|^Solar hot/.test(s.solarPresent||"");
+const tenanted    = (s)=> /tenanc|Partially occupied/.test(s.possession||"");
+const sellerStays = (s)=> /Seller remains/.test(s.possession||"");
+const earlyEntry  = (s)=> /before closing/.test(s.possession||"");
+
+/* w = columns out of 12 */
+const SCHEMA = [
+{ band:"The deal", fields:[
+  {id:"txType", type:"pills", req:true, ts:"Transaction", opts:[
+    {v:"res_sale",n:"Residential",d:"1\u20134 family, condo, co-op"},
+    {v:"com_sale",n:"Commercial",d:"Multifamily, mixed-use, retail, land"}]},
+  {id:"representing", label:"We represent", type:"select", w:6, crit:true,
+   opts:["Purchaser","Seller","Not yet decided"]},
+  {id:"urgency", label:"Contract needed", type:"select", w:6,
+   opts:["Today","Within 48 hours","This week","Next week","No fixed deadline"]}
+]},
+{ band:"Property", fields:[
+  {id:"propAddress", label:"Address", type:"text", w:6, req:true},
+  {id:"propCity", label:"City / town", type:"text", w:3},
+  {id:"propZip", label:"ZIP", type:"text", w:1},
+  {id:"propCounty", label:"County", type:"text", w:2},
+  {id:"propType", label:"Type", type:"select", w:5, crit:true,
+   opts:["One-family","Two-family","Three or four family","Five or more units","Condominium","Co-op","Mixed-use","Retail","Office","Industrial","Vacant land","Development site"]},
+  {id:"propSBL", label:"Block / lot", type:"text", w:3},
+  {id:"propNotes", label:"Notes on the property", type:"text", w:4,
+   ph:"Age, condition, anything unusual"}
+]},
+{ band:"Possession at closing", fields:[
+  {id:"possession", label:"Property is delivered", type:"select", w:6, crit:true,
+   opts:["Vacant and broom clean","Subject to existing tenancies","Partially occupied \u2014 some units vacant",
+         "Seller remains after closing","Purchaser needs access before closing"]},
+  {id:"possessionNote", label:"Anything unusual about possession", type:"text", w:6,
+   ph:"Holdover, family member in residence, unit being renovated"},
+
+  {id:"tenantCount", label:"Units occupied", type:"text", w:3, show:tenanted, ph:"3 of 4"},
+  {id:"tenancyType", label:"Tenancies are", ts:"Tenancies", type:"chips", show:tenanted, opts:[
+    "Written leases","Oral / handshake","Month-to-month","Regulated \u2014 stabilized or controlled",
+    "Section 8 / voucher","Family member or related party","Commercial tenant","Holdover / eviction pending",
+    "Tenant has an option or right of first refusal"]},
+  {id:"rentRoll", label:"Rent roll and leases", type:"select", w:3, crit:true, show:tenanted,
+   opts:["Provided with this submission","To follow","Seller will not provide","None exist"]},
+  {id:"securityDeps", label:"Security deposits", type:"select", w:3, show:tenanted,
+   opts:["Transferred to purchaser at closing","Credited against the price","Returned by seller","None held","Unknown"]},
+  {id:"tenantVacate", label:"Any tenant to vacate first?", type:"select", w:3, show:tenanted,
+   opts:["No \u2014 all stay","Yes \u2014 before closing, at seller's risk","Yes \u2014 buyout agreed","To be negotiated"]},
+
+  {id:"pcoDays", label:"Days seller stays", type:"text", w:3, crit:true, show:sellerStays},
+  {id:"pcoPerDiem", label:"Use and occupancy per day", type:"money", w:3, crit:true, show:sellerStays},
+  {id:"pcoEscrow", label:"Escrow held back", type:"money", w:3, crit:true, show:sellerStays},
+  {id:"pcoHolder", label:"Escrow held by", type:"select", w:3, show:sellerStays,
+   opts:["Seller's attorney","Purchaser's attorney","Title company","To be determined"]},
+  {id:"pcoTerms", label:"Occupancy terms", ts:"Post-closing occupancy", type:"chips", show:sellerStays, opts:[
+    "Seller carries insurance during occupancy","Purchaser's lender must consent",
+    "Escrow forfeited if seller holds over","No landlord-tenant relationship created",
+    "Property delivered in the same condition","Seller pays utilities",
+    "Written occupancy agreement required","No firm move-out date yet"]},
+
+  {id:"earlyAccess", label:"Pre-closing access \u2014 purpose and dates", type:"text", w:12, show:earlyEntry,
+   ph:"Storage, renovation, measuring \u2014 and whether a license agreement is needed"}
+]},
+{ band:"Personal property included", fields:[
+  {id:"ppIncluded", label:"Included in the sale", ts:"Included", type:"chips", opts:[
+    "Refrigerator","Stove / oven","Dishwasher","Microwave","Washer","Dryer",
+    "Window air conditioners","Central air conditioning","Light fixtures","Chandeliers",
+    "Ceiling fans","Wall-to-wall carpeting","Window treatments and blinds","Shades and rods",
+    "Storm windows and screens","Shed","Above-ground pool","Pool and spa equipment",
+    "Alarm or camera system","Smart thermostat and doorbell","Generator","Swing set or play equipment",
+    "Basketball hoop","Mailbox","Furniture per separate list","Equipment and FF&E per schedule"]},
+  {id:"ppIncludedOther", label:"Anything else included", type:"text", w:6,
+   ph:"List it precisely \u2014 it will be written into the contract"},
+  {id:"ppCondition", label:"Delivered in what condition", type:"select", w:6,
+   opts:["As-is, no representation or warranty","In working order at closing","To be negotiated"]}
+]},
+{ band:"Personal property excluded", fields:[
+  {id:"ppExcludedChips", label:"Excluded \u2014 reserved by the seller", ts:"Excluded", type:"chips", opts:[
+    "Refrigerator","Stove / oven","Dishwasher","Washer","Dryer","Chandeliers","Dining room fixture",
+    "Wall-mounted televisions and brackets","Mirrors","Window treatments and blinds","Wall-to-wall carpeting",
+    "Shed","Above-ground pool","Alarm or camera system","Generator","Swing set or play equipment",
+    "Basketball hoop","Furniture","Fixtures of religious or sentimental value"]},
+  {id:"ppExcluded", label:"Anything else excluded", type:"text", w:6,
+   ph:"Describe it precisely \u2014 a vague exclusion is a closing-table argument"},
+  {id:"ppLeased", label:"Leased, rented or financed items", type:"text", w:6,
+   ph:"Propane tank, water softener, alarm contract, HVAC on a loan \u2014 and who pays it off"},
+  {id:"ppNotes", label:"Notes on the personal property", type:"text", w:6,
+   ph:"Anything that needs saying about what conveys"}
+]},
+{ band:"Solar panels", fields:[
+  {id:"solarPresent", label:"Solar on the property", type:"select", w:4, crit:true,
+   opts:["No solar","Yes \u2014 roof-mounted panels","Yes \u2014 ground-mounted array","Solar hot water only","Unknown \u2014 to be checked"]},
+  {id:"solarOwnership", label:"Held how", type:"select", w:4, crit:true, show:hasSolar,
+   opts:["Owned outright and paid off","Leased from the provider","Power purchase agreement (PPA)","Financed \u2014 loan against the system","PACE assessment on the tax bill","Unknown"]},
+  {id:"solarAssume", label:"Must the purchaser take subject to it?", type:"select", w:4, crit:true, show:hasSolar,
+   opts:["Yes \u2014 purchaser must assume the agreement","No \u2014 seller pays it off and clears the lien at closing","Seller to buy out, purchaser owns free and clear","Panels to be removed before closing","To be negotiated"]},
+  {id:"solarProvider", label:"Provider", type:"text", w:4, show:hasSolar, ph:"Sunrun, Tesla, SunPower"},
+  {id:"solarPayment", label:"Monthly payment", type:"money", w:2, show:hasSolar},
+  {id:"solarRemaining", label:"Term remaining", type:"text", w:3, show:hasSolar, ph:"14 of 20 years"},
+  {id:"solarBuyout", label:"Buyout / payoff", type:"money", w:3, show:hasSolar},
+  {id:"solarFlags", label:"What is known about it", ts:"Solar notes", type:"chips", show:hasSolar, opts:[
+    "UCC-1 fixture filing of record","Purchaser credit approval needed to assume",
+    "Transfer or assignment fee payable","Escalator \u2014 payment rises each year",
+    "Roof warranty affected","Net metering credits transfer","SRECs assigned to provider",
+    "Production guarantee in the agreement","Removal and reinstallation cost on re-roof",
+    "System not yet installed or permitted","Agreement not yet located"]}
+]},
+{ band:"Terms", fields:[
+  {id:"price", label:"Purchase price", type:"money", w:3, req:true, crit:true},
+  {id:"deposit", label:"Deposit", type:"money", w:3, crit:true, derive:true},
+  {id:"financing", label:"Financing", type:"select", w:3, crit:true,
+   opts:["All cash \u2014 no contingency","All cash \u2014 proof of funds","Institutional mortgage","Private / hard money","Seller financing","Subject to existing mortgage"]},
+  {id:"loanAmount", label:"Loan amount", type:"money", w:3},
+  {id:"closingDate", label:"Target closing", type:"date", w:4, crit:true},
+  {id:"closingBasis", label:"Date is", type:"select", w:4,
+   opts:["On or about","No earlier than","Time of the essence","Days after contract"]},
+  {id:"commitDays", label:"Commitment days", type:"text", w:4}
+]},
+{ band:"Parties and counsel", fields:[
+  {id:"sellerName", label:"Seller", type:"text", w:6, crit:true},
+  {id:"sellerCounsel", label:"Seller's attorney", type:"text", w:6, crit:true, ph:"Firm, name, email"},
+  {id:"buyerName", label:"Purchaser", type:"text", w:6, crit:true},
+  {id:"buyerCounsel", label:"Purchaser's attorney", type:"text", w:6, crit:true, ph:"Firm, name, email"}
+]},
+{ band:"Broker", fields:[
+  {id:"brokerName", label:"Your name", type:"text", w:4, req:true},
+  {id:"brokerFirm", label:"Brokerage", type:"text", w:4},
+  {id:"brokerMobile", label:"Mobile", type:"tel", w:4},
+  {id:"brokerEmail", label:"Email", type:"email", w:4},
+  {id:"brokerSide", label:"You represent", type:"select", w:4,
+   opts:["Seller","Purchaser","Both (dual agency)","Co-broke"]},
+  {id:"commission", label:"Commission", type:"text", w:4}
+]},
+{ band:"Flags and notes", fields:[
+  {id:"flags", label:"Check anything that applies", ts:"Flags", type:"chips", opts:[
+    "Sold as-is","1031 exchange","Foreign party (FIRPTA)","CEMA requested",
+    "Repair or violation holdback","Open violations / no C of O","Subject to attorney approval",
+    "Board approval (condo / co-op)","New construction"]},
+  {id:"notes", label:"Tell us the deal in your own words", type:"textarea", w:12,
+   ph:"Anything the fields did not capture \u2014 what was actually agreed, sticking points, deadlines."},
+  {id:"attest", ts:"Confirmation", type:"attest", label:"These are the terms agreed in principle between the parties, subject to a formal written contract.", req:true}
+]}
+];
+
+/* ============================================================ */
+(function(){
+"use strict";
+const $=(s,r)=>(r||document).querySelector(s), $$=(s,r)=>[].slice.call((r||document).querySelectorAll(s));
+const M=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const state={txType:""}, N={}, B={};
+let ref="";
+
+const lab=f=> typeof f.label==="function"?f.label(state):(f.label||"");
+const vis=f=> !f.show||f.show(state);
+const numv=v=>{const n=parseFloat(String(v==null?"":v).replace(/[^0-9.]/g,""));return isFinite(n)?n:null;};
+const money=v=>{const n=numv(v);return n===null?"":"$"+n.toLocaleString("en-US",{maximumFractionDigits:2});};
+const dt=v=>{if(!v)return"";const p=String(v).split("-");if(p.length!==3||!M[+p[1]-1])return v;return M[+p[1]-1]+" "+ +p[2]+", "+p[0];};
+const now=()=>{const d=new Date();return M[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();};
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("on"),3000);}
+function show(f){
+  const v=state[f.id];
+  if(v===""||v==null||(Array.isArray(v)&&!v.length))return"";
+  if(Array.isArray(v))return v.join("; ");
+  if(f.type==="money")return money(v);
+  if(f.type==="date")return dt(v);
+  if(f.type==="attest")return "Confirmed by "+(state.brokerName||"the broker")+" on "+now();
+  if(f.type==="pills"){const o=f.opts.filter(x=>x.v===v)[0];return o?o.n:v;}
+  return String(v).trim();
+}
+
+/* build */
+function build(){
+  const form=$("#form");
+  SCHEMA.forEach((sec,si)=>{
+    const b=document.createElement("div");b.className="band";
+    b.innerHTML="<h2>"+sec.band+"</h2><i></i>";
+    const g=document.createElement("div");g.className="grid";
+    sec.fields.forEach(f=>{
+      const w=document.createElement("div");
+      w.className="f"; w.dataset.f=f.id;
+      w.style.gridColumn="span "+(f.w||12);
+      let el;
+      if(f.type==="pills"){
+        w.className=""; w.style.gridColumn="1/-1";
+        el=document.createElement("div");el.className="pills";
+        f.opts.forEach(o=>{const l=document.createElement("label");l.className="pill";
+          l.innerHTML="<input type='radio' name='tx' value='"+o.v+"'><b>"+o.n+"</b><s>"+o.d+"</s>";el.appendChild(l);});
+      } else if(f.type==="chips"){
+        w.className="f"; w.style.gridColumn="1/-1";
+        if(f.label){const C=document.createElement("label");C.innerHTML="<span class='lt'>"+lab(f)+"</span>";w.appendChild(C);}
+        el=document.createElement("div");el.className="chips";
+        f.opts.forEach(o=>{const l=document.createElement("label");l.className="chip";
+          l.innerHTML="<input type='checkbox' value=\""+o.replace(/"/g,"&quot;")+"\"><span class='bx'></span><span>"+o+"</span>";el.appendChild(l);});
+      } else if(f.type==="attest"){
+        w.className="attest"; w.style.gridColumn="1/-1";
+        el=document.createElement("input");el.type="checkbox";
+        w.appendChild(el);
+        const sp=document.createElement("span");sp.textContent=lab(f);w.appendChild(sp);
+        N[f.id]={w:w,el:el,f:f,lb:null};g.appendChild(w);return;
+      } else {
+        const L=document.createElement("label");
+        L.innerHTML="<span class='lt'>"+lab(f)+"</span>"+(f.req?" <i class='rq'>&#9670;</i>":"");
+        w.appendChild(L);
+        if(f.type==="select"){el=document.createElement("select");el.appendChild(new Option("Select…",""));f.opts.forEach(o=>el.appendChild(new Option(o,o)));}
+        else if(f.type==="textarea"){el=document.createElement("textarea");if(f.ph)el.placeholder=f.ph;}
+        else{el=document.createElement("input");el.type=(f.type==="money")?"text":f.type;
+             if(f.type==="money"){el.className="money";el.inputMode="decimal";el.placeholder="$";}
+             if(f.ph)el.placeholder=f.ph;}
+        N[f.id]={w:w,el:el,f:f,lb:L.querySelector(".lt")};
+        w.appendChild(el);
+        if(f.derive){const d=document.createElement("div");d.className="derived";w.appendChild(d);}
+        g.appendChild(w);return;
+      }
+      w.appendChild(el);
+      N[f.id]={w:w,el:el,f:f,lb:null};
+      g.appendChild(w);
+    });
+    form.appendChild(b);form.appendChild(g);
+    B[si]={band:b,grid:g,sec:sec};
+  });
+  form.addEventListener("input",tick);
+  form.addEventListener("change",tick);
+  form.addEventListener("blur",e=>{
+    const w=e.target.closest("[data-f]");
+    if(w&&N[w.dataset.f]&&N[w.dataset.f].f.type==="money"&&e.target.value)e.target.value=money(e.target.value);
+  },true);
+}
+
+function read(){
+  SCHEMA.forEach(sec=>sec.fields.forEach(f=>{
+    const n=N[f.id];if(!n)return;
+    if(f.type==="pills"){const c=n.el.querySelector("input:checked");state[f.id]=c?c.value:"";}
+    else if(f.type==="chips")state[f.id]=$$("input:checked",n.el).map(i=>i.value);
+    else if(f.type==="attest")state[f.id]=n.el.checked?true:"";
+    else state[f.id]=n.el.value.trim();
+  }));
+}
+function refresh(){
+  SCHEMA.forEach(sec=>sec.fields.forEach(f=>{
+    const n=N[f.id];if(!n)return;
+    n.w.hidden=!vis(f);
+    if(typeof f.label==="function"&&n.lb)n.lb.textContent=lab(f);
+  }));
+  Object.keys(B).forEach(k=>{
+    const any=B[k].sec.fields.some(vis);
+    B[k].band.hidden=!any;B[k].grid.hidden=!any;
+  });
+  const p=numv(state.price),d=numv(state.deposit);
+  const dn=N.deposit&&N.deposit.w.querySelector(".derived");
+  if(dn)dn.textContent=(p&&d)?(d/p*100).toFixed(1)+"% · balance "+money(p-d):"";
+}
+function opens(){
+  const o=[];
+  SCHEMA.forEach(sec=>sec.fields.forEach(f=>{
+    if(!f.crit||!vis(f))return;
+    const v=state[f.id];
+    if(v===""||v==null||(Array.isArray(v)&&!v.length))o.push(lab(f)||"Transaction type");
+  }));
+  const inc=state.ppIncluded||[], exc=state.ppExcludedChips||[];
+  const both=inc.filter(function(x){return exc.indexOf(x)>-1;});
+  if(both.length)o.push("Marked both included and excluded — "+both.join(", "));
+  if(tenanted(state)){
+    if((state.tenancyType||[]).some(function(x){return /stabilized|controlled/.test(x);}))
+      o.push("DHCR registration history and the current legal regulated rents");
+    if((state.tenancyType||[]).indexOf("Oral / handshake")>-1)
+      o.push("Written confirmation of the oral tenancies, and estoppel certificates");
+    o.push("Tenant estoppel certificates and copies of every lease");
+  }
+  if(sellerStays(state)&&!state.pcoTerms)o.push("Written post-closing occupancy agreement — insurance, condition, and holdover remedy");
+  if(earlyEntry(state))o.push("License agreement for pre-closing access — insurance and risk of loss");
+  const F=state.flags||[];
+  if(F.indexOf("Repair or violation holdback")>-1&&!state.notes)o.push("Holdback amount and release conditions");
+  if(F.indexOf("1031 exchange")>-1&&!state.notes)o.push("Qualified intermediary and identification deadlines");
+  if(F.indexOf("Foreign party (FIRPTA)")>-1)o.push("FIRPTA withholding certificate or affidavit");
+  if(/Institutional|Private|Seller financing/.test(state.financing||"")&&!state.commitDays)o.push("Days to obtain a mortgage commitment");
+  if(/Leased|purchase agreement|Financed|PACE/.test(state.solarOwnership||""))o.push("Solar payoff or assignment package, and a UCC search against the seller");
+  if(/must assume/.test(state.solarAssume||"")&&!state.solarBuyout)o.push("Buyout figure for the solar agreement, as an alternative to assuming it");
+  if(/^No solar/.test(state.solarPresent||"")===false&&/Unknown/.test(state.solarPresent||""))o.push("Whether solar is present — check the roof and the utility bill");
+  return o;
+}
+function rows(){
+  const out=[];
+  SCHEMA.forEach(sec=>{
+    const rs=[];
+    sec.fields.forEach(f=>{
+      if(!vis(f))return;
+      const v=show(f);if(!v)return;
+      rs.push({l:f.ts||lab(f)||"Item",v:v,n:(f.type==="money")});
+    });
+    if(rs.length)out.push({t:sec.band,r:rs});
+  });
+  return out;
+}
+function render(){
+  const R=rows(),O=opens();
+  const lg=document.querySelector(".top img");
+  let h="<div class='dh'>"+(lg?"<img class='tsl' src='"+lg.src+"' alt='Gofer Law PLLC'>":"")+
+        "<h3>Deal Term Sheet</h3><p>Gofer Law PLLC &middot; Ref "+ref+" &middot; "+now()+
+        "</p><div class='dv'><i></i><u></u><i></i></div></div>";
+  if(!R.length)h+="<p style='text-align:center;color:var(--muted);font-family:var(--serif);padding:26px 0'>Nothing entered yet.</p>";
+  if(O.length)h+="<div class='oi'><h5>To confirm — "+O.length+"</h5><ul>"+O.map(i=>"<li>"+esc(i)+"</li>").join("")+"</ul></div>";
+  R.forEach(s=>{h+="<h4>"+s.t+"</h4>";s.r.forEach(r=>{
+    h+="<div class='r'><span>"+esc(r.l)+"</span><em"+(r.n?" class='n'":"")+">"+esc(r.v).replace(/\n/g,"<br>")+"</em></div>";});});
+  h+="<p class='fp'>Summary of business terms only, prepared from a broker submission. Not an offer, not binding, and not legal advice. "+
+     "No attorney&#8211;client relationship arises from this submission. Subject to a formal written contract executed and delivered by the parties.</p>";
+  $("#ts").innerHTML=h;
+  const nm=show(SCHEMA[0].fields[0]);
+  $("#barVal").textContent = !state.txType?"Nothing entered yet":
+    nm+(state.propAddress?" · "+state.propAddress:"")+(O.length?" · "+O.length+" to confirm":" · complete");
+}
+function text(){
+  const R=rows(),O=opens(),L=[];
+  L.push("GOFER LAW PLLC");L.push("DEAL TERM SHEET");
+  L.push("Ref "+ref+"  |  "+now());
+  L.push("From "+(state.brokerName||"broker")+(state.brokerFirm?", "+state.brokerFirm:""));L.push("");
+  if(O.length){L.push("TO CONFIRM ("+O.length+")");O.forEach(i=>L.push("  - "+i));L.push("");}
+  R.forEach(s=>{L.push(s.t.toUpperCase());s.r.forEach(r=>L.push("  "+r.l+": "+String(r.v).replace(/\n+/g," / ")));L.push("");});
+  L.push("---");
+  L.push("Business terms only, from a broker submission. Not an offer, not binding, not legal");
+  L.push("advice. No attorney-client relationship arises. Subject to a formal written contract.");
+  return L.join("\n");
+}
+function brief(){
+  const L=["*Gofer Law — Deal Terms*","Ref "+ref,""];
+  const add=(k,v)=>{if(v)L.push("*"+k+":* "+v);};
+  add("Type",show(SCHEMA[0].fields[0]));
+  add("We represent",state.representing);
+  add("Property",(state.propAddress||"")+(state.propCity?", "+state.propCity:""));
+  add("Price",money(state.price));add("Deposit",money(state.deposit));
+  add("Financing",state.financing);
+  add("Possession",state.possession);
+  add("Solar",state.solarPresent&&state.solarPresent!=="No solar"?(state.solarPresent+(state.solarOwnership?", "+state.solarOwnership:"")):"");
+  add("Seller",state.sellerName);
+  add("Purchaser",state.buyerName);
+  add("Closing",state.closingDate?((state.closingBasis||"On or about")+" "+dt(state.closingDate)):"");
+  add("Needed",state.urgency);
+  add("Flags",(state.flags||[]).join(", "));
+  const O=opens();
+  if(O.length)L.push("\n*To confirm:* "+O.slice(0,6).join("; ")+(O.length>6?"; +"+(O.length-6):""));
+  L.push("");
+  L.push("Broker: "+(state.brokerName||"—")+(state.brokerMobile?" — "+state.brokerMobile:""));
+  L.push("Full term sheet by email.");
+  return L.join("\n");
+}
+function valid(){
+  const miss=[];
+  SCHEMA.forEach(sec=>sec.fields.forEach(f=>{
+    if(!f.req||!vis(f))return;
+    const v=state[f.id],bad=(v===""||v==null||(Array.isArray(v)&&!v.length));
+    N[f.id].w.classList.toggle("bad",bad);
+    if(bad)miss.push({id:f.id,l:lab(f)||"Transaction type"});
+  }));
+  if(miss.length){
+    $("#ov").classList.remove("on");document.body.style.overflow="";
+    N[miss[0].id].w.scrollIntoView({behavior:"smooth",block:"center"});
+    toast("Still needed: "+miss.map(m=>m.l).join(", "));
+    return false;
+  }
+  return true;
+}
+function hook(){
+  if(!CONFIG.webhookUrl)return;
+  try{fetch(CONFIG.webhookUrl,{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({reference:ref,submittedAt:new Date().toISOString(),termSheet:text(),fields:state})}).catch(()=>{});}catch(e){}
+}
+function copy(t){
+  if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t);
+  const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";
+  document.body.appendChild(a);a.select();try{document.execCommand("copy");}catch(e){}document.body.removeChild(a);
+  return Promise.resolve();
+}
+function tick(){read();refresh();render();save.write();}
+
+/* --- save a standalone copy of the term sheet --- */
+const SAVED_CSS = ""+
+"body{font-family:Georgia,'Times New Roman',serif;background:#fff;color:#1C1B18;margin:0;padding:34px 30px;font-size:13.5px;line-height:1.45}"+
+".pg{max-width:720px;margin:0 auto}"+
+".tsl{display:block;width:150px;height:auto;margin:0 auto 8px}"+
+".dh{text-align:center;margin-bottom:18px}"+
+".dh h3{font-size:19px;color:#12294F;margin:0;letter-spacing:.06em;text-transform:uppercase}"+
+".dh p{font-family:monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#6E6A61;margin:5px 0 0}"+
+".dh .dv{display:flex;align-items:center;justify-content:center;gap:10px;max-width:180px;margin:11px auto 0}"+
+".dh .dv i{flex:1;height:1px;background:#C08B2E}"+
+".dh .dv u{width:5px;height:5px;background:#C08B2E;transform:rotate(45deg);text-decoration:none}"+
+"h4{font-family:monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#C08B2E;margin:15px 0 6px;padding-bottom:4px;border-bottom:1px solid #EBE4D6;font-weight:500}"+
+".r{display:grid;grid-template-columns:34% 1fr;gap:4px 12px;padding:2px 0;font-size:12.5px;align-items:baseline}"+
+".r span{color:#6E6A61}.r em{font-style:normal;font-weight:bold}"+
+".oi{border:1px solid #E3D2A9;background:#FDF9EF;padding:10px 13px;margin:4px 0 12px}"+
+".oi h5{font-family:monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#8A6A1C;margin:0 0 5px}"+
+".oi ul{margin:0;padding-left:15px;color:#5C4A20;font-size:12px}"+
+".fp{font-size:10px;color:#6E6A61;border-top:1px solid #EBE4D6;padding-top:8px;margin-top:14px;line-height:1.5}"+
+"@page{margin:14mm}";
+
+function fileName(ext){
+  const a=(state.propAddress||ref).replace(/[\\/:*?"<>|]/g,"-").slice(0,60);
+  return "Term Sheet — "+a+"."+ext;
+}
+function grab(name, blob){
+  const u=URL.createObjectURL(blob), a=document.createElement("a");
+  a.href=u; a.download=name; document.body.appendChild(a); a.click();
+  document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(u);},1500);
+}
+function saveCopy(){
+    const html="<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>"+
+    "<title>Term Sheet "+ref+"</title><style>"+SAVED_CSS+"</style></head><body><div class='pg'>"+
+    $("#ts").innerHTML.replace(/var\(--muted\)/g,"#6E6A61").replace(/var\(--serif\)/g,"Georgia,serif")+
+    "</div></body></html>";
+  grab(fileName("html"), new Blob([html],{type:"text/html;charset=utf-8"}));
+  toast("Saved — open it any time, or print it from there");
+}
+
+/* --- the broker's entries persist on their own device --- */
+const save={
+  key:"goferlaw:deal-onepage", t:null,
+  put:function(v){
+    try{ if(window.storage&&window.storage.set){window.storage.set(save.key,v);return;} }catch(e){}
+    try{ window.localStorage.setItem(save.key,v); }catch(e){}
+  },
+  get:function(){
+    try{ if(window.storage&&window.storage.get)return window.storage.get(save.key).then(function(r){return r&&r.value?r.value:null;}).catch(function(){return null;}); }catch(e){}
+    try{ return Promise.resolve(window.localStorage.getItem(save.key)); }catch(e){ return Promise.resolve(null); }
+  },
+  wipe:function(){
+    try{ if(window.storage&&window.storage.delete){window.storage.delete(save.key);} }catch(e){}
+    try{ window.localStorage.removeItem(save.key); }catch(e){}
+  },
+  write:function(){
+    clearTimeout(save.t);
+    save.t=setTimeout(function(){
+      if(!state.txType&&!state.propAddress)return;
+      save.put(JSON.stringify({ref:ref,state:state}));
+    },700);
+  }
+};
+function restore(d){
+  if(!d||!d.state)return false;
+  ref=d.ref||ref; $("#refNo").textContent=ref;
+  SCHEMA.forEach(function(sec){sec.fields.forEach(function(f){
+    const n=N[f.id],v=d.state[f.id];
+    if(!n||v==null||v==="")return;
+    if(f.type==="pills"){const r=n.el.querySelector("input[value='"+v+"']");if(r)r.checked=true;}
+    else if(f.type==="chips"){(v||[]).forEach(function(x){$$("input",n.el).forEach(function(i){if(i.value===x)i.checked=true;});});}
+    else if(f.type==="attest"){if(v)n.el.checked=true;}
+    else n.el.value=(f.type==="money")?money(v):v;
+  });});
+  return true;
+}
+
+function init(){
+  const d=new Date(),p=n=>String(n).padStart(2,"0");
+  ref="GL-"+String(d.getFullYear()).slice(2)+p(d.getMonth()+1)+p(d.getDate())+"-"+Math.random().toString(36).slice(2,6).toUpperCase();
+  build();$("#refNo").textContent=ref;
+
+  $("#bReview").addEventListener("click",()=>{
+    tick();if(!valid())return;
+    $("#ov").classList.add("on");document.body.style.overflow="hidden";$("#ov").scrollTop=0;
+  });
+  $("#bClose").addEventListener("click",()=>{$("#ov").classList.remove("on");document.body.style.overflow="";});
+  $("#ov").addEventListener("click",e=>{if(e.target===$("#ov"))$("#bClose").click();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("#ov").classList.contains("on"))$("#bClose").click();});
+
+  $("#bEmail").addEventListener("click",()=>{
+    tick();if(!valid())return;
+    const full=text(),MAX=1700;let body=full;
+    if(full.length>MAX){body=full.slice(0,MAX)+"\n\n[Continues — the full term sheet is on your clipboard. Paste it here before sending.]";copy(full);}
+    hook();
+    window.location.href="mailto:"+encodeURIComponent(CONFIG.email)+
+      "?subject="+encodeURIComponent("Deal Terms — "+(state.propAddress||"new matter")+" — "+(state.brokerName||"broker")+" ["+ref+"]")+
+      "&body="+encodeURIComponent(body);
+    toast(full.length>MAX?"Mail opening — full text copied, paste it in":"Mail opening — press send");
+  });
+  $("#bWa").addEventListener("click",()=>{
+    tick();if(!valid())return;hook();
+    window.open("https://wa.me/"+CONFIG.whatsappNumber+"?text="+encodeURIComponent(brief()),"_blank");
+    toast("WhatsApp opening — press send");
+  });
+  $("#bCopy").addEventListener("click",()=>{tick();copy(text()).then(()=>toast("Term sheet copied"));});
+  $("#bSave").addEventListener("click",()=>{tick();saveCopy();});
+  $("#bPrint").addEventListener("click",()=>{tick();window.print();});
+  $("#bQuickPrint").addEventListener("click",()=>{
+    tick();$("#ov").classList.add("on");
+    setTimeout(function(){window.print();},120);
+  });
+  $("#bReset").addEventListener("click",()=>{
+    if(!confirm("Clear the form and start a new deal?"))return;
+    save.wipe();location.reload();
+  });
+
+  save.get().then(function(raw){
+    let d=null; try{ d=raw?JSON.parse(raw):null; }catch(e){}
+    if(d&&d.state&&(d.state.propAddress||d.state.txType)){
+      restore(d); toast("Picked up where you left off — “Clear” starts a new deal");
+    }
+    tick();
+  });
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+})();
+</script>
+</body>
+</html>
