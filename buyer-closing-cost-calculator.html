@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>New York Buyer Closing Costs Calculator | Gofer Law PLLC</title>
-<meta name="description" content="Estimate buyer closing costs in New York, including mansion tax, title insurance, mortgage recording tax, sponsor transfer taxes, lender fees, and cash to close." />
+<meta name="description" content="Estimate buyer closing costs and cash to close in New York, including the contract deposit, net mortgage recording tax, title insurance, and sponsor charges." />
 <link rel="canonical" href="https://www.goferlaw.com/buyer-closing-cost-calculator.html" />
 <meta property="og:title" content="New York Buyer Closing Costs Calculator | Gofer Law PLLC" />
-<meta property="og:description" content="Estimate New York buyer closing costs and cash to close, including mansion tax, mortgage recording tax, title insurance, and sponsor-sale charges." />
+<meta property="og:description" content="Estimate New York buyer closing costs and cash to close after the contract deposit and statutory lender-paid mortgage-tax share." />
 <meta property="og:url" content="https://www.goferlaw.com/buyer-closing-cost-calculator.html" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -384,6 +384,15 @@
           </label>
         </fieldset>
 
+        <fieldset>
+          <legend>Contract funds</legend>
+          <label class="fld">
+            <span class="lab">Deposit paid on contract</span>
+            <span class="money-wrap"><input id="depositAmt" class="mono" type="text" inputmode="numeric" placeholder="—" /></span>
+            <p class="hint" id="depositHint">Credited toward the purchase price at closing</p>
+          </label>
+        </fieldset>
+
         <details class="adv" id="advBuyer">
           <summary>Purchaser cost assumptions</summary>
           <div class="body">
@@ -424,8 +433,14 @@
           <div class="subtotal"><span class="desc">Total closing costs</span><span class="amt" id="buyClose">$0</span></div>
         </div>
 
+        <div class="party">
+          <div class="party-h"><span class="who">Purchaser — Purchase Funds</span><span class="tot mono" id="fundsTotTag"></span></div>
+          <div id="fundingRows"></div>
+          <div class="subtotal"><span class="desc">Balance due on purchase price</span><span class="amt" id="priceBalance">$0</span></div>
+        </div>
+
         <div class="headline">
-          <span class="k">Estimated Cash to Close<small id="cashSub">Down payment + closing costs</small></span>
+          <span class="k">Estimated Cash to Close<small id="cashSub">Price balance after deposit + closing costs</small></span>
           <span class="v" id="cashToClose">$0</span>
         </div>
         <div class="compo"><div class="bar" id="compoBar"></div><div class="leg" id="compoLeg"></div></div>
@@ -446,7 +461,8 @@
     <h3>What the buyer closing costs calculator includes</h3>
     <ul>
       <li>New York mansion tax</li>
-      <li>Mortgage recording tax by location</li>
+      <li>Net mortgage recording tax by location</li>
+      <li>Contract deposit credit toward cash to close</li>
       <li>TIRSA-rate title insurance estimates</li>
       <li>Owner's and lender's title policy assumptions</li>
       <li>Sponsor-sale transfer tax shifts</li>
@@ -470,7 +486,8 @@
   <section class="notes">
     <h4>How the numbers are derived</h4>
     <p><strong>Mansion tax.</strong> A purchaser charge on residential conveyances (including co-ops) of $1M or more. Outside NYC: a flat 1%. Inside NYC: the eight-tier progressive schedule from 1.0% to 3.9%, applied to the entire price, with a true cliff at each threshold. Commercial property is exempt.</p>
-    <p><strong>Mortgage recording tax (financed deals only).</strong> NYC: 2.05% (loans under $500K) or 2.175% ($500K+) on 1–3 family/condo; outside NYC the rate is set by county — Rockland 1.30%, the downstate MCTD counties 1.05%, much of upstate 1.00%. The statement shows the tax two ways: the full statutory rate applied to the loan amount, and immediately below it, the portion the lender is required to pay. On a mortgage of six or fewer residential dwelling units, Tax Law § 253(1-a)(a) places the 0.25% "special additional tax" (the "quarter point") on the lender, not the borrower, and a related exclusion under § 253(2)(a) exempts the first $10,000 of debt from part of the tax — worth $25 to $30 depending on the county. Both appear as a single credit line, with the purchaser responsible only for the remainder. Commercial borrowers and institutional entities do not receive this statutory offset, so no credit line appears for commercial deals. Co-ops carry no mortgage recording tax at all — the loan is secured by shares, not a recorded mortgage.</p>
+    <p><strong>Contract deposit.</strong> Enter the amount the purchaser already paid when the contract was signed. The calculator credits that deposit against the down payment or all-cash purchase-price balance before calculating cash to close; it does not reduce taxes or closing costs.</p>
+    <p><strong>Mortgage recording tax (financed deals only).</strong> NYC: 2.05% (loans under $500K) or 2.175% ($500K+) on 1–3 family/condo; outside NYC the rate is set by county — Rockland 1.30%, the downstate MCTD counties 1.05%, much of upstate 1.00%. The statement displays the purchaser's net mortgage recording tax: the full statutory tax less the portion the lender is required to pay. On a mortgage of six or fewer residential dwelling units, Tax Law § 253(1-a)(a) places the 0.25% "special additional tax" (the "quarter point") on the lender, not the borrower, and a related exclusion under § 253(2)(a) exempts the first $10,000 of debt from part of the tax — worth $25 to $30 depending on the county. Commercial borrowers and institutional entities do not receive this statutory offset. Co-ops carry no mortgage recording tax at all — the loan is secured by shares, not a recorded mortgage.</p>
     <p><strong>Title insurance (real property only).</strong> Premiums are computed from the TIRSA Rate Manual (7th Revision) on the declining per-$1,000 bracket schedule. All five boroughs and the lower-Hudson / Long Island counties sit in TIRSA Zone 2: an owner's policy runs $402 on the first $35,000, then $6.67/$1,000 to $50K, $5.43 to $100K, $4.36 to $500K, $3.98 to $1M, $3.66 to $5M, and lower brackets above. When financed, the lender's policy is issued simultaneously at the discounted rate — 30% of the loan-policy schedule. Co-ops carry no title insurance. Final premiums may include search continuations and endorsements; treat it as an estimate.</p>
     <p><strong>Transfer taxes are the seller's — except in a sponsor sale.</strong> In a first sale from a sponsor, the contract customarily shifts the sponsor's NYC RPTT and NYS transfer tax to the purchaser, though this is a negotiated term, not a rule — some sponsors, particularly when moving unsold inventory, retain the obligation themselves. The "Is the purchaser paying the sponsor's transfer taxes?" toggle controls which scenario the estimate reflects; set it to "customary" for the default case or "sponsor pays" to see the estimate without that shift. When shifted, because the purchaser's payment of those taxes is itself additional consideration, the base is "grossed up." Per NYC Department of Finance guidance and Tax Law §1402, for residential property (1–3 family, condo, co-op) only the RPTT is grossed up — the NYS transfer tax is excluded from the gross-up, and the absorbed tax is excluded from the mansion-tax base, which stays on the contract price. For commercial property the RPTT and NYS tax are grossed up together. Toggle the gross-up off to see the un-grossed shift. Confirm the actual allocation against the specific purchase agreement or offering plan.</p>
     <p><strong>Condo creation fee (sponsor sales only).</strong> Also called a condo formation fee or sponsor reimbursement fee, this is a separate charge — distinct from the transfer-tax shift and the sponsor's attorney fee — by which the purchase agreement requires the buyer to reimburse the sponsor for the cost of forming the condominium: preparing and filing the offering plan, declaration, and by-laws. It is not a tax and has no fixed rate; it is a negotiated contract term, and offering plans vary widely on whether it is charged at all. Confirm the figure, if any, against the offering plan's schedule of closing costs before relying on it.</p>
@@ -613,7 +630,7 @@
   }
 
   var COMPO = [
-    {k:"down",label:"Down payment",c:"#C9A24B"},
+    {k:"down",label:"Balance of price",c:"#C9A24B"},
     {k:"mansion",label:"Mansion tax",c:"#8aa0c4"},
     {k:"transfer",label:"Transfer tax",c:"#c08a6a"},
     {k:"mrt",label:"Mortgage tax",c:"#b5764b"},
@@ -627,10 +644,16 @@
     var loan = financing ? num($("loanAmt").value) : 0;
     if(loan>price) loan=price;
     var down = financing ? Math.max(0, price-loan) : price;
+    var depositEntered = num($("depositAmt").value);
+    var deposit = Math.min(depositEntered, down);
+    var priceBalance = Math.max(0, down-deposit);
 
     $("downHint").textContent = (financing && price>0)
       ? ("Down payment " + money(down) + " · " + (Math.round(down/price*1000)/10) + "% of price")
       : "Down payment = price − loan";
+    $("depositHint").textContent = (depositEntered>down && down>0)
+      ? ("Deposit exceeds the calculated purchase-price balance; " + money(down) + " is applied here")
+      : (deposit>0 ? (money(deposit) + " credited toward the purchase price at closing") : "Credited toward the purchase price at closing");
 
     var tt = transferTaxes(price);
     var toBuyer = tt.toBuyer;
@@ -648,7 +671,7 @@
     var survey = (state.type==="coop") ? 0 : num($("survey").value);
 
     var locLabel = state.loc==="nyc"?"NYC":"NYS";
-    var mtRate = mt.rate ? (" @ "+pctStr(mt.rate)+" gross") : "";
+    var mtRate = mt.rate ? (" @ "+pctStr(mt.rate)) : "";
     var gu = (state.sponsor && state.grossup) ? (state.type==="comm"?"grossed-up":"RPTT grossed-up") : "shifted to purchaser";
     var buyerTransfer = toBuyer ? (tt.rptt + tt.nysBase + tt.nysAddl) : 0;
 
@@ -660,8 +683,9 @@
       b += row("NYS additional transfer tax", "0.25% high-value", tt.nysAddl);
     }
     if(financing && mt.gross>0){
-      b += row("Mortgage recording tax (gross)", locLabel+mtRate, mt.gross);
-      b += rowCredit("Paid by lender (statutory)", "0.25% lender-paid"+(mt.flat>0?" + "+money(mt.flat)+" exemption":""), mt.lenderCredit);
+      var mtBreakdown = locLabel+mtRate;
+      if(mt.lenderCredit>0) mtBreakdown += " · gross "+money(mt.gross)+" less lender-paid "+money(mt.lenderCredit);
+      b += row("Net mortgage recording tax", mtBreakdown, mt.borrower);
     }
     b += row("Owner's title insurance", state.type==="coop"?"":"TIRSA Zone 2 rate", oTitle);
     b += row("Lender's title insurance", "TIRSA simultaneous (30%)", lTitle);
@@ -676,10 +700,14 @@
     $("buyerRows").innerHTML = b;
 
     var buyClose = mansion+buyerTransfer+mt.borrower+oTitle+lTitle+titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+condoFee+bankAtty;
-    var cashToClose = down + buyClose;
+    var funding = row(financing?"Down payment":"Purchase price", financing?(money(loan)+" financed"):"all-cash purchase", down);
+    if(deposit>0) funding += rowCredit("Deposit paid on contract", "credited toward purchase price", deposit);
+    $("fundingRows").innerHTML = funding;
 
-    var comp = { down:down, mansion:mansion, transfer:buyerTransfer, mrt:mt.borrower, title:oTitle+lTitle, other:titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+condoFee+bankAtty };
-    var compTotal = (down+buyClose) || 1;
+    var cashToClose = priceBalance + buyClose;
+
+    var comp = { down:priceBalance, mansion:mansion, transfer:buyerTransfer, mrt:mt.borrower, title:oTitle+lTitle, other:titleSearch+recFees+appraisal+survey+buyAtty+sponsorAtty+condoFee+bankAtty };
+    var compTotal = cashToClose || 1;
     var barHTML="", legHTML="";
     COMPO.forEach(function(seg){
       var v=comp[seg.k]; if(v>0){
@@ -700,12 +728,14 @@
     $("buyClose").textContent = money(buyClose);
     $("cashToClose").textContent = money(cashToClose);
     $("buyTotTag").textContent = money(buyClose);
+    $("fundsTotTag").textContent = deposit>0 ? (money(down)+" − "+money(deposit)) : money(down);
+    $("priceBalance").textContent = money(priceBalance);
     var bePct = price>0 ? buyClose/price*100 : 0;
-    $("cashSub").textContent = (financing?("Down payment "+money(down)+" + costs"):"All cash + costs") + "  ·  costs ≈ " + (Math.round(bePct*10)/10) + "% of price";
+    $("cashSub").textContent = (financing?("Down payment "+money(down)):("Purchase price "+money(price))) + (deposit>0?(" − deposit "+money(deposit)):"") + " + costs  ·  costs ≈ " + (Math.round(bePct*10)/10) + "% of price";
 
     var typeName = state.type==="coop"?"Co-op":(state.type==="comm"?"Commercial / 4+ unit":"1–3 Family / Condo");
     var place = state.loc==="nyc"?"New York City":($("county").options[$("county").selectedIndex].text.split(" — ")[0]+" County");
-    $("sumLine").textContent = price>0 ? (typeName+"  ·  "+place+"  ·  "+money(price)+(financing?("  ·  "+money(loan)+" loan"):"  ·  all cash")) : "Enter a purchase price to begin";
+    $("sumLine").textContent = price>0 ? (typeName+"  ·  "+place+"  ·  "+money(price)+(financing?("  ·  "+money(loan)+" loan"):"  ·  all cash")+(deposit>0?("  ·  "+money(deposit)+" deposit"):"")) : "Enter a purchase price to begin";
   }
 
   function syncVis(){
